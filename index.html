@@ -100,19 +100,20 @@
     <li id="p-nomad" class="reveal" data-area="ml">
       <div class="thumb" aria-hidden="true">
         <svg viewBox="0 0 160 100"><g fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M6 50q6-14 12 0t12 0t12 0t12 0"/><path d="M54 50h8"/>
+          <circle cx="14" cy="34" r="4"/><circle cx="14" cy="50" r="4" fill="var(--area)" stroke="var(--area)"/><circle cx="14" cy="66" r="4"/>
+          <path d="M22 34L62 50M22 50H62M22 66L62 50"/>
           <rect x="62" y="36" width="28" height="28"/><rect x="108" y="36" width="28" height="28"/>
           <path d="M90 50h18" stroke="var(--area)"/><path d="M136 50h14"/>
           <path d="M76 36q16-22 32 0" stroke="var(--area)" stroke-dasharray="3 3"/></g>
           <g font-size="8" fill="currentColor" text-anchor="middle"><text x="76" y="53">m1</text><text x="122" y="53">m2</text></g>
-          <text x="92" y="16" text-anchor="middle" font-size="8" fill="var(--area)">switch</text></svg>
+          <text x="92" y="16" text-anchor="middle" font-size="8" fill="var(--area)">exit by class</text></svg>
       </div>
       <div>
-        <p class="ptitle">NOMAD: navigating optimal model application to datastreams</p>
-        <p class="auth"><b>Ashwin Colaco</b>, Sharad Mehrotra, Michael J. De Lucia, Kevin Hamlen, Murat Kantarcioglu, Latifur Khan, Ananthram Swami, Bhavani Thuraisingham</p>
+        <p class="ptitle"><a href="https://neurips.cc/virtual/2026/loc/atlanta/poster/148492" rel="noopener">Model cascades with provable per-class quality</a> (NOMAD)</p>
+        <p class="auth"><b>Ashwin Colaco</b>, Sharad Mehrotra, Michael J. De Lucia, Kevin Hamlen, Murat Kantarcioglu, Latifur Khan, Ananthram Swami, Bhavani Thuraisingham, Unnat Jain</p>
         <p class="venue">Conference on Neural Information Processing Systems (NeurIPS), 2026</p>
-        <p class="tldr">Streaming intrusion detection that orders models the way an optimizer orders predicates, switching models as traffic changes. 40% fewer false positives. With UT Dallas and the Army Research Laboratory.</p>
-        <p class="plinks"><a href="https://arxiv.org/abs/2511.00290" rel="noopener">arXiv</a></p>
+        <p class="tldr">Cascades usually control quality in aggregate, which lets a model fail quietly on rare classes. NOMAD exits on the predicted class, certifies that a whole chain of models preserves per-class quality, and picks the cheapest viable chain with a provable 4-approximation. Up to 40x faster across 16 datasets, with zero per-class violations. With UT Dallas and the Army Research Laboratory.</p>
+        <p class="plinks"><a href="https://neurips.cc/virtual/2026/loc/atlanta/poster/148492" rel="noopener">NeurIPS</a><a href="https://arxiv.org/abs/2511.00290" rel="noopener">earlier version (arXiv)</a></p>
       </div>
     </li>
 
