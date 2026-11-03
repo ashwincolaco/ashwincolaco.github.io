@@ -5,148 +5,255 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ashwin Gerard Colaco</title>
 <meta name="description" content="PhD student in computer science at UC Irvine working on query optimization, database systems and ML systems. Hasso Plattner Institute research fellow.">
+<meta property="og:title" content="Ashwin Gerard Colaco">
+<meta property="og:description" content="Making ML and LLM inference cheaper with the ideas behind query optimizers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Person","name":"Ashwin Gerard Colaco","jobTitle":"PhD student, Computer Science","affiliation":{"@type":"CollegeOrUniversity","name":"University of California, Irvine"},"email":"mailto:acolaco@uci.edu","sameAs":["https://www.linkedin.com/in/ashwin-gerard-colaco-4051b5267/","https://arxiv.org/search/?query=ashwin+colaco&searchtype=author"]}
 </script>
 </head>
 <body>
-<main>
+<a class="skip" href="#content">Skip to content</a>
 
-<h1>Ashwin Gerard Colaco</h1>
-<p class="affil">PhD student, Computer Science, University of California, Irvine</p>
+<div class="layout">
 
-<p>I work on query optimization, database systems and machine learning systems. A lot of my research asks how ideas from query processing, such as cost models and predicate ordering, can make ML and LLM workloads cheaper to run.</p>
+<aside class="side">
+  <div class="side-top">
+    <a class="name" href="#top" id="top">Ashwin<br>Gerard<br>Colaco</a>
+    <p class="role">PhD student, computer science<br>University of California, Irvine</p>
+    <nav class="index" aria-label="Sections">
+      <a href="#statement">Overview</a>
+      <a href="#map">Research map</a>
+      <a href="#publications">Publications</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="side-bottom">
+    <ul class="ext">
+      <li><a href="mailto:acolaco@uci.edu">acolaco@uci.edu</a></li>
+      <li><a href="https://www.linkedin.com/in/ashwin-gerard-colaco-4051b5267/" rel="noopener">LinkedIn</a></li>
+      <li><a href="https://arxiv.org/search/?query=ashwin+colaco&searchtype=author" rel="noopener">arXiv</a></li>
+      <li><a href="https://ashwincolaco.github.io/lazystack/">LazyStack project page</a></li>
+      <li><a href="https://ashwincolaco.github.io/compact-bench/">COMPACT-Bench</a></li>
+    </ul>
+  </div>
+</aside>
 
-<p>I am a Hasso Plattner Institute research fellow. In summer 2026 I was a student researcher on the systems research team at Google, where I built an agentic code generation framework for databases that ran about 9x faster than state-of-the-art in-memory databases on query latency. My papers have been accepted at ICDE 2026, ICML 2026, NeurIPS 2026 and SIGMOD 2027.</p>
+<main id="content">
 
-<p>I am looking for full-time research scientist and applied scientist roles.</p>
+<section id="statement" class="statement">
+  <h1>Making ML and LLM inference cheaper with the ideas behind query optimizers.</h1>
+  <div class="cols">
+    <p>My research starts from a simple observation: a cascade of models and a query plan are the same kind of object. Both are an ordering of operators with different costs and different selectivity, and both have a best order that can be found offline. I use cost models, predicate ordering and plan search to run ensembles, route LLM calls and process data streams for less.</p>
+    <p>I am a Hasso Plattner Institute research fellow. In summer 2026 I was a student researcher on the systems research team at Google, where I built an agentic code generation framework for databases. The systems it produced ran about 9x faster than state-of-the-art in-memory databases on query latency.</p>
+  </div>
+  <p class="seeking">I am looking for full-time research scientist and applied scientist roles.</p>
+</section>
 
-<p class="links">
-  <a href="mailto:acolaco@uci.edu">Email</a>
-  <a href="https://www.linkedin.com/in/ashwin-gerard-colaco-4051b5267/" rel="noopener">LinkedIn</a>
-  <a href="https://arxiv.org/search/?query=ashwin+colaco&searchtype=author" rel="noopener">arXiv</a>
-  <a href="https://ashwincolaco.github.io/lazystack/">LazyStack</a>
-  <a href="https://ashwincolaco.github.io/compact-bench/">COMPACT-Bench</a>
-</p>
+<section id="map" aria-labelledby="map-h">
+  <h2 id="map-h">Research map</h2>
+  <p class="note">Each mark is a paper, placed by year and area. Hover or focus one to find it in the list below.</p>
+  <div class="mapwrap">
+    <div class="map" id="mapgrid" role="group" aria-label="Papers by year and research area"></div>
+  </div>
+  <p class="legend"><span class="key lead"></span> first author <span class="key co"></span> co-author <span class="key pre"></span> preprint or submission</p>
+</section>
 
-<h2 id="publications">Publications</h2>
+<section id="publications" aria-labelledby="pub-h">
+  <h2 id="pub-h">Publications</h2>
 
-<h3>Accepted</h3>
-<ul class="pubs">
-  <li>
-    <b>A. G. Colaco</b>, S. Mehrotra, M. De Lucia, K. Hamlen, M. Kantarcioglu, L. Khan, A. Swami, B. Thuraisingham, U. Jain.
-    <em>Unifying Stacking and Cascading for Efficient Ensemble Inference</em> (LazyStack). ICML 2026.
-    <a href="https://ashwincolaco.github.io/lazystack/">project page</a>,
-    <a href="https://icml.cc/virtual/2026/poster/63422" rel="noopener">ICML</a>,
-    <a href="https://github.com/ucisharadlab/icml-lazystack" rel="noopener">code</a>.
-    Up to 38x faster than running the full ensemble, keeping 97% or more of its accuracy.
-  </li>
-  <li>
-    <b>A. G. Colaco</b>, S. Mehrotra, M. J. De Lucia, K. Hamlen, M. Kantarcioglu, L. Khan, A. Swami, B. Thuraisingham.
-    <em>NOMAD: Navigating Optimal Model Application to Datastreams.</em> NeurIPS 2026.
-    <a href="https://arxiv.org/abs/2511.00290" rel="noopener">arXiv</a>.
-    Streaming intrusion detection that builds model chains the way a query optimizer orders predicates; 40% fewer false positives. With UT Dallas and the Army Research Laboratory.
-  </li>
-  <li>
-    <b>A. G. Colaco</b>, M. Boissier, S. Rao, S. Ghosh, S. Mehrotra, T. Rabl.
-    <em>GenIE: Simulator-Driven Iterative Data Exploration for Scientific Discovery.</em> ICDE 2026.
-    <a href="https://arxiv.org/abs/2511.12057" rel="noopener">arXiv</a>.
-    Cuts simulation-driven exploration from days to minutes, with 35% lower query latency and 2.5x throughput.
-  </li>
-  <li>
-    S. Zhou, <b>A. G. Colaco</b>, S. Galhotra, S. Mehrotra.
-    <em>SALUS: Automated Auditing of NL-to-SQL Benchmarks through Weak Supervision of Multi-Agent Output.</em> SIGMOD 2027.
-    <a href="https://arxiv.org/abs/2610.05540" rel="noopener">arXiv</a>,
-    <a href="https://doi.org/10.1145/3856369" rel="noopener">DOI</a>.
-  </li>
-</ul>
+  <h3>Accepted</h3>
+  <ol class="pubs">
+    <li id="p-lazystack" data-id="lazystack">
+      <span class="venue">ICML 2026</span>
+      <div>
+        <p class="ptitle">Unifying stacking and cascading for efficient ensemble inference</p>
+        <p class="auth"><b>A. G. Colaco</b>, S. Mehrotra, M. De Lucia, K. Hamlen, M. Kantarcioglu, L. Khan, A. Swami, B. Thuraisingham, U. Jain</p>
+        <p class="result">LazyStack runs models one at a time and exits as soon as a learned meta-model is confident. An MDP picks the model orderings. Up to 38x faster than the full ensemble while keeping 97% or more of its accuracy.</p>
+        <p class="plinks"><a href="https://ashwincolaco.github.io/lazystack/">project page</a><a href="https://icml.cc/virtual/2026/poster/63422" rel="noopener">ICML</a><a href="https://github.com/ucisharadlab/icml-lazystack" rel="noopener">code</a></p>
+      </div>
+    </li>
+    <li id="p-nomad" data-id="nomad">
+      <span class="venue">NeurIPS 2026</span>
+      <div>
+        <p class="ptitle">NOMAD: navigating optimal model application to datastreams</p>
+        <p class="auth"><b>A. G. Colaco</b>, S. Mehrotra, M. J. De Lucia, K. Hamlen, M. Kantarcioglu, L. Khan, A. Swami, B. Thuraisingham</p>
+        <p class="result">Streaming intrusion detection that orders models the way an optimizer orders predicates. 40% fewer false positives. Joint work with UT Dallas and the Army Research Laboratory.</p>
+        <p class="plinks"><a href="https://arxiv.org/abs/2511.00290" rel="noopener">arXiv</a></p>
+      </div>
+    </li>
+    <li id="p-genie" data-id="genie">
+      <span class="venue">ICDE 2026</span>
+      <div>
+        <p class="ptitle">GenIE: simulator-driven iterative data exploration for scientific discovery</p>
+        <p class="auth"><b>A. G. Colaco</b>, M. Boissier, S. Rao, S. Ghosh, S. Mehrotra, T. Rabl</p>
+        <p class="result">Brings physics simulators inside the database. Exploration drops from days to minutes, with 35% lower query latency and 2.5x throughput.</p>
+        <p class="plinks"><a href="https://arxiv.org/abs/2511.12057" rel="noopener">arXiv</a></p>
+      </div>
+    </li>
+    <li id="p-salus" data-id="salus">
+      <span class="venue">SIGMOD 2027</span>
+      <div>
+        <p class="ptitle">SALUS: automated auditing of NL-to-SQL benchmarks through weak supervision of multi-agent output</p>
+        <p class="auth">S. Zhou, <b>A. G. Colaco</b>, S. Galhotra, S. Mehrotra</p>
+        <p class="result">Finds annotation errors in NL-to-SQL benchmarks that distort reported accuracy.</p>
+        <p class="plinks"><a href="https://arxiv.org/abs/2610.05540" rel="noopener">arXiv</a><a href="https://doi.org/10.1145/3856369" rel="noopener">DOI</a></p>
+      </div>
+    </li>
+  </ol>
 
-<h3>Preprints and submissions</h3>
-<ul class="pubs">
-  <li>
-    G. Zhang, N. Lahjouji, Y. Lin, <b>A. G. Colaco</b>, S. Mehrotra.
-    <em>OCTOPUS: Towards a Tag Model for Cross-Query Reuse in Semantic Query Processing.</em>
-    <a href="https://arxiv.org/abs/2610.32586" rel="noopener">arXiv</a>.
-  </li>
-  <li>
-    <b>A. G. Colaco</b>, N. Lahjouji.
-    <em>What to Keep, What to Forget: A Rate-Distortion View of Memory Compaction in LLMs and Agents.</em>
-    <a href="https://arxiv.org/abs/2607.08032" rel="noopener">arXiv</a>,
-    <a href="https://ashwincolaco.github.io/compact-bench/">COMPACT-Bench</a>.
-  </li>
-  <li>
-    N. Lahjouji, <b>A. G. Colaco</b>.
-    <em>Agents That Know Too Much: A Data-Centric Survey of Privacy in LLM Agents.</em>
-    <a href="https://arxiv.org/abs/2606.26627" rel="noopener">arXiv</a>.
-  </li>
-  <li>
-    <b>A. G. Colaco</b>, S. Pandey, V. Chakraborty, S. Mehrotra.
-    <em>Farsight: A Database-Native Framework for LLM-Backed Query Processing.</em> In submission.
-  </li>
-</ul>
+  <h3>Preprints and submissions</h3>
+  <ol class="pubs">
+    <li id="p-octopus" data-id="octopus">
+      <span class="venue">arXiv 2026</span>
+      <div>
+        <p class="ptitle">OCTOPUS: towards a tag model for cross-query reuse in semantic query processing</p>
+        <p class="auth">G. Zhang, N. Lahjouji, Y. Lin, <b>A. G. Colaco</b>, S. Mehrotra</p>
+        <p class="plinks"><a href="https://arxiv.org/abs/2610.32586" rel="noopener">arXiv</a></p>
+      </div>
+    </li>
+    <li id="p-memory" data-id="memory">
+      <span class="venue">arXiv 2026</span>
+      <div>
+        <p class="ptitle">What to keep, what to forget: a rate-distortion view of memory compaction in LLMs and agents</p>
+        <p class="auth"><b>A. G. Colaco</b>, N. Lahjouji</p>
+        <p class="plinks"><a href="https://arxiv.org/abs/2607.08032" rel="noopener">arXiv</a><a href="https://ashwincolaco.github.io/compact-bench/">COMPACT-Bench</a></p>
+      </div>
+    </li>
+    <li id="p-privacy" data-id="privacy">
+      <span class="venue">arXiv 2026</span>
+      <div>
+        <p class="ptitle">Agents that know too much: a data-centric survey of privacy in LLM agents</p>
+        <p class="auth">N. Lahjouji, <b>A. G. Colaco</b></p>
+        <p class="plinks"><a href="https://arxiv.org/abs/2606.26627" rel="noopener">arXiv</a></p>
+      </div>
+    </li>
+    <li id="p-farsight" data-id="farsight">
+      <span class="venue">In submission</span>
+      <div>
+        <p class="ptitle">Farsight: a database-native framework for LLM-backed query processing</p>
+        <p class="auth"><b>A. G. Colaco</b>, S. Pandey, V. Chakraborty, S. Mehrotra</p>
+      </div>
+    </li>
+  </ol>
 
-<h3>Earlier</h3>
-<ul class="pubs">
-  <li>
-    R. Doreswamy, <b>A. G. Colaco</b>, V. Sevani, P. Patil, H. Tyagi.
-    <em>Rate Adaptation for Low Latency Real-Time Video Streaming.</em> IEEE NCC 2023.
-    <a href="https://doi.org/10.1109/NCC56989.2023.10067883" rel="noopener">DOI</a>.
-  </li>
-  <li>
-    A. Joglekar et al.
-    <em>Tele-driving an Electric Vehicle over a Private LTE Network.</em> IEEE COMSNETS 2022.
-    <a href="https://doi.org/10.1109/COMSNETS53615.2022.9668498" rel="noopener">DOI</a>.
-  </li>
-  <li>
-    <b>A. G. Cola&ccedil;o</b>, K. G. Nagananda, R. S. Blum, H. F. Korth.
-    <em>Blockchain-based Sensor Data Validation for Security in the Future Electric Grid.</em> IEEE ISGT 2020.
-    <a href="https://doi.org/10.1109/ISGT45199.2020.9087676" rel="noopener">DOI</a>.
-  </li>
-</ul>
+  <h3>Earlier</h3>
+  <ol class="pubs">
+    <li id="p-ncc" data-id="ncc">
+      <span class="venue">IEEE NCC 2023</span>
+      <div>
+        <p class="ptitle">Rate adaptation for low latency real-time video streaming</p>
+        <p class="auth">R. Doreswamy, <b>A. G. Colaco</b>, V. Sevani, P. Patil, H. Tyagi</p>
+        <p class="plinks"><a href="https://doi.org/10.1109/NCC56989.2023.10067883" rel="noopener">DOI</a></p>
+      </div>
+    </li>
+    <li id="p-comsnets" data-id="comsnets">
+      <span class="venue">IEEE COMSNETS 2022</span>
+      <div>
+        <p class="ptitle">Tele-driving an electric vehicle over a private LTE network</p>
+        <p class="auth">A. Joglekar et al.</p>
+        <p class="plinks"><a href="https://doi.org/10.1109/COMSNETS53615.2022.9668498" rel="noopener">DOI</a></p>
+      </div>
+    </li>
+    <li id="p-isgt" data-id="isgt">
+      <span class="venue">IEEE ISGT 2020</span>
+      <div>
+        <p class="ptitle">Blockchain-based sensor data validation for security in the future electric grid</p>
+        <p class="auth"><b>A. G. Cola&ccedil;o</b>, K. G. Nagananda, R. S. Blum, H. F. Korth</p>
+        <p class="plinks"><a href="https://doi.org/10.1109/ISGT45199.2020.9087676" rel="noopener">DOI</a></p>
+      </div>
+    </li>
+  </ol>
+</section>
 
-<h2 id="experience">Experience</h2>
-<dl class="rows">
-  <dt>Jun &ndash; Sep 2026</dt>
-  <dd>
-    <b>Student Researcher, Google</b> (Systems Research, Sunnyvale, CA).
-    Built an agentic code generation framework for designing bespoke databases. The generated systems beat state-of-the-art in-memory databases by about 9x on query latency.
-  </dd>
-  <dt>Aug 2022 &ndash; present</dt>
-  <dd>
-    <b>Graduate Student Researcher, UC Irvine.</b>
-    Lead author on GenIE, LazyStack and NOMAD. Also built a routing framework that picks between GPT-4, Claude and Llama per query (30&ndash;40% lower cost at 95%+ accuracy) and a verification API on LangChain and the Claude API that serves 1000+ requests a day at 99.9% uptime.
-  </dd>
-  <dt>Aug 2020 &ndash; Jul 2022</dt>
-  <dd>
-    <b>Research Associate, Indian Institute of Science</b> (Bengaluru).
-    Wrote a custom H.264 encoder for remote driving that cut video latency from 200 ms to 80 ms at 1080p/60fps, and deployed a tele-driving prototype over private LTE.
-  </dd>
-  <dt>May &ndash; Aug 2019</dt>
-  <dd>
-    <b>Research Intern, Lehigh University.</b>
-    Validated smart-grid sensor data with Ethereum smart contracts; prevented over 95% of simulated anomaly attacks.
-  </dd>
-</dl>
+<section id="experience" aria-labelledby="exp-h">
+  <h2 id="exp-h">Experience</h2>
+  <div class="rows">
+    <div class="row">
+      <span class="when">Jun &ndash; Sep 2026</span>
+      <div>
+        <p class="rtitle">Student Researcher, Google</p>
+        <p class="where">Systems Research, Sunnyvale, CA</p>
+        <p>Built an agentic code generation framework for designing bespoke databases. The generated systems beat state-of-the-art in-memory databases by about 9x on query latency.</p>
+      </div>
+    </div>
+    <div class="row">
+      <span class="when">Aug 2022 &ndash; present</span>
+      <div>
+        <p class="rtitle">Graduate Student Researcher, UC Irvine</p>
+        <p class="where">Irvine, CA</p>
+        <p>Lead author on GenIE, LazyStack and NOMAD. Built a routing framework that picks between GPT-4, Claude and Llama for each query, cutting cost 30&ndash;40% at 95%+ accuracy. Built a verification API on LangChain and the Claude API that handles 1000+ requests a day at 99.9% uptime.</p>
+      </div>
+    </div>
+    <div class="row">
+      <span class="when">Aug 2020 &ndash; Jul 2022</span>
+      <div>
+        <p class="rtitle">Research Associate, Indian Institute of Science</p>
+        <p class="where">Bengaluru, India</p>
+        <p>Wrote a custom H.264 encoder for remote driving. Video latency fell from 200 ms to 80 ms at 1080p and 60 fps over 5&ndash;20 Mbps links. Deployed a tele-driving prototype over private LTE.</p>
+      </div>
+    </div>
+    <div class="row">
+      <span class="when">May &ndash; Aug 2019</span>
+      <div>
+        <p class="rtitle">Research Intern, Lehigh University</p>
+        <p class="where">Bethlehem, PA</p>
+        <p>Validated smart-grid sensor data with Ethereum smart contracts. The protocol stopped over 95% of simulated anomaly attacks.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<h2 id="education">Education</h2>
-<dl class="rows">
-  <dt>2022 &ndash; present</dt>
-  <dd>
-    <b>PhD, Computer Science, UC Irvine.</b> GPA 3.85/4.00. Hasso Plattner Institute research fellowship.
-  </dd>
-  <dt>2016 &ndash; 2020</dt>
-  <dd>
-    <b>B.E., Computer Science and Engineering, Nitte Meenakshi Institute of Technology.</b> GPA 9.20/10.
-  </dd>
-</dl>
+<section id="education" aria-labelledby="edu-h">
+  <h2 id="edu-h">Education</h2>
+  <div class="rows">
+    <div class="row">
+      <span class="when">2022 &ndash; present</span>
+      <div>
+        <p class="rtitle">PhD, computer science, UC Irvine</p>
+        <p>GPA 3.85/4.00. Hasso Plattner Institute research fellowship. Focus: query optimization, distributed systems, ML systems.</p>
+      </div>
+    </div>
+    <div class="row">
+      <span class="when">2016 &ndash; 2020</span>
+      <div>
+        <p class="rtitle">B.E., computer science and engineering</p>
+        <p class="where">Nitte Meenakshi Institute of Technology, India</p>
+        <p>GPA 9.20/10.00.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<h2 id="skills">Skills</h2>
-<p>Python, C/C++, Java, SQL, JavaScript. PyTorch, TensorFlow, LangChain. PostgreSQL, MySQL, MongoDB, Redis, Spark. AWS, Docker, gRPC, Git.</p>
+<section id="skills" aria-labelledby="skills-h">
+  <h2 id="skills-h">Skills</h2>
+  <dl class="skills">
+    <dt>Languages</dt><dd>Python, C/C++, Java, SQL, JavaScript</dd>
+    <dt>ML and LLMs</dt><dd>PyTorch, TensorFlow, LangChain, fine-tuning, LLM routing, inference optimization, NL2SQL, RAG</dd>
+    <dt>Data systems</dt><dd>Query optimization, cost modeling, execution planning, distributed databases, indexing, PostgreSQL, MySQL, MongoDB, Redis, Spark</dd>
+    <dt>Infrastructure</dt><dd>AWS (EC2, S3, Lambda), Google internal infrastructure, Docker, CI/CD, gRPC, Prometheus, Grafana</dd>
+  </dl>
+</section>
+
+<section id="contact" aria-labelledby="contact-h">
+  <h2 id="contact-h">Contact</h2>
+  <p class="mail"><a href="mailto:acolaco@uci.edu">acolaco@uci.edu</a></p>
+  <p>If you work on databases, inference efficiency or LLM agents and are hiring research or applied scientists, I would like to talk.</p>
+</section>
+
+<footer>
+  <p>Ashwin Gerard Colaco</p>
+</footer>
 
 </main>
-<footer>
-  <p>Ashwin Gerard Colaco. <a href="mailto:acolaco@uci.edu">acolaco@uci.edu</a></p>
-</footer>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
