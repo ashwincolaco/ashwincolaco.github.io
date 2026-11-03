@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ashwin Gerard Colaco | Researcher &amp; Engineer</title>
+<meta name="description" content="Ph.D. candidate at UC Irvine working on query optimization, database systems and ML systems. HPI Research Fellow. Student Researcher at Google Systems Research. Papers at ICDE, ICML, NeurIPS and SIGMOD.">
+<meta property="og:title" content="Ashwin Gerard Colaco">
+<meta property="og:description" content="Databases, query optimization and ML systems. Ph.D. candidate at UC Irvine, HPI Research Fellow.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232b5cff'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' font-weight='700' text-anchor='middle' fill='white'%3EAC%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Ashwin Gerard Colaco","jobTitle":"Ph.D. Candidate in Computer Science","affiliation":{"@type":"CollegeOrUniversity","name":"University of California, Irvine"},"email":"mailto:acolaco@uci.edu","sameAs":["https://www.linkedin.com/in/ashwin-gerard-colaco-4051b5267/","https://arxiv.org/search/?query=ashwin+colaco&searchtype=author"]}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="top">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">A. Colaco</a>
+    <nav aria-label="Primary">
+      <a href="#research">Research</a>
+      <a href="#experience">Experience</a>
+      <a href="#publications">Publications</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="theme" id="theme" aria-label="Toggle dark mode" title="Toggle dark mode">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.5-.05-1-.14-1.47A6 6 0 0 1 12.47 3.14 9.2 9.2 0 0 0 12 3z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero wrap">
+  <p class="eyebrow">Ph.D. candidate &middot; UC Irvine</p>
+  <h1>Ashwin Gerard Colaco</h1>
+  <p class="lede">I build systems at the intersection of <strong>databases</strong>, <strong>query optimization</strong> and <strong>machine learning</strong>: cost-aware LLM inference, streaming model selection, and agentic code generation for data systems.</p>
+  <ul class="badges" aria-label="Highlights">
+    <li><span class="dot g"></span>Student Researcher, Google Systems Research (2026)</li>
+    <li><span class="dot p"></span>Hasso Plattner Institute Research Fellow</li>
+    <li><span class="dot b"></span>ICDE 2026 &middot; ICML 2026 &middot; NeurIPS 2026 &middot; SIGMOD 2027</li>
+  </ul>
+  <div class="cta">
+    <a class="btn primary" href="mailto:acolaco@uci.edu">Email me</a>
+    <a class="btn" href="https://www.linkedin.com/in/ashwin-gerard-colaco-4051b5267/" rel="noopener">LinkedIn</a>
+    <a class="btn" href="https://arxiv.org/search/?query=ashwin+colaco&searchtype=author" rel="noopener">arXiv</a>
+  </div>
+  <p class="seeking">Open to full-time Research Scientist and Applied Scientist roles in data systems, ML systems and LLM agents.</p>
+</section>
+
+<section class="wrap stats" aria-label="At a glance">
+  <div><b>4</b><span>papers accepted at ICDE, ICML, NeurIPS, SIGMOD</span></div>
+  <div><b>9x</b><span>lower query latency than SOTA in-memory databases (Google)</span></div>
+  <div><b>2&ndash;3x</b><span>inference cost reduction at &lt;1% accuracy loss (LazyStack)</span></div>
+  <div><b>40%</b><span>fewer false positives in streaming detection (NOMAD)</span></div>
+</section>
+
+<section class="wrap" id="research">
+  <h2>Research</h2>
+  <p class="sub">Recent projects. Each connects a database idea (cost models, predicate ordering, optimization) to an ML or LLM workload.</p>
+  <div class="grid">
+    <article class="card">
+      <span class="tag">ICDE 2026</span>
+      <h3>GenIE</h3>
+      <p>Simulator-driven iterative data exploration. Semantic filters and context-aware cost models for Object-Entity-Relationship databases cut exploration from days to minutes, with 35% lower query latency and 2.5x throughput.</p>
+      <a href="https://arxiv.org/abs/2511.12057" rel="noopener">arXiv:2511.12057</a>
+    </article>
+    <article class="card">
+      <span class="tag">ICML 2026</span>
+      <h3>LazyStack</h3>
+      <p>MDP-based adaptive execution of 10-model ensembles. Across 8 benchmarks including ImageNet-1K it reduces inference cost 2&ndash;3x with under 1% accuracy loss, using progressive meta-learning and confidence-calibrated early stopping.</p>
+    </article>
+    <article class="card">
+      <span class="tag">NeurIPS 2026</span>
+      <h3>NOMAD</h3>
+      <p>Streaming intrusion detection by dynamically building model chains, inspired by predicate ordering in query processing. Reduces false positives by 40%. With UT Dallas and the Army Research Laboratory.</p>
+      <a href="https://arxiv.org/abs/2511.00290" rel="noopener">arXiv:2511.00290</a>
+    </article>
+    <article class="card">
+      <span class="tag">SIGMOD 2027</span>
+      <h3>SALUS</h3>
+      <p>Automated auditing of NL-to-SQL benchmarks. Weak supervision over multi-agent output finds the annotation errors that silently distort leaderboard results.</p>
+      <a href="https://arxiv.org/abs/2610.05540" rel="noopener">arXiv:2610.05540</a>
+    </article>
+    <article class="card">
+      <span class="tag soft">Google, 2026</span>
+      <h3>Code Generation for Data Systems</h3>
+      <p>Agentic design of bespoke databases. The generated systems beat state-of-the-art in-memory databases by about 9x on query latency.</p>
+    </article>
+    <article class="card">
+      <span class="tag soft">Systems</span>
+      <h3>Cost-Optimized LLM Routing</h3>
+      <p>Routing across GPT-4, Claude and Llama through query-complexity analysis and cost-accuracy modeling: 30&ndash;40% lower cost at 95%+ accuracy.</p>
+    </article>
+  </div>
+</section>
+
+<section class="wrap" id="experience">
+  <h2>Experience</h2>
+  <ol class="timeline">
+    <li>
+      <div class="when">Jun 2026 &ndash; Sep 2026</div>
+      <div class="what">
+        <h3>Student Researcher, <span class="em">Google</span></h3>
+        <p class="where">Systems Research &middot; Sunnyvale, CA</p>
+        <ul>
+          <li>Built an agentic code-generation framework for designing bespoke databases that outperformed state-of-the-art in-memory databases by about 9x in query latency.</li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <div class="when">Aug 2022 &ndash; Present</div>
+      <div class="what">
+        <h3>Graduate Student Researcher</h3>
+        <p class="where">University of California, Irvine &middot; Irvine, CA</p>
+        <ul>
+          <li>Lead author on GenIE (ICDE 2026), LazyStack (ICML 2026) and NOMAD (NeurIPS 2026); co-author on SALUS (SIGMOD 2027).</li>
+          <li>Architected an LLM routing framework across GPT-4, Claude and Llama with 30&ndash;40% cost reduction at 95%+ accuracy.</li>
+          <li>Built a production LLM verification API (LangChain and Claude API) serving 1000+ requests per day at 99.9% uptime.</li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <div class="when">Aug 2020 &ndash; Jul 2022</div>
+      <div class="what">
+        <h3>Research Associate</h3>
+        <p class="where">Indian Institute of Science (IISc) &middot; Bengaluru, India</p>
+        <ul>
+          <li>Custom H.264 encoder for remote driving: latency from 200 ms to 80 ms at 1080p/60fps over 5&ndash;20 Mbps; deployed a tele-driving prototype over private LTE.</li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <div class="when">May 2019 &ndash; Aug 2019</div>
+      <div class="what">
+        <h3>Research Intern</h3>
+        <p class="where">Lehigh University &middot; Bethlehem, PA</p>
+        <ul>
+          <li>Ethereum smart-contract sensor validation for smart-grid IoT; prevented 95%+ of simulated anomaly attacks.</li>
+        </ul>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section class="wrap" id="publications">
+  <h2>Publications</h2>
+
+  <h3 class="grp">Accepted</h3>
+  <ol class="pubs">
+    <li><span class="tag">ICML 2026</span><p><b>A. G. Colaco</b> et al. <em>LazyStack: Cost-Efficient Ensemble Inference via MDP-Based Trajectory Discovery.</em></p></li>
+    <li><span class="tag">NeurIPS 2026</span><p><b>A. G. Colaco</b>, S. Mehrotra, M. J. De Lucia, K. Hamlen, M. Kantarcioglu, L. Khan, A. Swami, B. Thuraisingham. <em>NOMAD: Navigating Optimal Model Application to Datastreams.</em> <a href="https://arxiv.org/abs/2511.00290" rel="noopener">arXiv</a></p></li>
+    <li><span class="tag">ICDE 2026</span><p><b>A. G. Colaco</b>, M. Boissier, S. Rao, S. Ghosh, S. Mehrotra, T. Rabl. <em>GenIE: Simulator-Driven Iterative Data Exploration for Scientific Discovery.</em> <a href="https://arxiv.org/abs/2511.12057" rel="noopener">arXiv</a></p></li>
+    <li><span class="tag">SIGMOD 2027</span><p>S. Zhou, <b>A. G. Colaco</b>, S. Galhotra, S. Mehrotra. <em>SALUS: Automated Auditing of NL-to-SQL Benchmarks through Weak Supervision of Multi-Agent Output.</em> <a href="https://arxiv.org/abs/2610.05540" rel="noopener">arXiv</a> &middot; <a href="https://doi.org/10.1145/3856369" rel="noopener">DOI</a></p></li>
+  </ol>
+
+  <h3 class="grp">Preprints and submissions</h3>
+  <ol class="pubs" start="5">
+    <li><span class="tag soft">arXiv 2026</span><p>G. Zhang, N. Lahjouji, Y. Lin, <b>A. G. Colaco</b>, S. Mehrotra. <em>OCTOPUS: Towards a Tag Model for Cross-Query Reuse in Semantic Query Processing.</em> <a href="https://arxiv.org/abs/2610.32586" rel="noopener">arXiv</a></p></li>
+    <li><span class="tag soft">arXiv 2026</span><p><b>A. G. Colaco</b>, N. Lahjouji. <em>What to Keep, What to Forget: A Rate-Distortion View of Memory Compaction in LLMs and Agents.</em> <a href="https://arxiv.org/abs/2607.08032" rel="noopener">arXiv</a></p></li>
+    <li><span class="tag soft">arXiv 2026</span><p>N. Lahjouji, <b>A. G. Colaco</b>. <em>Agents That Know Too Much: A Data-Centric Survey of Privacy in LLM Agents.</em> <a href="https://arxiv.org/abs/2606.26627" rel="noopener">arXiv</a></p></li>
+    <li><span class="tag soft">In submission</span><p><b>A. G. Colaco</b>, S. Pandey, V. Chakraborty, S. Mehrotra. <em>Farsight: A Database-Native Framework for LLM-Backed Query Processing.</em></p></li>
+  </ol>
+
+  <h3 class="grp">Earlier work</h3>
+  <ol class="pubs" start="9">
+    <li><span class="tag soft">IEEE NCC 2023</span><p>R. Doreswamy, <b>A. G. Colaco</b>, V. Sevani, P. Patil, H. Tyagi. <em>Rate Adaptation for Low Latency Real-Time Video Streaming.</em> <a href="https://doi.org/10.1109/NCC56989.2023.10067883" rel="noopener">DOI</a></p></li>
+    <li><span class="tag soft">IEEE COMSNETS 2022</span><p>A. Joglekar et al. <em>Tele-driving an Electric Vehicle over a Private LTE Network.</em> <a href="https://doi.org/10.1109/COMSNETS53615.2022.9668498" rel="noopener">DOI</a></p></li>
+    <li><span class="tag soft">IEEE ISGT 2020</span><p><b>A. G. Cola&ccedil;o</b>, K. G. Nagananda, R. S. Blum, H. F. Korth. <em>Blockchain-based Sensor Data Validation for Security in the Future Electric Grid.</em> <a href="https://doi.org/10.1109/ISGT45199.2020.9087676" rel="noopener">DOI</a></p></li>
+  </ol>
+</section>
+
+<section class="wrap" id="education">
+  <h2>Education</h2>
+  <div class="edu">
+    <div>
+      <h3>Ph.D. in Computer Science</h3>
+      <p class="where">University of California, Irvine &middot; Aug 2022 &ndash; Present &middot; GPA 3.85/4.00</p>
+      <p><strong>Hasso Plattner Institute (HPI) Research Fellowship</strong> (multi-year). Focus: query optimization, distributed systems, ML systems.</p>
+    </div>
+    <div>
+      <h3>B.E. in Computer Science and Engineering</h3>
+      <p class="where">Nitte Meenakshi Institute of Technology, India &middot; Aug 2016 &ndash; Sep 2020 &middot; GPA 9.20/10</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="skills">
+  <h2>Skills</h2>
+  <dl class="skills">
+    <div><dt>Languages</dt><dd>Python, C/C++, Java, SQL, JavaScript</dd></div>
+    <div><dt>ML and AI</dt><dd>PyTorch, TensorFlow, LangChain, LLM fine-tuning, LLM routing, ML inference optimization, NL2SQL, RAG</dd></div>
+    <div><dt>Data and databases</dt><dd>Query optimization, cost modeling, execution planning, distributed databases, indexing, PostgreSQL, MySQL, MongoDB, Redis, Apache Spark</dd></div>
+    <div><dt>Cloud and infrastructure</dt><dd>AWS (EC2, S3, Lambda), Google internal infrastructure (google3), Docker, CI/CD</dd></div>
+    <div><dt>Tools</dt><dd>Git, REST APIs, gRPC, microservices, pytest, JUnit, Prometheus, Grafana</dd></div>
+  </dl>
+</section>
+
+<section class="wrap contact" id="contact">
+  <h2>Contact</h2>
+  <p>I am looking for full-time Research Scientist and Applied Scientist roles. If you work on databases, inference efficiency or LLM agents, I would like to hear from you.</p>
+  <p class="links">
+    <a href="mailto:acolaco@uci.edu">acolaco@uci.edu</a>
+    <a href="https://www.linkedin.com/in/ashwin-gerard-colaco-4051b5267/" rel="noopener">LinkedIn</a>
+    <a href="https://arxiv.org/search/?query=ashwin+colaco&searchtype=author" rel="noopener">arXiv</a>
+  </p>
+</section>
+
+</main>
+
+<footer class="wrap foot">
+  <span>&copy; <span id="yr">2026</span> Ashwin Gerard Colaco</span>
+  <a href="#top">Back to top</a>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
