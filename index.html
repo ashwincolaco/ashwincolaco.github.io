@@ -47,6 +47,7 @@
   </ul>
   <div class="cta">
     <a class="btn primary" href="mailto:acolaco@uci.edu">Email me</a>
+    <a class="btn" href="https://ashwincolaco.github.io/lazystack/">LazyStack</a>
     <a class="btn" href="https://www.linkedin.com/in/ashwin-gerard-colaco-4051b5267/" rel="noopener">LinkedIn</a>
     <a class="btn" href="https://arxiv.org/search/?query=ashwin+colaco&searchtype=author" rel="noopener">arXiv</a>
   </div>
@@ -56,7 +57,7 @@
 <section class="wrap stats" aria-label="At a glance">
   <div><b>4</b><span>papers accepted at ICDE, ICML, NeurIPS, SIGMOD</span></div>
   <div><b>9x</b><span>lower query latency than SOTA in-memory databases (Google)</span></div>
-  <div><b>2&ndash;3x</b><span>inference cost reduction at &lt;1% accuracy loss (LazyStack)</span></div>
+  <div><b>38x</b><span>faster ensemble inference at 97%+ accuracy retention (LazyStack)</span></div>
   <div><b>40%</b><span>fewer false positives in streaming detection (NOMAD)</span></div>
 </section>
 
@@ -73,7 +74,8 @@
     <article class="card">
       <span class="tag">ICML 2026</span>
       <h3>LazyStack</h3>
-      <p>MDP-based adaptive execution of 10-model ensembles. Across 8 benchmarks including ImageNet-1K it reduces inference cost 2&ndash;3x with under 1% accuracy loss, using progressive meta-learning and confidence-calibrated early stopping.</p>
+      <p>Unifying stacking and cascading for efficient ensemble inference. An MDP solved by value iteration finds the few model orderings that matter, and learned substackers decide when to exit: up to 38x speedup at 97%+ accuracy retention across vision, text, tabular and LLM tasks.</p>
+      <a href="https://ashwincolaco.github.io/lazystack/">Project page with interactive demo</a>
     </article>
     <article class="card">
       <span class="tag">NeurIPS 2026</span>
@@ -119,7 +121,7 @@
         <h3>Graduate Student Researcher</h3>
         <p class="where">University of California, Irvine &middot; Irvine, CA</p>
         <ul>
-          <li>Lead author on GenIE (ICDE 2026), LazyStack (ICML 2026) and NOMAD (NeurIPS 2026); co-author on SALUS (SIGMOD 2027).</li>
+          <li>Lead author on GenIE (ICDE 2026), <a href="https://ashwincolaco.github.io/lazystack/">LazyStack</a> (ICML 2026) and NOMAD (NeurIPS 2026); co-author on SALUS (SIGMOD 2027).</li>
           <li>Architected an LLM routing framework across GPT-4, Claude and Llama with 30&ndash;40% cost reduction at 95%+ accuracy.</li>
           <li>Built a production LLM verification API (LangChain and Claude API) serving 1000+ requests per day at 99.9% uptime.</li>
         </ul>
@@ -153,7 +155,7 @@
 
   <h3 class="grp">Accepted</h3>
   <ol class="pubs">
-    <li><span class="tag">ICML 2026</span><p><b>A. G. Colaco</b> et al. <em>LazyStack: Cost-Efficient Ensemble Inference via MDP-Based Trajectory Discovery.</em></p></li>
+    <li><span class="tag">ICML 2026</span><p><b>A. G. Colaco</b>, S. Mehrotra, M. De Lucia, K. Hamlen, M. Kantarcioglu, L. Khan, A. Swami, B. Thuraisingham, U. Jain. <em>Unifying Stacking and Cascading for Efficient Ensemble Inference</em> (LazyStack). <a href="https://ashwincolaco.github.io/lazystack/">Project page</a> &middot; <a href="https://icml.cc/virtual/2026/poster/63422" rel="noopener">ICML</a> &middot; <a href="https://github.com/ucisharadlab/icml-lazystack" rel="noopener">Code</a></p></li>
     <li><span class="tag">NeurIPS 2026</span><p><b>A. G. Colaco</b>, S. Mehrotra, M. J. De Lucia, K. Hamlen, M. Kantarcioglu, L. Khan, A. Swami, B. Thuraisingham. <em>NOMAD: Navigating Optimal Model Application to Datastreams.</em> <a href="https://arxiv.org/abs/2511.00290" rel="noopener">arXiv</a></p></li>
     <li><span class="tag">ICDE 2026</span><p><b>A. G. Colaco</b>, M. Boissier, S. Rao, S. Ghosh, S. Mehrotra, T. Rabl. <em>GenIE: Simulator-Driven Iterative Data Exploration for Scientific Discovery.</em> <a href="https://arxiv.org/abs/2511.12057" rel="noopener">arXiv</a></p></li>
     <li><span class="tag">SIGMOD 2027</span><p>S. Zhou, <b>A. G. Colaco</b>, S. Galhotra, S. Mehrotra. <em>SALUS: Automated Auditing of NL-to-SQL Benchmarks through Weak Supervision of Multi-Agent Output.</em> <a href="https://arxiv.org/abs/2610.05540" rel="noopener">arXiv</a> &middot; <a href="https://doi.org/10.1145/3856369" rel="noopener">DOI</a></p></li>
@@ -162,7 +164,7 @@
   <h3 class="grp">Preprints and submissions</h3>
   <ol class="pubs" start="5">
     <li><span class="tag soft">arXiv 2026</span><p>G. Zhang, N. Lahjouji, Y. Lin, <b>A. G. Colaco</b>, S. Mehrotra. <em>OCTOPUS: Towards a Tag Model for Cross-Query Reuse in Semantic Query Processing.</em> <a href="https://arxiv.org/abs/2610.32586" rel="noopener">arXiv</a></p></li>
-    <li><span class="tag soft">arXiv 2026</span><p><b>A. G. Colaco</b>, N. Lahjouji. <em>What to Keep, What to Forget: A Rate-Distortion View of Memory Compaction in LLMs and Agents.</em> <a href="https://arxiv.org/abs/2607.08032" rel="noopener">arXiv</a></p></li>
+    <li><span class="tag soft">arXiv 2026</span><p><b>A. G. Colaco</b>, N. Lahjouji. <em>What to Keep, What to Forget: A Rate-Distortion View of Memory Compaction in LLMs and Agents.</em> <a href="https://arxiv.org/abs/2607.08032" rel="noopener">arXiv</a> &middot; <a href="https://ashwincolaco.github.io/compact-bench/">COMPACT-Bench</a></p></li>
     <li><span class="tag soft">arXiv 2026</span><p>N. Lahjouji, <b>A. G. Colaco</b>. <em>Agents That Know Too Much: A Data-Centric Survey of Privacy in LLM Agents.</em> <a href="https://arxiv.org/abs/2606.26627" rel="noopener">arXiv</a></p></li>
     <li><span class="tag soft">In submission</span><p><b>A. G. Colaco</b>, S. Pandey, V. Chakraborty, S. Mehrotra. <em>Farsight: A Database-Native Framework for LLM-Backed Query Processing.</em></p></li>
   </ol>
