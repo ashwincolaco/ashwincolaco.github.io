@@ -1,0 +1,1187 @@
+{
+  "dataset": "cub200",
+  "title": "Birds-CUB",
+  "modality": "vision",
+  "fold_index": 0,
+  "epsilon": 0.1,
+  "frugalgpt_threshold_tau": 0.73,
+  "cascade_routing_threshold": 0.55,
+  "portfolio": [
+    {
+      "name": "MobileNetV2",
+      "cost": 1.2
+    },
+    {
+      "name": "ResNet18",
+      "cost": 1.8
+    },
+    {
+      "name": "EfficientNet-B0",
+      "cost": 2.4
+    },
+    {
+      "name": "ResNet50",
+      "cost": 4.5
+    },
+    {
+      "name": "EfficientNet-B4",
+      "cost": 12.0
+    },
+    {
+      "name": "ViT-B/16",
+      "cost": 18.0
+    }
+  ],
+  "reference_model": "ViT-B/16",
+  "n_classes": 10,
+  "class_names": [
+    "Cardinal",
+    "Indigo_Bunting",
+    "Black_throated_Blue_Warbler",
+    "Bachman_Sparrow",
+    "Cerulean_Warbler",
+    "Northern_Cardinal",
+    "Painted_Bunting",
+    "Yellow_throated_Vireo",
+    "House_Sparrow",
+    "Tennessee_Warbler"
+  ],
+  "case_studies": [
+    {
+      "id": "cub200_0",
+      "fold_index": 0,
+      "pattern": "easy",
+      "true_class": "Cardinal",
+      "input_summary": "Side profile of a crested red passerine on a bare branch; thick conical bill, black face mask.",
+      "nomad_trace": [
+        {
+          "model": "MobileNetV2",
+          "predicted_class": "Cardinal",
+          "softmax_top": 0.946,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Cardinal",
+              "prob": 0.946
+            },
+            {
+              "class": "Indigo_Bunting",
+              "prob": 0.0373
+            },
+            {
+              "class": "Black_throated_Blue_Warbler",
+              "prob": 0.0102
+            }
+          ],
+          "softmax": [
+            0.946,
+            0.0373,
+            0.0102,
+            0.000442,
+            0.000411,
+            0.000339,
+            0.000429,
+            0.001805,
+            0.00083,
+            0.002246
+          ],
+          "exit_class_set": [
+            "Cardinal",
+            "Indigo_Bunting",
+            "Northern_Cardinal"
+          ],
+          "cr_score": 0.7599
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Cardinal",
+        "correct": true,
+        "depth": 0,
+        "cost_paid": 1.2,
+        "cost_reference": 18.0,
+        "speedup": 15.0
+      },
+      "frugalgpt": {
+        "exit_model": "MobileNetV2",
+        "exit_depth": 0,
+        "predicted": "Cardinal",
+        "correct": true,
+        "speedup": 15.0,
+        "softmax_at_exit": 0.946,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "MobileNetV2",
+        "exit_depth": 0,
+        "predicted": "Cardinal",
+        "correct": true,
+        "speedup": 15.0,
+        "score_at_exit": 0.7599,
+        "threshold": 0.55,
+        "decision": "trust"
+      },
+      "input_thumbnail": "thumbnails/cub200_0.png"
+    },
+    {
+      "id": "cub200_1",
+      "fold_index": 0,
+      "pattern": "confidence_trap",
+      "true_class": "Indigo_Bunting",
+      "input_summary": "Small finch in early spring plumage; deep blue head and upper body fading to mottled flanks.",
+      "nomad_trace": [
+        {
+          "model": "MobileNetV2",
+          "predicted_class": "Cerulean_Warbler",
+          "softmax_top": 0.81,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Cerulean_Warbler",
+              "prob": 0.81
+            },
+            {
+              "class": "Indigo_Bunting",
+              "prob": 0.0975
+            },
+            {
+              "class": "Cardinal",
+              "prob": 0.0342
+            }
+          ],
+          "softmax": [
+            0.0342,
+            0.0975,
+            0.003861,
+            0.012475,
+            0.81,
+            0.015098,
+            0.002227,
+            0.004135,
+            0.009379,
+            0.011124
+          ],
+          "exit_class_set": [
+            "Cardinal",
+            "Indigo_Bunting",
+            "Northern_Cardinal"
+          ],
+          "cr_score": 0.6104
+        },
+        {
+          "model": "ResNet18",
+          "predicted_class": "Indigo_Bunting",
+          "softmax_top": 0.94,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Indigo_Bunting",
+              "prob": 0.94
+            },
+            {
+              "class": "Cardinal",
+              "prob": 0.0237
+            },
+            {
+              "class": "Black_throated_Blue_Warbler",
+              "prob": 0.0083
+            }
+          ],
+          "softmax": [
+            0.0237,
+            0.94,
+            0.0083,
+            0.001564,
+            0.002326,
+            0.002766,
+            0.0082,
+            0.004183,
+            0.003086,
+            0.005875
+          ],
+          "exit_class_set": [
+            "Cardinal",
+            "Indigo_Bunting",
+            "Northern_Cardinal",
+            "Painted_Bunting"
+          ],
+          "cr_score": 0.8266
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Indigo_Bunting",
+        "correct": true,
+        "depth": 1,
+        "cost_paid": 3.0,
+        "cost_reference": 18.0,
+        "speedup": 6.0
+      },
+      "frugalgpt": {
+        "exit_model": "MobileNetV2",
+        "exit_depth": 0,
+        "predicted": "Cerulean_Warbler",
+        "correct": false,
+        "speedup": 15.0,
+        "softmax_at_exit": 0.81,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "MobileNetV2",
+        "exit_depth": 0,
+        "predicted": "Cerulean_Warbler",
+        "correct": false,
+        "speedup": 15.0,
+        "score_at_exit": 0.6104,
+        "threshold": 0.55,
+        "decision": "trust"
+      },
+      "confidence_trap_stats": {
+        "cheap_model": "MobileNetV2",
+        "wrong_class": "Cerulean_Warbler",
+        "true_class": "Indigo_Bunting",
+        "avg_softmax_wrong_on_true": 0.7614,
+        "cheap_model_f1_on_true": 0.7995,
+        "cheap_model_f1_on_wrong": 0.5776
+      },
+      "input_thumbnail": "thumbnails/cub200_1.png"
+    },
+    {
+      "id": "cub200_2",
+      "fold_index": 0,
+      "pattern": "mid_depth",
+      "true_class": "Black_throated_Blue_Warbler",
+      "input_summary": "Male warbler on horizontal twig, slate-blue back, white underparts, prominent black face/throat patch.",
+      "nomad_trace": [
+        {
+          "model": "MobileNetV2",
+          "predicted_class": "Black_throated_Blue_Warbler",
+          "softmax_top": 0.644,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Black_throated_Blue_Warbler",
+              "prob": 0.644
+            },
+            {
+              "class": "Cardinal",
+              "prob": 0.1942
+            },
+            {
+              "class": "Indigo_Bunting",
+              "prob": 0.0694
+            }
+          ],
+          "softmax": [
+            0.1942,
+            0.0694,
+            0.644,
+            0.007648,
+            0.025539,
+            0.020001,
+            0.004351,
+            0.005097,
+            0.020706,
+            0.009058
+          ],
+          "exit_class_set": [
+            "Cardinal",
+            "Indigo_Bunting",
+            "Northern_Cardinal"
+          ],
+          "cr_score": 0.7094
+        },
+        {
+          "model": "ResNet18",
+          "predicted_class": "Black_throated_Blue_Warbler",
+          "softmax_top": 0.588,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Black_throated_Blue_Warbler",
+              "prob": 0.588
+            },
+            {
+              "class": "Cardinal",
+              "prob": 0.2358
+            },
+            {
+              "class": "Indigo_Bunting",
+              "prob": 0.0781
+            }
+          ],
+          "softmax": [
+            0.2358,
+            0.0781,
+            0.588,
+            0.005777,
+            0.011824,
+            0.008734,
+            0.014853,
+            0.023695,
+            0.029587,
+            0.00363
+          ],
+          "exit_class_set": [
+            "Cardinal",
+            "Indigo_Bunting",
+            "Northern_Cardinal",
+            "Painted_Bunting"
+          ],
+          "cr_score": 0.7357
+        },
+        {
+          "model": "EfficientNet-B0",
+          "predicted_class": "Black_throated_Blue_Warbler",
+          "softmax_top": 0.916,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Black_throated_Blue_Warbler",
+              "prob": 0.916
+            },
+            {
+              "class": "Cardinal",
+              "prob": 0.0536
+            },
+            {
+              "class": "Indigo_Bunting",
+              "prob": 0.0139
+            }
+          ],
+          "softmax": [
+            0.0536,
+            0.0139,
+            0.916,
+            0.000733,
+            0.002708,
+            0.004261,
+            0.001843,
+            0.003574,
+            0.002582,
+            0.000799
+          ],
+          "exit_class_set": [
+            "Cardinal",
+            "Indigo_Bunting",
+            "Black_throated_Blue_Warbler",
+            "Northern_Cardinal",
+            "Painted_Bunting",
+            "Yellow_throated_Vireo",
+            "Tennessee_Warbler"
+          ],
+          "cr_score": 0.8045
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Black_throated_Blue_Warbler",
+        "correct": true,
+        "depth": 2,
+        "cost_paid": 5.4,
+        "cost_reference": 18.0,
+        "speedup": 3.333
+      },
+      "frugalgpt": {
+        "exit_model": "EfficientNet-B0",
+        "exit_depth": 2,
+        "predicted": "Black_throated_Blue_Warbler",
+        "correct": true,
+        "speedup": 3.333,
+        "softmax_at_exit": 0.916,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "MobileNetV2",
+        "exit_depth": 0,
+        "predicted": "Black_throated_Blue_Warbler",
+        "correct": true,
+        "speedup": 15.0,
+        "score_at_exit": 0.7094,
+        "threshold": 0.55,
+        "decision": "trust"
+      },
+      "input_thumbnail": "thumbnails/cub200_2.png"
+    },
+    {
+      "id": "cub200_3",
+      "fold_index": 0,
+      "pattern": "rare_fall_through",
+      "true_class": "Bachman_Sparrow",
+      "input_summary": "Cryptic brown sparrow on pine straw, finely streaked breast, rufous crown, faint eye-line.",
+      "nomad_trace": [
+        {
+          "model": "MobileNetV2",
+          "predicted_class": "Cerulean_Warbler",
+          "softmax_top": 0.595,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Cerulean_Warbler",
+              "prob": 0.595
+            },
+            {
+              "class": "Bachman_Sparrow",
+              "prob": 0.2263
+            },
+            {
+              "class": "Cardinal",
+              "prob": 0.0803
+            }
+          ],
+          "softmax": [
+            0.0803,
+            0.008458,
+            0.007803,
+            0.2263,
+            0.595,
+            0.009821,
+            0.018454,
+            0.010998,
+            0.027356,
+            0.015508
+          ],
+          "exit_class_set": [
+            "Cardinal",
+            "Indigo_Bunting",
+            "Northern_Cardinal"
+          ],
+          "cr_score": 0.6131
+        },
+        {
+          "model": "ResNet18",
+          "predicted_class": "Cerulean_Warbler",
+          "softmax_top": 0.583,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Cerulean_Warbler",
+              "prob": 0.583
+            },
+            {
+              "class": "Bachman_Sparrow",
+              "prob": 0.2319
+            },
+            {
+              "class": "Cardinal",
+              "prob": 0.081
+            }
+          ],
+          "softmax": [
+            0.081,
+            0.017748,
+            0.00784,
+            0.2319,
+            0.583,
+            0.015548,
+            0.021865,
+            0.005888,
+            0.009233,
+            0.025978
+          ],
+          "exit_class_set": [
+            "Cardinal",
+            "Indigo_Bunting",
+            "Northern_Cardinal",
+            "Painted_Bunting"
+          ],
+          "cr_score": 0.644
+        },
+        {
+          "model": "EfficientNet-B0",
+          "predicted_class": "Cerulean_Warbler",
+          "softmax_top": 0.551,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Cerulean_Warbler",
+              "prob": 0.551
+            },
+            {
+              "class": "Bachman_Sparrow",
+              "prob": 0.2487
+            },
+            {
+              "class": "Cardinal",
+              "prob": 0.0928
+            }
+          ],
+          "softmax": [
+            0.0928,
+            0.020855,
+            0.011384,
+            0.2487,
+            0.551,
+            0.022841,
+            0.019761,
+            0.00879,
+            0.009213,
+            0.014657
+          ],
+          "exit_class_set": [
+            "Cardinal",
+            "Indigo_Bunting",
+            "Black_throated_Blue_Warbler",
+            "Northern_Cardinal",
+            "Painted_Bunting",
+            "Yellow_throated_Vireo",
+            "Tennessee_Warbler"
+          ],
+          "cr_score": 0.6708
+        },
+        {
+          "model": "ResNet50",
+          "predicted_class": "Cerulean_Warbler",
+          "softmax_top": 0.588,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Cerulean_Warbler",
+              "prob": 0.588
+            },
+            {
+              "class": "Bachman_Sparrow",
+              "prob": 0.2245
+            },
+            {
+              "class": "Cardinal",
+              "prob": 0.0806
+            }
+          ],
+          "softmax": [
+            0.0806,
+            0.023194,
+            0.01793,
+            0.2245,
+            0.588,
+            0.012277,
+            0.017836,
+            0.004113,
+            0.005874,
+            0.025675
+          ],
+          "exit_class_set": [
+            "Cardinal",
+            "Indigo_Bunting",
+            "Black_throated_Blue_Warbler",
+            "Northern_Cardinal",
+            "Painted_Bunting",
+            "Yellow_throated_Vireo",
+            "House_Sparrow",
+            "Tennessee_Warbler"
+          ],
+          "cr_score": 0.6924
+        },
+        {
+          "model": "EfficientNet-B4",
+          "predicted_class": "Cerulean_Warbler",
+          "softmax_top": 0.646,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Cerulean_Warbler",
+              "prob": 0.646
+            },
+            {
+              "class": "Bachman_Sparrow",
+              "prob": 0.1874
+            },
+            {
+              "class": "Cardinal",
+              "prob": 0.0697
+            }
+          ],
+          "softmax": [
+            0.0697,
+            0.011423,
+            0.016396,
+            0.1874,
+            0.646,
+            0.005545,
+            0.007602,
+            0.022403,
+            0.018217,
+            0.015316
+          ],
+          "exit_class_set": [
+            "Cardinal",
+            "Indigo_Bunting",
+            "Black_throated_Blue_Warbler",
+            "Northern_Cardinal",
+            "Painted_Bunting",
+            "Yellow_throated_Vireo",
+            "House_Sparrow",
+            "Tennessee_Warbler"
+          ],
+          "cr_score": 0.7138
+        },
+        {
+          "model": "ViT-B/16",
+          "predicted_class": "Bachman_Sparrow",
+          "softmax_top": 0.939,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Bachman_Sparrow",
+              "prob": 0.939
+            },
+            {
+              "class": "Cardinal",
+              "prob": 0.03
+            },
+            {
+              "class": "Indigo_Bunting",
+              "prob": 0.0105
+            }
+          ],
+          "softmax": [
+            0.03,
+            0.0105,
+            0.003579,
+            0.939,
+            0.001533,
+            0.00462,
+            0.002464,
+            0.001962,
+            0.005092,
+            0.001251
+          ],
+          "exit_class_set": [
+            "Cardinal",
+            "Indigo_Bunting",
+            "Black_throated_Blue_Warbler",
+            "Bachman_Sparrow",
+            "Cerulean_Warbler",
+            "Northern_Cardinal",
+            "Painted_Bunting",
+            "Yellow_throated_Vireo",
+            "House_Sparrow",
+            "Tennessee_Warbler"
+          ],
+          "cr_score": 0.8864
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Bachman_Sparrow",
+        "correct": true,
+        "depth": 5,
+        "cost_paid": 39.9,
+        "cost_reference": 18.0,
+        "speedup": 0.451
+      },
+      "frugalgpt": {
+        "exit_model": "ViT-B/16",
+        "exit_depth": 5,
+        "predicted": "Bachman_Sparrow",
+        "correct": true,
+        "speedup": 0.451,
+        "softmax_at_exit": 0.939,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "MobileNetV2",
+        "exit_depth": 0,
+        "predicted": "Cerulean_Warbler",
+        "correct": false,
+        "speedup": 15.0,
+        "score_at_exit": 0.6131,
+        "threshold": 0.55,
+        "decision": "trust"
+      },
+      "input_thumbnail": "thumbnails/cub200_3.png"
+    },
+    {
+      "id": "cub200_4",
+      "fold_index": 0,
+      "pattern": "honest_failure",
+      "true_class": "Cerulean_Warbler",
+      "input_summary": "Small blue-and-white wood warbler on slender branch; dark streaking on flanks, white wing-bars partially visible.",
+      "nomad_trace": [
+        {
+          "model": "MobileNetV2",
+          "predicted_class": "Bachman_Sparrow",
+          "softmax_top": 0.564,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Bachman_Sparrow",
+              "prob": 0.564
+            },
+            {
+              "class": "Cerulean_Warbler",
+              "prob": 0.2405
+            },
+            {
+              "class": "Cardinal",
+              "prob": 0.0839
+            }
+          ],
+          "softmax": [
+            0.0839,
+            0.007954,
+            0.009352,
+            0.564,
+            0.2405,
+            0.04651,
+            0.021274,
+            0.007283,
+            0.009816,
+            0.00941
+          ],
+          "exit_class_set": [
+            "Cardinal",
+            "Indigo_Bunting",
+            "Northern_Cardinal"
+          ],
+          "cr_score": 0.6382
+        },
+        {
+          "model": "ResNet18",
+          "predicted_class": "Bachman_Sparrow",
+          "softmax_top": 0.489,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Bachman_Sparrow",
+              "prob": 0.489
+            },
+            {
+              "class": "Cerulean_Warbler",
+              "prob": 0.2817
+            },
+            {
+              "class": "Cardinal",
+              "prob": 0.1062
+            }
+          ],
+          "softmax": [
+            0.1062,
+            0.039464,
+            0.013567,
+            0.489,
+            0.2817,
+            0.009552,
+            0.005866,
+            0.010017,
+            0.038556,
+            0.006078
+          ],
+          "exit_class_set": [
+            "Cardinal",
+            "Indigo_Bunting",
+            "Northern_Cardinal",
+            "Painted_Bunting"
+          ],
+          "cr_score": 0.665
+        },
+        {
+          "model": "EfficientNet-B0",
+          "predicted_class": "Bachman_Sparrow",
+          "softmax_top": 0.618,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Bachman_Sparrow",
+              "prob": 0.618
+            },
+            {
+              "class": "Cerulean_Warbler",
+              "prob": 0.2045
+            },
+            {
+              "class": "Cardinal",
+              "prob": 0.077
+            }
+          ],
+          "softmax": [
+            0.077,
+            0.013459,
+            0.009154,
+            0.618,
+            0.2045,
+            0.018127,
+            0.020659,
+            0.022332,
+            0.009986,
+            0.006783
+          ],
+          "exit_class_set": [
+            "Cardinal",
+            "Indigo_Bunting",
+            "Black_throated_Blue_Warbler",
+            "Northern_Cardinal",
+            "Painted_Bunting",
+            "Yellow_throated_Vireo",
+            "Tennessee_Warbler"
+          ],
+          "cr_score": 0.6885
+        },
+        {
+          "model": "ResNet50",
+          "predicted_class": "Bachman_Sparrow",
+          "softmax_top": 0.614,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Bachman_Sparrow",
+              "prob": 0.614
+            },
+            {
+              "class": "Cerulean_Warbler",
+              "prob": 0.2157
+            },
+            {
+              "class": "Cardinal",
+              "prob": 0.0753
+            }
+          ],
+          "softmax": [
+            0.0753,
+            0.008244,
+            0.014042,
+            0.614,
+            0.2157,
+            0.003354,
+            0.013244,
+            0.011261,
+            0.02435,
+            0.020505
+          ],
+          "exit_class_set": [
+            "Cardinal",
+            "Indigo_Bunting",
+            "Black_throated_Blue_Warbler",
+            "Northern_Cardinal",
+            "Painted_Bunting",
+            "Yellow_throated_Vireo",
+            "House_Sparrow",
+            "Tennessee_Warbler"
+          ],
+          "cr_score": 0.7087
+        },
+        {
+          "model": "EfficientNet-B4",
+          "predicted_class": "Bachman_Sparrow",
+          "softmax_top": 0.529,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Bachman_Sparrow",
+              "prob": 0.529
+            },
+            {
+              "class": "Cerulean_Warbler",
+              "prob": 0.2685
+            },
+            {
+              "class": "Cardinal",
+              "prob": 0.0952
+            }
+          ],
+          "softmax": [
+            0.0952,
+            0.040331,
+            0.008132,
+            0.529,
+            0.2685,
+            0.009264,
+            0.009083,
+            0.02512,
+            0.008362,
+            0.007007
+          ],
+          "exit_class_set": [
+            "Cardinal",
+            "Indigo_Bunting",
+            "Black_throated_Blue_Warbler",
+            "Northern_Cardinal",
+            "Painted_Bunting",
+            "Yellow_throated_Vireo",
+            "House_Sparrow",
+            "Tennessee_Warbler"
+          ],
+          "cr_score": 0.7428
+        },
+        {
+          "model": "ViT-B/16",
+          "predicted_class": "Bachman_Sparrow",
+          "softmax_top": 0.78,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Bachman_Sparrow",
+              "prob": 0.78
+            },
+            {
+              "class": "Cerulean_Warbler",
+              "prob": 0.1187
+            },
+            {
+              "class": "Cardinal",
+              "prob": 0.0394
+            }
+          ],
+          "softmax": [
+            0.0394,
+            0.006368,
+            0.013878,
+            0.78,
+            0.1187,
+            0.009444,
+            0.003111,
+            0.00447,
+            0.005951,
+            0.018678
+          ],
+          "exit_class_set": [
+            "Cardinal",
+            "Indigo_Bunting",
+            "Black_throated_Blue_Warbler",
+            "Bachman_Sparrow",
+            "Cerulean_Warbler",
+            "Northern_Cardinal",
+            "Painted_Bunting",
+            "Yellow_throated_Vireo",
+            "House_Sparrow",
+            "Tennessee_Warbler"
+          ],
+          "cr_score": 0.8756
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Bachman_Sparrow",
+        "correct": false,
+        "depth": 5,
+        "cost_paid": 39.9,
+        "cost_reference": 18.0,
+        "speedup": 0.451
+      },
+      "frugalgpt": {
+        "exit_model": "ViT-B/16",
+        "exit_depth": 5,
+        "predicted": "Bachman_Sparrow",
+        "correct": false,
+        "speedup": 0.451,
+        "softmax_at_exit": 0.78,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "MobileNetV2",
+        "exit_depth": 0,
+        "predicted": "Bachman_Sparrow",
+        "correct": false,
+        "speedup": 15.0,
+        "score_at_exit": 0.6382,
+        "threshold": 0.55,
+        "decision": "trust"
+      },
+      "input_thumbnail": "thumbnails/cub200_4.png"
+    }
+  ],
+  "depth_histogram": {
+    "Cardinal": {
+      "n_inputs": 575,
+      "depths": [
+        0.5747,
+        0.2395,
+        0.1289,
+        0.0206,
+        0.0188,
+        0.0175
+      ]
+    },
+    "Indigo_Bunting": {
+      "n_inputs": 143,
+      "depths": [
+        0.5986,
+        0.1749,
+        0.0918,
+        0.0453,
+        0.0438,
+        0.0456
+      ]
+    },
+    "Black_throated_Blue_Warbler": {
+      "n_inputs": 228,
+      "depths": [
+        0.0,
+        0.0,
+        0.4692,
+        0.2489,
+        0.1588,
+        0.1231
+      ]
+    },
+    "Bachman_Sparrow": {
+      "n_inputs": 52,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.2195,
+        0.7805
+      ]
+    },
+    "Cerulean_Warbler": {
+      "n_inputs": 66,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.2107,
+        0.7893
+      ]
+    },
+    "Northern_Cardinal": {
+      "n_inputs": 161,
+      "depths": [
+        0.4724,
+        0.2226,
+        0.1328,
+        0.0813,
+        0.0386,
+        0.0523
+      ]
+    },
+    "Painted_Bunting": {
+      "n_inputs": 220,
+      "depths": [
+        0.0,
+        0.4906,
+        0.2448,
+        0.1266,
+        0.0728,
+        0.0652
+      ]
+    },
+    "Yellow_throated_Vireo": {
+      "n_inputs": 148,
+      "depths": [
+        0.0,
+        0.0,
+        0.5005,
+        0.2381,
+        0.1512,
+        0.1102
+      ]
+    },
+    "House_Sparrow": {
+      "n_inputs": 153,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.5308,
+        0.2869,
+        0.1823
+      ]
+    },
+    "Tennessee_Warbler": {
+      "n_inputs": 199,
+      "depths": [
+        0.0,
+        0.0,
+        0.4601,
+        0.2701,
+        0.1421,
+        0.1277
+      ]
+    }
+  },
+  "per_model_per_class_f1": [
+    [
+      0.7598,
+      0.7995,
+      0.6952,
+      0.6347,
+      0.5776,
+      0.739,
+      0.631,
+      0.712,
+      0.5901,
+      0.6267
+    ],
+    [
+      0.7752,
+      0.8331,
+      0.7175,
+      0.6606,
+      0.606,
+      0.7494,
+      0.7037,
+      0.7383,
+      0.6117,
+      0.6651
+    ],
+    [
+      0.7816,
+      0.8423,
+      0.8067,
+      0.6839,
+      0.6277,
+      0.7494,
+      0.7278,
+      0.8344,
+      0.629,
+      0.7437
+    ],
+    [
+      0.8057,
+      0.8571,
+      0.8165,
+      0.706,
+      0.6538,
+      0.7733,
+      0.7362,
+      0.8288,
+      0.7207,
+      0.7672
+    ],
+    [
+      0.8237,
+      0.8597,
+      0.8163,
+      0.7439,
+      0.6804,
+      0.771,
+      0.7623,
+      0.8461,
+      0.7354,
+      0.7728
+    ],
+    [
+      0.832,
+      0.8783,
+      0.8698,
+      0.8899,
+      0.8225,
+      0.7925,
+      0.7743,
+      0.8895,
+      0.7766,
+      0.801
+    ]
+  ]
+}

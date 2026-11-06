@@ -1,0 +1,1162 @@
+{
+  "dataset": "pendigits",
+  "title": "Digits-Pendigits",
+  "modality": "tabular",
+  "fold_index": 0,
+  "epsilon": 0.1,
+  "frugalgpt_threshold_tau": 0.73,
+  "cascade_routing_threshold": 0.55,
+  "portfolio": [
+    {
+      "name": "LogReg",
+      "cost": 1.0
+    },
+    {
+      "name": "DecisionTree",
+      "cost": 1.7
+    },
+    {
+      "name": "MLP-64",
+      "cost": 41.0
+    },
+    {
+      "name": "MLP-128/64",
+      "cost": 154.0
+    },
+    {
+      "name": "XGBoost",
+      "cost": 298.0
+    }
+  ],
+  "reference_model": "XGBoost",
+  "n_classes": 10,
+  "class_names": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9"
+  ],
+  "case_studies": [
+    {
+      "id": "pendigits_0",
+      "fold_index": 0,
+      "pattern": "easy",
+      "true_class": "1",
+      "input_summary": "Eight-point pen trajectory: single descending vertical stroke, no curvature inflection.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "1",
+          "softmax_top": 0.914,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "1",
+              "prob": 0.914
+            },
+            {
+              "class": "0",
+              "prob": 0.0516
+            },
+            {
+              "class": "6",
+              "prob": 0.014
+            }
+          ],
+          "softmax": [
+            0.0516,
+            0.914,
+            0.002008,
+            0.003282,
+            0.001993,
+            0.003986,
+            0.014,
+            0.000758,
+            0.004753,
+            0.003619
+          ],
+          "exit_class_set": [
+            "0",
+            "1",
+            "6"
+          ],
+          "cr_score": 0.8676
+        }
+      ],
+      "nomad_final": {
+        "predicted": "1",
+        "correct": true,
+        "depth": 0,
+        "cost_paid": 1.0,
+        "cost_reference": 298.0,
+        "speedup": 298.0
+      },
+      "frugalgpt": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "1",
+        "correct": true,
+        "speedup": 298.0,
+        "softmax_at_exit": 0.914,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "1",
+        "correct": true,
+        "speedup": 298.0,
+        "score_at_exit": 0.8676,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "pendigits_1",
+      "fold_index": 0,
+      "pattern": "confidence_trap",
+      "true_class": "5",
+      "input_summary": "Two-loop trajectory with smooth horizontal entry and one closed loop at the bottom.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "9",
+          "softmax_top": 0.894,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "9",
+              "prob": 0.894
+            },
+            {
+              "class": "5",
+              "prob": 0.0666
+            },
+            {
+              "class": "0",
+              "prob": 0.0224
+            }
+          ],
+          "softmax": [
+            0.0224,
+            0.000994,
+            0.003203,
+            0.002205,
+            0.001962,
+            0.0666,
+            0.003078,
+            0.003225,
+            0.002333,
+            0.894
+          ],
+          "exit_class_set": [
+            "0",
+            "1",
+            "6"
+          ],
+          "cr_score": 0.7068
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "9",
+          "softmax_top": 0.569,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "9",
+              "prob": 0.569
+            },
+            {
+              "class": "5",
+              "prob": 0.2287
+            },
+            {
+              "class": "0",
+              "prob": 0.0903
+            }
+          ],
+          "softmax": [
+            0.0903,
+            0.007228,
+            0.013964,
+            0.029847,
+            0.017148,
+            0.2287,
+            0.009293,
+            0.018737,
+            0.015784,
+            0.569
+          ],
+          "exit_class_set": [
+            "0",
+            "1",
+            "2",
+            "6",
+            "7"
+          ],
+          "cr_score": 0.7528
+        },
+        {
+          "model": "MLP-64",
+          "predicted_class": "9",
+          "softmax_top": 0.762,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "9",
+              "prob": 0.762
+            },
+            {
+              "class": "5",
+              "prob": 0.1256
+            },
+            {
+              "class": "0",
+              "prob": 0.0479
+            }
+          ],
+          "softmax": [
+            0.0479,
+            0.008634,
+            0.015289,
+            0.018945,
+            0.003336,
+            0.1256,
+            0.009312,
+            0.002611,
+            0.006373,
+            0.762
+          ],
+          "exit_class_set": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "6",
+            "7",
+            "8"
+          ],
+          "cr_score": 0.7693
+        },
+        {
+          "model": "MLP-128/64",
+          "predicted_class": "5",
+          "softmax_top": 0.899,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "5",
+              "prob": 0.899
+            },
+            {
+              "class": "0",
+              "prob": 0.0645
+            },
+            {
+              "class": "1",
+              "prob": 0.0203
+            }
+          ],
+          "softmax": [
+            0.0645,
+            0.0203,
+            0.004294,
+            0.000733,
+            0.001001,
+            0.899,
+            0.002752,
+            0.003309,
+            0.003136,
+            0.000977
+          ],
+          "exit_class_set": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ],
+          "cr_score": 0.843
+        }
+      ],
+      "nomad_final": {
+        "predicted": "5",
+        "correct": true,
+        "depth": 3,
+        "cost_paid": 197.7,
+        "cost_reference": 298.0,
+        "speedup": 1.507
+      },
+      "frugalgpt": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "9",
+        "correct": false,
+        "speedup": 298.0,
+        "softmax_at_exit": 0.894,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "9",
+        "correct": false,
+        "speedup": 298.0,
+        "score_at_exit": 0.7068,
+        "threshold": 0.55,
+        "decision": "trust"
+      },
+      "confidence_trap_stats": {
+        "cheap_model": "LogReg",
+        "wrong_class": "9",
+        "true_class": "5",
+        "avg_softmax_wrong_on_true": 0.8404,
+        "cheap_model_f1_on_true": 0.7058,
+        "cheap_model_f1_on_wrong": 0.7015
+      }
+    },
+    {
+      "id": "pendigits_2",
+      "fold_index": 0,
+      "pattern": "mid_depth",
+      "true_class": "8",
+      "input_summary": "Trajectory with two roughly equal closed loops stacked vertically, top loop slightly smaller.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "8",
+          "softmax_top": 0.658,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "8",
+              "prob": 0.658
+            },
+            {
+              "class": "0",
+              "prob": 0.1897
+            },
+            {
+              "class": "1",
+              "prob": 0.0694
+            }
+          ],
+          "softmax": [
+            0.1897,
+            0.0694,
+            0.033965,
+            0.005537,
+            0.008336,
+            0.006916,
+            0.012579,
+            0.006042,
+            0.658,
+            0.009526
+          ],
+          "exit_class_set": [
+            "0",
+            "1",
+            "6"
+          ],
+          "cr_score": 0.7722
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "8",
+          "softmax_top": 0.453,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "8",
+              "prob": 0.453
+            },
+            {
+              "class": "0",
+              "prob": 0.2957
+            },
+            {
+              "class": "1",
+              "prob": 0.1117
+            }
+          ],
+          "softmax": [
+            0.2957,
+            0.1117,
+            0.017829,
+            0.043304,
+            0.017854,
+            0.010672,
+            0.010341,
+            0.007127,
+            0.453,
+            0.032472
+          ],
+          "exit_class_set": [
+            "0",
+            "1",
+            "2",
+            "6",
+            "7"
+          ],
+          "cr_score": 0.8067
+        },
+        {
+          "model": "MLP-64",
+          "predicted_class": "8",
+          "softmax_top": 0.918,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "8",
+              "prob": 0.918
+            },
+            {
+              "class": "0",
+              "prob": 0.0442
+            },
+            {
+              "class": "1",
+              "prob": 0.0128
+            }
+          ],
+          "softmax": [
+            0.0442,
+            0.0128,
+            0.005177,
+            0.00183,
+            0.002182,
+            0.003889,
+            0.006584,
+            0.00289,
+            0.918,
+            0.002447
+          ],
+          "exit_class_set": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "6",
+            "7",
+            "8"
+          ],
+          "cr_score": 0.8389
+        }
+      ],
+      "nomad_final": {
+        "predicted": "8",
+        "correct": true,
+        "depth": 2,
+        "cost_paid": 43.7,
+        "cost_reference": 298.0,
+        "speedup": 6.819
+      },
+      "frugalgpt": {
+        "exit_model": "MLP-64",
+        "exit_depth": 2,
+        "predicted": "8",
+        "correct": true,
+        "speedup": 6.819,
+        "softmax_at_exit": 0.918,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "8",
+        "correct": true,
+        "speedup": 298.0,
+        "score_at_exit": 0.7722,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "pendigits_3",
+      "fold_index": 0,
+      "pattern": "rare_fall_through",
+      "true_class": "9",
+      "input_summary": "Trajectory with a long descending tail, hooked top, and partial closure at upper-right.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "9",
+          "softmax_top": 0.502,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "9",
+              "prob": 0.502
+            },
+            {
+              "class": "0",
+              "prob": 0.2765
+            },
+            {
+              "class": "1",
+              "prob": 0.0989
+            }
+          ],
+          "softmax": [
+            0.2765,
+            0.0989,
+            0.006951,
+            0.006056,
+            0.008601,
+            0.006617,
+            0.029234,
+            0.048059,
+            0.017083,
+            0.502
+          ],
+          "exit_class_set": [
+            "0",
+            "1",
+            "6"
+          ],
+          "cr_score": 0.77
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "9",
+          "softmax_top": 0.378,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "9",
+              "prob": 0.378
+            },
+            {
+              "class": "0",
+              "prob": 0.3498
+            },
+            {
+              "class": "1",
+              "prob": 0.1258
+            }
+          ],
+          "softmax": [
+            0.3498,
+            0.1258,
+            0.009216,
+            0.030898,
+            0.035408,
+            0.031395,
+            0.011507,
+            0.013742,
+            0.014235,
+            0.378
+          ],
+          "exit_class_set": [
+            "0",
+            "1",
+            "2",
+            "6",
+            "7"
+          ],
+          "cr_score": 0.8022
+        },
+        {
+          "model": "MLP-64",
+          "predicted_class": "9",
+          "softmax_top": 0.415,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "9",
+              "prob": 0.415
+            },
+            {
+              "class": "0",
+              "prob": 0.3118
+            },
+            {
+              "class": "1",
+              "prob": 0.113
+            }
+          ],
+          "softmax": [
+            0.3118,
+            0.113,
+            0.049293,
+            0.048881,
+            0.013854,
+            0.006833,
+            0.011363,
+            0.0179,
+            0.012077,
+            0.415
+          ],
+          "exit_class_set": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "6",
+            "7",
+            "8"
+          ],
+          "cr_score": 0.8276
+        },
+        {
+          "model": "MLP-128/64",
+          "predicted_class": "9",
+          "softmax_top": 0.423,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "9",
+              "prob": 0.423
+            },
+            {
+              "class": "0",
+              "prob": 0.3125
+            },
+            {
+              "class": "1",
+              "prob": 0.1142
+            }
+          ],
+          "softmax": [
+            0.3125,
+            0.1142,
+            0.00881,
+            0.009797,
+            0.049346,
+            0.043072,
+            0.009269,
+            0.008167,
+            0.021838,
+            0.423
+          ],
+          "exit_class_set": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ],
+          "cr_score": 0.8391
+        },
+        {
+          "model": "XGBoost",
+          "predicted_class": "9",
+          "softmax_top": 0.894,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "9",
+              "prob": 0.894
+            },
+            {
+              "class": "0",
+              "prob": 0.0581
+            },
+            {
+              "class": "1",
+              "prob": 0.0252
+            }
+          ],
+          "softmax": [
+            0.0581,
+            0.0252,
+            0.001898,
+            0.002095,
+            0.001625,
+            0.001732,
+            0.003754,
+            0.002175,
+            0.009422,
+            0.894
+          ],
+          "exit_class_set": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "cr_score": 0.9349
+        }
+      ],
+      "nomad_final": {
+        "predicted": "9",
+        "correct": true,
+        "depth": 4,
+        "cost_paid": 495.7,
+        "cost_reference": 298.0,
+        "speedup": 0.601
+      },
+      "frugalgpt": {
+        "exit_model": "XGBoost",
+        "exit_depth": 4,
+        "predicted": "9",
+        "correct": true,
+        "speedup": 0.601,
+        "softmax_at_exit": 0.894,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "9",
+        "correct": true,
+        "speedup": 298.0,
+        "score_at_exit": 0.77,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "pendigits_4",
+      "fold_index": 0,
+      "pattern": "honest_failure",
+      "true_class": "4",
+      "input_summary": "Open-bottom trajectory with sharp horizontal cross-stroke at one-third height; ambiguous closure.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "9",
+          "softmax_top": 0.539,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "9",
+              "prob": 0.539
+            },
+            {
+              "class": "4",
+              "prob": 0.2507
+            },
+            {
+              "class": "0",
+              "prob": 0.0928
+            }
+          ],
+          "softmax": [
+            0.0928,
+            0.029193,
+            0.014562,
+            0.005039,
+            0.2507,
+            0.035765,
+            0.012659,
+            0.005688,
+            0.014595,
+            0.539
+          ],
+          "exit_class_set": [
+            "0",
+            "1",
+            "6"
+          ],
+          "cr_score": 0.7401
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "9",
+          "softmax_top": 0.593,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "9",
+              "prob": 0.593
+            },
+            {
+              "class": "4",
+              "prob": 0.2221
+            },
+            {
+              "class": "0",
+              "prob": 0.0794
+            }
+          ],
+          "softmax": [
+            0.0794,
+            0.012593,
+            0.013976,
+            0.006035,
+            0.2221,
+            0.014109,
+            0.013751,
+            0.013044,
+            0.031993,
+            0.593
+          ],
+          "exit_class_set": [
+            "0",
+            "1",
+            "2",
+            "6",
+            "7"
+          ],
+          "cr_score": 0.7624
+        },
+        {
+          "model": "MLP-64",
+          "predicted_class": "9",
+          "softmax_top": 0.696,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "9",
+              "prob": 0.696
+            },
+            {
+              "class": "4",
+              "prob": 0.1716
+            },
+            {
+              "class": "0",
+              "prob": 0.0635
+            }
+          ],
+          "softmax": [
+            0.0635,
+            0.018368,
+            0.015247,
+            0.006365,
+            0.1716,
+            0.003558,
+            0.017161,
+            0.005725,
+            0.002476,
+            0.696
+          ],
+          "exit_class_set": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "6",
+            "7",
+            "8"
+          ],
+          "cr_score": 0.7801
+        },
+        {
+          "model": "MLP-128/64",
+          "predicted_class": "9",
+          "softmax_top": 0.543,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "9",
+              "prob": 0.543
+            },
+            {
+              "class": "4",
+              "prob": 0.2601
+            },
+            {
+              "class": "0",
+              "prob": 0.0901
+            }
+          ],
+          "softmax": [
+            0.0901,
+            0.007102,
+            0.017733,
+            0.03017,
+            0.2601,
+            0.015532,
+            0.012977,
+            0.013315,
+            0.009971,
+            0.543
+          ],
+          "exit_class_set": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ],
+          "cr_score": 0.8234
+        },
+        {
+          "model": "XGBoost",
+          "predicted_class": "9",
+          "softmax_top": 0.828,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "9",
+              "prob": 0.828
+            },
+            {
+              "class": "4",
+              "prob": 0.0968
+            },
+            {
+              "class": "0",
+              "prob": 0.0354
+            }
+          ],
+          "softmax": [
+            0.0354,
+            0.00492,
+            0.008285,
+            0.007511,
+            0.0968,
+            0.004871,
+            0.00271,
+            0.003916,
+            0.007587,
+            0.828
+          ],
+          "exit_class_set": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "cr_score": 0.9387
+        }
+      ],
+      "nomad_final": {
+        "predicted": "9",
+        "correct": false,
+        "depth": 4,
+        "cost_paid": 495.7,
+        "cost_reference": 298.0,
+        "speedup": 0.601
+      },
+      "frugalgpt": {
+        "exit_model": "XGBoost",
+        "exit_depth": 4,
+        "predicted": "9",
+        "correct": false,
+        "speedup": 0.601,
+        "softmax_at_exit": 0.828,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "9",
+        "correct": false,
+        "speedup": 298.0,
+        "score_at_exit": 0.7401,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    }
+  ],
+  "depth_histogram": {
+    "0": {
+      "n_inputs": 1098,
+      "depths": [
+        0.6666,
+        0.189,
+        0.1022,
+        0.0226,
+        0.0196
+      ]
+    },
+    "1": {
+      "n_inputs": 192,
+      "depths": [
+        0.632,
+        0.1719,
+        0.0974,
+        0.0497,
+        0.049
+      ]
+    },
+    "2": {
+      "n_inputs": 1060,
+      "depths": [
+        0.0,
+        0.4657,
+        0.2717,
+        0.1601,
+        0.1025
+      ]
+    },
+    "3": {
+      "n_inputs": 205,
+      "depths": [
+        0.0,
+        0.0,
+        0.5116,
+        0.2964,
+        0.192
+      ]
+    },
+    "4": {
+      "n_inputs": 845,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.5997,
+        0.4003
+      ]
+    },
+    "5": {
+      "n_inputs": 616,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.6626,
+        0.3374
+      ]
+    },
+    "6": {
+      "n_inputs": 269,
+      "depths": [
+        0.6395,
+        0.1739,
+        0.1154,
+        0.0357,
+        0.0355
+      ]
+    },
+    "7": {
+      "n_inputs": 923,
+      "depths": [
+        0.0,
+        0.4923,
+        0.2516,
+        0.1395,
+        0.1166
+      ]
+    },
+    "8": {
+      "n_inputs": 412,
+      "depths": [
+        0.0,
+        0.0,
+        0.5064,
+        0.2853,
+        0.2083
+      ]
+    },
+    "9": {
+      "n_inputs": 209,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.2493,
+        0.7507
+      ]
+    }
+  },
+  "per_model_per_class_f1": [
+    [
+      0.8574,
+      0.8715,
+      0.8271,
+      0.7932,
+      0.7585,
+      0.7058,
+      0.8318,
+      0.7485,
+      0.7351,
+      0.7015
+    ],
+    [
+      0.8531,
+      0.878,
+      0.9021,
+      0.8231,
+      0.7874,
+      0.7296,
+      0.866,
+      0.8455,
+      0.7595,
+      0.7312
+    ],
+    [
+      0.8759,
+      0.8921,
+      0.911,
+      0.9052,
+      0.8088,
+      0.7592,
+      0.87,
+      0.8411,
+      0.8362,
+      0.7545
+    ],
+    [
+      0.9001,
+      0.8827,
+      0.9324,
+      0.9234,
+      0.8764,
+      0.8374,
+      0.8768,
+      0.8463,
+      0.851,
+      0.7727
+    ],
+    [
+      0.9283,
+      0.9333,
+      0.99,
+      0.9811,
+      0.9678,
+      0.9121,
+      0.9163,
+      0.9035,
+      0.9079,
+      0.9356
+    ]
+  ]
+}

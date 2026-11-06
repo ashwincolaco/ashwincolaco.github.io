@@ -1,0 +1,860 @@
+{
+  "dataset": "nsl_kdd",
+  "title": "Intrusions-NSL",
+  "modality": "tabular",
+  "fold_index": 0,
+  "epsilon": 0.1,
+  "frugalgpt_threshold_tau": 0.73,
+  "cascade_routing_threshold": 0.55,
+  "portfolio": [
+    {
+      "name": "LogReg",
+      "cost": 1.0
+    },
+    {
+      "name": "DecisionTree",
+      "cost": 1.7
+    },
+    {
+      "name": "MLP-64",
+      "cost": 41.0
+    },
+    {
+      "name": "MLP-128/64",
+      "cost": 154.0
+    },
+    {
+      "name": "XGBoost",
+      "cost": 298.0
+    }
+  ],
+  "reference_model": "XGBoost",
+  "n_classes": 5,
+  "class_names": [
+    "Normal",
+    "DoS",
+    "Probe",
+    "R2L",
+    "U2R"
+  ],
+  "case_studies": [
+    {
+      "id": "nsl_kdd_0",
+      "fold_index": 0,
+      "pattern": "easy",
+      "true_class": "Normal",
+      "input_summary": "Short-lived TCP flow, port 80, low byte counts, no failed-login flags.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "Normal",
+          "softmax_top": 0.889,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Normal",
+              "prob": 0.889
+            },
+            {
+              "class": "DoS",
+              "prob": 0.0607
+            },
+            {
+              "class": "Probe",
+              "prob": 0.0209
+            }
+          ],
+          "softmax": [
+            0.889,
+            0.0607,
+            0.0209,
+            0.010693,
+            0.018707
+          ],
+          "exit_class_set": [
+            "Normal"
+          ],
+          "cr_score": 0.7718
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Normal",
+        "correct": true,
+        "depth": 0,
+        "cost_paid": 1.0,
+        "cost_reference": 298.0,
+        "speedup": 298.0
+      },
+      "frugalgpt": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "Normal",
+        "correct": true,
+        "speedup": 298.0,
+        "softmax_at_exit": 0.889,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "Normal",
+        "correct": true,
+        "speedup": 298.0,
+        "score_at_exit": 0.7718,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "nsl_kdd_1",
+      "fold_index": 0,
+      "pattern": "confidence_trap",
+      "true_class": "Probe",
+      "input_summary": "Slow connection sweep across sequential ports; short duration but elevated REJ rate; stays under volumetric thresholds.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "U2R",
+          "softmax_top": 0.855,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "U2R",
+              "prob": 0.855
+            },
+            {
+              "class": "Probe",
+              "prob": 0.0739
+            },
+            {
+              "class": "Normal",
+              "prob": 0.0273
+            }
+          ],
+          "softmax": [
+            0.0273,
+            0.0272,
+            0.0739,
+            0.0166,
+            0.855
+          ],
+          "exit_class_set": [
+            "Normal"
+          ],
+          "cr_score": 0.5888
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "U2R",
+          "softmax_top": 0.555,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "U2R",
+              "prob": 0.555
+            },
+            {
+              "class": "Probe",
+              "prob": 0.2507
+            },
+            {
+              "class": "Normal",
+              "prob": 0.0894
+            }
+          ],
+          "softmax": [
+            0.0894,
+            0.031915,
+            0.2507,
+            0.072985,
+            0.555
+          ],
+          "exit_class_set": [
+            "Normal",
+            "DoS"
+          ],
+          "cr_score": 0.6384
+        },
+        {
+          "model": "MLP-64",
+          "predicted_class": "Probe",
+          "softmax_top": 0.939,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Probe",
+              "prob": 0.939
+            },
+            {
+              "class": "Normal",
+              "prob": 0.0264
+            },
+            {
+              "class": "DoS",
+              "prob": 0.0124
+            }
+          ],
+          "softmax": [
+            0.0264,
+            0.0124,
+            0.939,
+            0.0099,
+            0.0123
+          ],
+          "exit_class_set": [
+            "Normal",
+            "DoS",
+            "Probe"
+          ],
+          "cr_score": 0.7296
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Probe",
+        "correct": true,
+        "depth": 2,
+        "cost_paid": 43.7,
+        "cost_reference": 298.0,
+        "speedup": 6.819
+      },
+      "frugalgpt": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "U2R",
+        "correct": false,
+        "speedup": 298.0,
+        "softmax_at_exit": 0.855,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "U2R",
+        "correct": false,
+        "speedup": 298.0,
+        "score_at_exit": 0.5888,
+        "threshold": 0.55,
+        "decision": "trust"
+      },
+      "confidence_trap_stats": {
+        "cheap_model": "LogReg",
+        "wrong_class": "U2R",
+        "true_class": "Probe",
+        "avg_softmax_wrong_on_true": 0.8037,
+        "cheap_model_f1_on_true": 0.6297,
+        "cheap_model_f1_on_wrong": 0.5756
+      }
+    },
+    {
+      "id": "nsl_kdd_2",
+      "fold_index": 0,
+      "pattern": "mid_depth",
+      "true_class": "DoS",
+      "input_summary": "Dense burst of SYN packets to a single host, very low avg-bytes-per-packet, sustained over 8 seconds.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "DoS",
+          "softmax_top": 0.531,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "DoS",
+              "prob": 0.531
+            },
+            {
+              "class": "Normal",
+              "prob": 0.2548
+            },
+            {
+              "class": "Probe",
+              "prob": 0.0904
+            }
+          ],
+          "softmax": [
+            0.2548,
+            0.531,
+            0.0904,
+            0.033533,
+            0.090267
+          ],
+          "exit_class_set": [
+            "Normal"
+          ],
+          "cr_score": 0.6926
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "DoS",
+          "softmax_top": 0.894,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "DoS",
+              "prob": 0.894
+            },
+            {
+              "class": "Normal",
+              "prob": 0.0553
+            },
+            {
+              "class": "Probe",
+              "prob": 0.0259
+            }
+          ],
+          "softmax": [
+            0.0553,
+            0.894,
+            0.0259,
+            0.016888,
+            0.007912
+          ],
+          "exit_class_set": [
+            "Normal",
+            "DoS"
+          ],
+          "cr_score": 0.7504
+        }
+      ],
+      "nomad_final": {
+        "predicted": "DoS",
+        "correct": true,
+        "depth": 1,
+        "cost_paid": 2.7,
+        "cost_reference": 298.0,
+        "speedup": 110.37
+      },
+      "frugalgpt": {
+        "exit_model": "DecisionTree",
+        "exit_depth": 1,
+        "predicted": "DoS",
+        "correct": true,
+        "speedup": 110.37,
+        "softmax_at_exit": 0.894,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "DoS",
+        "correct": true,
+        "speedup": 298.0,
+        "score_at_exit": 0.6926,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "nsl_kdd_3",
+      "fold_index": 0,
+      "pattern": "rare_fall_through",
+      "true_class": "U2R",
+      "input_summary": "Low-volume root-shell pattern: short telnet flow, suspicious 'su root' payload signature, normal byte counts.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "U2R",
+          "softmax_top": 0.418,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "U2R",
+              "prob": 0.418
+            },
+            {
+              "class": "Normal",
+              "prob": 0.3155
+            },
+            {
+              "class": "DoS",
+              "prob": 0.1134
+            }
+          ],
+          "softmax": [
+            0.3155,
+            0.1134,
+            0.059738,
+            0.093362,
+            0.418
+          ],
+          "exit_class_set": [
+            "Normal"
+          ],
+          "cr_score": 0.6604
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "U2R",
+          "softmax_top": 0.448,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "U2R",
+              "prob": 0.448
+            },
+            {
+              "class": "Normal",
+              "prob": 0.2976
+            },
+            {
+              "class": "DoS",
+              "prob": 0.1147
+            }
+          ],
+          "softmax": [
+            0.2976,
+            0.1147,
+            0.074539,
+            0.065161,
+            0.448
+          ],
+          "exit_class_set": [
+            "Normal",
+            "DoS"
+          ],
+          "cr_score": 0.6798
+        },
+        {
+          "model": "MLP-64",
+          "predicted_class": "U2R",
+          "softmax_top": 0.336,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "U2R",
+              "prob": 0.336
+            },
+            {
+              "class": "Normal",
+              "prob": 0.331
+            },
+            {
+              "class": "DoS",
+              "prob": 0.1348
+            }
+          ],
+          "softmax": [
+            0.331,
+            0.1348,
+            0.1347,
+            0.0635,
+            0.336
+          ],
+          "exit_class_set": [
+            "Normal",
+            "DoS",
+            "Probe"
+          ],
+          "cr_score": 0.724
+        },
+        {
+          "model": "MLP-128/64",
+          "predicted_class": "U2R",
+          "softmax_top": 0.419,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "U2R",
+              "prob": 0.419
+            },
+            {
+              "class": "Normal",
+              "prob": 0.3292
+            },
+            {
+              "class": "DoS",
+              "prob": 0.1159
+            }
+          ],
+          "softmax": [
+            0.3292,
+            0.1159,
+            0.072964,
+            0.062936,
+            0.419
+          ],
+          "exit_class_set": [
+            "Normal",
+            "DoS",
+            "Probe",
+            "R2L"
+          ],
+          "cr_score": 0.7331
+        },
+        {
+          "model": "XGBoost",
+          "predicted_class": "U2R",
+          "softmax_top": 0.893,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "U2R",
+              "prob": 0.893
+            },
+            {
+              "class": "Normal",
+              "prob": 0.0643
+            },
+            {
+              "class": "DoS",
+              "prob": 0.0174
+            }
+          ],
+          "softmax": [
+            0.0643,
+            0.0174,
+            0.011101,
+            0.014199,
+            0.893
+          ],
+          "exit_class_set": [
+            "Normal",
+            "DoS",
+            "Probe",
+            "R2L",
+            "U2R"
+          ],
+          "cr_score": 0.7997
+        }
+      ],
+      "nomad_final": {
+        "predicted": "U2R",
+        "correct": true,
+        "depth": 4,
+        "cost_paid": 495.7,
+        "cost_reference": 298.0,
+        "speedup": 0.601
+      },
+      "frugalgpt": {
+        "exit_model": "XGBoost",
+        "exit_depth": 4,
+        "predicted": "U2R",
+        "correct": true,
+        "speedup": 0.601,
+        "softmax_at_exit": 0.893,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "U2R",
+        "correct": true,
+        "speedup": 298.0,
+        "score_at_exit": 0.6604,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "nsl_kdd_4",
+      "fold_index": 0,
+      "pattern": "honest_failure",
+      "true_class": "R2L",
+      "input_summary": "Staged credential brute force interleaved with normal-looking SMTP traffic; mixes Normal-class features and R2L behavior.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "U2R",
+          "softmax_top": 0.57,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "U2R",
+              "prob": 0.57
+            },
+            {
+              "class": "R2L",
+              "prob": 0.2281
+            },
+            {
+              "class": "Normal",
+              "prob": 0.0869
+            }
+          ],
+          "softmax": [
+            0.0869,
+            0.057202,
+            0.057798,
+            0.2281,
+            0.57
+          ],
+          "exit_class_set": [
+            "Normal"
+          ],
+          "cr_score": 0.6094
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "U2R",
+          "softmax_top": 0.623,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "U2R",
+              "prob": 0.623
+            },
+            {
+              "class": "R2L",
+              "prob": 0.1976
+            },
+            {
+              "class": "Normal",
+              "prob": 0.0788
+            }
+          ],
+          "softmax": [
+            0.0788,
+            0.041313,
+            0.059287,
+            0.1976,
+            0.623
+          ],
+          "exit_class_set": [
+            "Normal",
+            "DoS"
+          ],
+          "cr_score": 0.6316
+        },
+        {
+          "model": "MLP-64",
+          "predicted_class": "U2R",
+          "softmax_top": 0.636,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "U2R",
+              "prob": 0.636
+            },
+            {
+              "class": "R2L",
+              "prob": 0.2005
+            },
+            {
+              "class": "Normal",
+              "prob": 0.0682
+            }
+          ],
+          "softmax": [
+            0.0682,
+            0.060305,
+            0.034995,
+            0.2005,
+            0.636
+          ],
+          "exit_class_set": [
+            "Normal",
+            "DoS",
+            "Probe"
+          ],
+          "cr_score": 0.6604
+        },
+        {
+          "model": "MLP-128/64",
+          "predicted_class": "U2R",
+          "softmax_top": 0.509,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "U2R",
+              "prob": 0.509
+            },
+            {
+              "class": "R2L",
+              "prob": 0.2745
+            },
+            {
+              "class": "Normal",
+              "prob": 0.0976
+            }
+          ],
+          "softmax": [
+            0.0976,
+            0.034742,
+            0.084158,
+            0.2745,
+            0.509
+          ],
+          "exit_class_set": [
+            "Normal",
+            "DoS",
+            "Probe",
+            "R2L"
+          ],
+          "cr_score": 0.7026
+        },
+        {
+          "model": "XGBoost",
+          "predicted_class": "U2R",
+          "softmax_top": 0.703,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "U2R",
+              "prob": 0.703
+            },
+            {
+              "class": "R2L",
+              "prob": 0.1669
+            },
+            {
+              "class": "Normal",
+              "prob": 0.056
+            }
+          ],
+          "softmax": [
+            0.056,
+            0.025248,
+            0.048852,
+            0.1669,
+            0.703
+          ],
+          "exit_class_set": [
+            "Normal",
+            "DoS",
+            "Probe",
+            "R2L",
+            "U2R"
+          ],
+          "cr_score": 0.7991
+        }
+      ],
+      "nomad_final": {
+        "predicted": "U2R",
+        "correct": false,
+        "depth": 4,
+        "cost_paid": 495.7,
+        "cost_reference": 298.0,
+        "speedup": 0.601
+      },
+      "frugalgpt": {
+        "exit_model": "XGBoost",
+        "exit_depth": 4,
+        "predicted": "U2R",
+        "correct": false,
+        "speedup": 0.601,
+        "softmax_at_exit": 0.703,
+        "threshold_tau": 0.73,
+        "decision": "fall_through"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "U2R",
+        "correct": false,
+        "speedup": 298.0,
+        "score_at_exit": 0.6094,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    }
+  ],
+  "depth_histogram": {
+    "Normal": {
+      "n_inputs": 567,
+      "depths": [
+        0.5784,
+        0.1761,
+        0.1008,
+        0.0739,
+        0.0708
+      ]
+    },
+    "DoS": {
+      "n_inputs": 367,
+      "depths": [
+        0.0,
+        0.4905,
+        0.2479,
+        0.1535,
+        0.1081
+      ]
+    },
+    "Probe": {
+      "n_inputs": 533,
+      "depths": [
+        0.0,
+        0.0,
+        0.5266,
+        0.2772,
+        0.1962
+      ]
+    },
+    "R2L": {
+      "n_inputs": 1031,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.6341,
+        0.3659
+      ]
+    },
+    "U2R": {
+      "n_inputs": 509,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.2186,
+        0.7814
+      ]
+    }
+  },
+  "per_model_per_class_f1": [
+    [
+      0.7873,
+      0.6835,
+      0.6297,
+      0.6023,
+      0.5756
+    ],
+    [
+      0.7853,
+      0.7546,
+      0.654,
+      0.6307,
+      0.6021
+    ],
+    [
+      0.8114,
+      0.7641,
+      0.7289,
+      0.6509,
+      0.6336
+    ],
+    [
+      0.8108,
+      0.7823,
+      0.7412,
+      0.7247,
+      0.6582
+    ],
+    [
+      0.8461,
+      0.821,
+      0.796,
+      0.7938,
+      0.7961
+    ]
+  ]
+}

@@ -1,0 +1,2336 @@
+{
+  "dataset": "imagenet",
+  "title": "ImageNet-1K",
+  "modality": "vision",
+  "fold_index": 0,
+  "epsilon": 0.1,
+  "frugalgpt_threshold_tau": 0.73,
+  "cascade_routing_threshold": 0.55,
+  "portfolio": [
+    {
+      "name": "MobileNetV2",
+      "cost": 1.2
+    },
+    {
+      "name": "ResNet18",
+      "cost": 1.8
+    },
+    {
+      "name": "EfficientNet-B0",
+      "cost": 2.4
+    },
+    {
+      "name": "ResNet50",
+      "cost": 4.5
+    },
+    {
+      "name": "EfficientNet-B4",
+      "cost": 12.0
+    },
+    {
+      "name": "ViT-B/16",
+      "cost": 18.0
+    }
+  ],
+  "reference_model": "ViT-B/16",
+  "n_classes": 31,
+  "class_names": [
+    "tiger_shark",
+    "great_white_shark",
+    "hammerhead_shark",
+    "Egyptian_cat",
+    "tabby_cat",
+    "Persian_cat",
+    "Siamese_cat",
+    "golden_retriever",
+    "Labrador_retriever",
+    "Eskimo_dog",
+    "Siberian_husky",
+    "Alaskan_malamute",
+    "library",
+    "bookshop",
+    "barbershop",
+    "espresso",
+    "cappuccino",
+    "violin",
+    "cello",
+    "lemon",
+    "orange",
+    "ostrich",
+    "flamingo",
+    "pelican",
+    "racing_car",
+    "sports_car",
+    "convertible",
+    "minivan",
+    "passenger_car",
+    "trolleybus",
+    "minibus"
+  ],
+  "case_studies": [
+    {
+      "id": "imagenet_0",
+      "fold_index": 0,
+      "pattern": "easy",
+      "true_class": "golden_retriever",
+      "input_summary": "Cropped studio shot of a long-haired tan retriever, head turned to camera, smooth solid backdrop.",
+      "nomad_trace": [
+        {
+          "model": "MobileNetV2",
+          "predicted_class": "golden_retriever",
+          "softmax_top": 0.883,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "golden_retriever",
+              "prob": 0.883
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.0545
+            },
+            {
+              "class": "Egyptian_cat",
+              "prob": 0.0227
+            }
+          ],
+          "softmax": [
+            0.0545,
+            0.000604,
+            0.000888,
+            0.0227,
+            0.00068,
+            0.000678,
+            0.000973,
+            0.883,
+            0.000659,
+            0.00335,
+            0.001394,
+            0.002478,
+            0.00068,
+            0.000665,
+            0.001779,
+            0.001724,
+            0.000837,
+            0.000653,
+            0.002631,
+            0.000478,
+            0.0022,
+            0.000596,
+            0.001198,
+            0.003885,
+            0.000648,
+            0.000509,
+            0.003103,
+            0.000563,
+            0.000916,
+            0.001654,
+            0.003376
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "Egyptian_cat",
+            "golden_retriever",
+            "library",
+            "espresso",
+            "violin",
+            "lemon",
+            "ostrich",
+            "racing_car"
+          ],
+          "cr_score": 0.7888
+        }
+      ],
+      "nomad_final": {
+        "predicted": "golden_retriever",
+        "correct": true,
+        "depth": 0,
+        "cost_paid": 1.2,
+        "cost_reference": 18.0,
+        "speedup": 15.0
+      },
+      "frugalgpt": {
+        "exit_model": "MobileNetV2",
+        "exit_depth": 0,
+        "predicted": "golden_retriever",
+        "correct": true,
+        "speedup": 15.0,
+        "softmax_at_exit": 0.883,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "MobileNetV2",
+        "exit_depth": 0,
+        "predicted": "golden_retriever",
+        "correct": true,
+        "speedup": 15.0,
+        "score_at_exit": 0.7888,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "imagenet_1",
+      "fold_index": 0,
+      "pattern": "confidence_trap",
+      "true_class": "Eskimo_dog",
+      "input_summary": "Thick double-coated working dog in snow; gray-and-white face mask, blue-eyed gaze.",
+      "nomad_trace": [
+        {
+          "model": "MobileNetV2",
+          "predicted_class": "Siberian_husky",
+          "softmax_top": 0.828,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Siberian_husky",
+              "prob": 0.828
+            },
+            {
+              "class": "Eskimo_dog",
+              "prob": 0.0953
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.0302
+            }
+          ],
+          "softmax": [
+            0.0302,
+            0.002128,
+            0.001757,
+            0.000647,
+            0.000492,
+            0.000848,
+            0.003565,
+            0.002114,
+            0.003321,
+            0.0953,
+            0.828,
+            0.001369,
+            0.000617,
+            0.000931,
+            0.001707,
+            0.000444,
+            0.000817,
+            0.002498,
+            0.001485,
+            0.002375,
+            0.002555,
+            0.000656,
+            0.002774,
+            0.002819,
+            0.002114,
+            0.000539,
+            0.000765,
+            0.000552,
+            0.001013,
+            0.00249,
+            0.003108
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "Egyptian_cat",
+            "golden_retriever",
+            "library",
+            "espresso",
+            "violin",
+            "lemon",
+            "ostrich",
+            "racing_car"
+          ],
+          "cr_score": 0.6029
+        },
+        {
+          "model": "ResNet18",
+          "predicted_class": "Siberian_husky",
+          "softmax_top": 0.641,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Siberian_husky",
+              "prob": 0.641
+            },
+            {
+              "class": "Eskimo_dog",
+              "prob": 0.2064
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.0689
+            }
+          ],
+          "softmax": [
+            0.0689,
+            0.001652,
+            0.003201,
+            0.004339,
+            0.001509,
+            0.001058,
+            0.004881,
+            0.002458,
+            0.004414,
+            0.2064,
+            0.641,
+            0.003979,
+            0.001449,
+            0.002197,
+            0.003685,
+            0.002252,
+            0.002914,
+            0.004373,
+            0.001069,
+            0.000769,
+            0.003332,
+            0.006309,
+            0.001985,
+            0.001928,
+            0.005795,
+            0.005355,
+            0.001508,
+            0.005866,
+            0.002392,
+            0.002085,
+            0.000946
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "Egyptian_cat",
+            "golden_retriever",
+            "library",
+            "espresso",
+            "violin",
+            "lemon",
+            "ostrich",
+            "racing_car"
+          ],
+          "cr_score": 0.6416
+        },
+        {
+          "model": "EfficientNet-B0",
+          "predicted_class": "Siberian_husky",
+          "softmax_top": 0.774,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Siberian_husky",
+              "prob": 0.774
+            },
+            {
+              "class": "Eskimo_dog",
+              "prob": 0.1221
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.0408
+            }
+          ],
+          "softmax": [
+            0.0408,
+            0.000985,
+            0.000865,
+            0.001463,
+            0.002785,
+            0.001389,
+            0.001617,
+            0.00484,
+            0.001622,
+            0.1221,
+            0.774,
+            0.001324,
+            0.000992,
+            0.000899,
+            0.001985,
+            0.00194,
+            0.001691,
+            0.001465,
+            0.002773,
+            0.001155,
+            0.003032,
+            0.002102,
+            0.004697,
+            0.002448,
+            0.001344,
+            0.005422,
+            0.001846,
+            0.004562,
+            0.002189,
+            0.004845,
+            0.000823
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "Egyptian_cat",
+            "golden_retriever",
+            "library",
+            "espresso",
+            "cappuccino",
+            "violin",
+            "lemon",
+            "ostrich",
+            "racing_car"
+          ],
+          "cr_score": 0.6619
+        },
+        {
+          "model": "ResNet50",
+          "predicted_class": "Siberian_husky",
+          "softmax_top": 0.741,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Siberian_husky",
+              "prob": 0.741
+            },
+            {
+              "class": "Eskimo_dog",
+              "prob": 0.1429
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.0503
+            }
+          ],
+          "softmax": [
+            0.0503,
+            0.002449,
+            0.002586,
+            0.002281,
+            0.001068,
+            0.003966,
+            0.000769,
+            0.001015,
+            0.003327,
+            0.1429,
+            0.741,
+            0.004881,
+            0.005898,
+            0.002367,
+            0.000909,
+            0.004322,
+            0.000935,
+            0.00071,
+            0.000697,
+            0.001407,
+            0.001255,
+            0.00309,
+            0.001735,
+            0.000878,
+            0.002516,
+            0.005481,
+            0.002482,
+            0.001044,
+            0.003419,
+            0.002022,
+            0.002291
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "Egyptian_cat",
+            "golden_retriever",
+            "library",
+            "espresso",
+            "cappuccino",
+            "violin",
+            "lemon",
+            "ostrich",
+            "racing_car"
+          ],
+          "cr_score": 0.6877
+        },
+        {
+          "model": "EfficientNet-B4",
+          "predicted_class": "Siberian_husky",
+          "softmax_top": 0.667,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Siberian_husky",
+              "prob": 0.667
+            },
+            {
+              "class": "Eskimo_dog",
+              "prob": 0.1733
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.0697
+            }
+          ],
+          "softmax": [
+            0.0697,
+            0.003418,
+            0.001908,
+            0.00132,
+            0.001836,
+            0.002281,
+            0.003842,
+            0.004208,
+            0.003041,
+            0.1733,
+            0.667,
+            0.006082,
+            0.001344,
+            0.007696,
+            0.007351,
+            0.004405,
+            0.002792,
+            0.002026,
+            0.002592,
+            0.003309,
+            0.001707,
+            0.005688,
+            0.005374,
+            0.001761,
+            0.001706,
+            0.001215,
+            0.005331,
+            0.001319,
+            0.003493,
+            0.001711,
+            0.001244
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "Egyptian_cat",
+            "golden_retriever",
+            "library",
+            "espresso",
+            "cappuccino",
+            "violin",
+            "lemon",
+            "ostrich",
+            "racing_car"
+          ],
+          "cr_score": 0.7114
+        },
+        {
+          "model": "ViT-B/16",
+          "predicted_class": "Eskimo_dog",
+          "softmax_top": 0.88,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Eskimo_dog",
+              "prob": 0.88
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.0694
+            },
+            {
+              "class": "Egyptian_cat",
+              "prob": 0.0238
+            }
+          ],
+          "softmax": [
+            0.0694,
+            0.002255,
+            0.00032,
+            0.0238,
+            0.000949,
+            0.000688,
+            0.000568,
+            0.001482,
+            0.000743,
+            0.88,
+            0.001668,
+            0.000926,
+            0.001144,
+            0.000446,
+            0.001783,
+            0.000861,
+            0.00204,
+            0.000755,
+            0.000419,
+            0.000455,
+            0.00046,
+            0.000593,
+            0.000403,
+            0.000324,
+            0.001237,
+            0.002043,
+            0.000311,
+            0.000441,
+            0.001952,
+            0.001215,
+            0.000318
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "great_white_shark",
+            "hammerhead_shark",
+            "Egyptian_cat",
+            "tabby_cat",
+            "Persian_cat",
+            "Siamese_cat",
+            "golden_retriever",
+            "Labrador_retriever",
+            "Eskimo_dog",
+            "Siberian_husky",
+            "Alaskan_malamute",
+            "library",
+            "bookshop",
+            "barbershop",
+            "espresso",
+            "cappuccino",
+            "violin",
+            "cello",
+            "lemon",
+            "orange",
+            "ostrich",
+            "flamingo",
+            "pelican",
+            "racing_car",
+            "sports_car",
+            "convertible",
+            "minivan",
+            "passenger_car",
+            "trolleybus",
+            "minibus"
+          ],
+          "cr_score": 0.8902
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Eskimo_dog",
+        "correct": true,
+        "depth": 5,
+        "cost_paid": 39.9,
+        "cost_reference": 18.0,
+        "speedup": 0.451
+      },
+      "frugalgpt": {
+        "exit_model": "MobileNetV2",
+        "exit_depth": 0,
+        "predicted": "Siberian_husky",
+        "correct": false,
+        "speedup": 15.0,
+        "softmax_at_exit": 0.828,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "MobileNetV2",
+        "exit_depth": 0,
+        "predicted": "Siberian_husky",
+        "correct": false,
+        "speedup": 15.0,
+        "score_at_exit": 0.6029,
+        "threshold": 0.55,
+        "decision": "trust"
+      },
+      "confidence_trap_stats": {
+        "cheap_model": "MobileNetV2",
+        "wrong_class": "Siberian_husky",
+        "true_class": "Eskimo_dog",
+        "avg_softmax_wrong_on_true": 0.7783,
+        "cheap_model_f1_on_true": 0.6377,
+        "cheap_model_f1_on_wrong": 0.5912
+      }
+    },
+    {
+      "id": "imagenet_2",
+      "fold_index": 0,
+      "pattern": "mid_depth",
+      "true_class": "cappuccino",
+      "input_summary": "Single white porcelain cup on a saucer, dark crema layer with a dense ring of bubbles around the rim.",
+      "nomad_trace": [
+        {
+          "model": "MobileNetV2",
+          "predicted_class": "cappuccino",
+          "softmax_top": 0.596,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "cappuccino",
+              "prob": 0.596
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.2285
+            },
+            {
+              "class": "Egyptian_cat",
+              "prob": 0.0838
+            }
+          ],
+          "softmax": [
+            0.2285,
+            0.001263,
+            0.001641,
+            0.0838,
+            0.001176,
+            0.003988,
+            0.008173,
+            0.001266,
+            0.005502,
+            0.001944,
+            0.002495,
+            0.002645,
+            0.001585,
+            0.002647,
+            0.002315,
+            0.001882,
+            0.596,
+            0.001459,
+            0.003515,
+            0.004118,
+            0.008125,
+            0.001518,
+            0.008742,
+            0.004736,
+            0.004826,
+            0.005152,
+            0.002912,
+            0.002075,
+            0.001109,
+            0.001142,
+            0.003751
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "Egyptian_cat",
+            "golden_retriever",
+            "library",
+            "espresso",
+            "violin",
+            "lemon",
+            "ostrich",
+            "racing_car"
+          ],
+          "cr_score": 0.6846
+        },
+        {
+          "model": "ResNet18",
+          "predicted_class": "cappuccino",
+          "softmax_top": 0.56,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "cappuccino",
+              "prob": 0.56
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.2436
+            },
+            {
+              "class": "Egyptian_cat",
+              "prob": 0.0846
+            }
+          ],
+          "softmax": [
+            0.2436,
+            0.001002,
+            0.008653,
+            0.0846,
+            0.008013,
+            0.006104,
+            0.005372,
+            0.002239,
+            0.001641,
+            0.004873,
+            0.008196,
+            0.001138,
+            0.001548,
+            0.004867,
+            0.007659,
+            0.001193,
+            0.56,
+            0.007599,
+            0.001045,
+            0.007094,
+            0.005319,
+            0.001866,
+            0.003289,
+            0.004434,
+            0.00103,
+            0.001217,
+            0.003461,
+            0.001152,
+            0.000991,
+            0.006606,
+            0.004199
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "Egyptian_cat",
+            "golden_retriever",
+            "library",
+            "espresso",
+            "violin",
+            "lemon",
+            "ostrich",
+            "racing_car"
+          ],
+          "cr_score": 0.7096
+        },
+        {
+          "model": "EfficientNet-B0",
+          "predicted_class": "cappuccino",
+          "softmax_top": 0.829,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "cappuccino",
+              "prob": 0.829
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.0948
+            },
+            {
+              "class": "Egyptian_cat",
+              "prob": 0.0339
+            }
+          ],
+          "softmax": [
+            0.0948,
+            0.001376,
+            0.000732,
+            0.0339,
+            0.002544,
+            0.001879,
+            0.001186,
+            0.000808,
+            0.000659,
+            0.002171,
+            0.001623,
+            0.000788,
+            0.002215,
+            0.000614,
+            0.001451,
+            0.003569,
+            0.829,
+            0.000637,
+            0.001474,
+            0.000558,
+            0.001078,
+            0.001722,
+            0.002103,
+            0.001096,
+            0.00404,
+            0.000568,
+            0.00079,
+            0.000897,
+            0.001568,
+            0.002611,
+            0.001543
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "Egyptian_cat",
+            "golden_retriever",
+            "library",
+            "espresso",
+            "cappuccino",
+            "violin",
+            "lemon",
+            "ostrich",
+            "racing_car"
+          ],
+          "cr_score": 0.753
+        }
+      ],
+      "nomad_final": {
+        "predicted": "cappuccino",
+        "correct": true,
+        "depth": 2,
+        "cost_paid": 5.4,
+        "cost_reference": 18.0,
+        "speedup": 3.333
+      },
+      "frugalgpt": {
+        "exit_model": "EfficientNet-B0",
+        "exit_depth": 2,
+        "predicted": "cappuccino",
+        "correct": true,
+        "speedup": 3.333,
+        "softmax_at_exit": 0.829,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "MobileNetV2",
+        "exit_depth": 0,
+        "predicted": "cappuccino",
+        "correct": true,
+        "speedup": 15.0,
+        "score_at_exit": 0.6846,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "imagenet_3",
+      "fold_index": 0,
+      "pattern": "rare_fall_through",
+      "true_class": "trolleybus",
+      "input_summary": "Articulated electric bus with overhead pickup poles and twin trolley wires running off frame.",
+      "nomad_trace": [
+        {
+          "model": "MobileNetV2",
+          "predicted_class": "Siberian_husky",
+          "softmax_top": 0.654,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Siberian_husky",
+              "prob": 0.654
+            },
+            {
+              "class": "trolleybus",
+              "prob": 0.1858
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.0651
+            }
+          ],
+          "softmax": [
+            0.0651,
+            0.001375,
+            0.003111,
+            0.001628,
+            0.001065,
+            0.004784,
+            0.001134,
+            0.002238,
+            0.00852,
+            0.001252,
+            0.654,
+            0.006763,
+            0.001706,
+            0.002382,
+            0.002215,
+            0.005335,
+            0.007121,
+            0.001707,
+            0.002364,
+            0.001514,
+            0.003491,
+            0.001438,
+            0.004699,
+            0.006449,
+            0.001327,
+            0.004623,
+            0.006163,
+            0.002369,
+            0.001811,
+            0.1858,
+            0.006515
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "Egyptian_cat",
+            "golden_retriever",
+            "library",
+            "espresso",
+            "violin",
+            "lemon",
+            "ostrich",
+            "racing_car"
+          ],
+          "cr_score": 0.605
+        },
+        {
+          "model": "ResNet18",
+          "predicted_class": "Siberian_husky",
+          "softmax_top": 0.633,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Siberian_husky",
+              "prob": 0.633
+            },
+            {
+              "class": "trolleybus",
+              "prob": 0.1937
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.0715
+            }
+          ],
+          "softmax": [
+            0.0715,
+            0.002027,
+            0.002072,
+            0.004823,
+            0.002226,
+            0.001664,
+            0.002803,
+            0.003551,
+            0.005631,
+            0.005003,
+            0.633,
+            0.001662,
+            0.004242,
+            0.001575,
+            0.002999,
+            0.006071,
+            0.004286,
+            0.001484,
+            0.004106,
+            0.002897,
+            0.001479,
+            0.003129,
+            0.009782,
+            0.00548,
+            0.003045,
+            0.005314,
+            0.008383,
+            0.002779,
+            0.001602,
+            0.1937,
+            0.001686
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "Egyptian_cat",
+            "golden_retriever",
+            "library",
+            "espresso",
+            "violin",
+            "lemon",
+            "ostrich",
+            "racing_car"
+          ],
+          "cr_score": 0.631
+        },
+        {
+          "model": "EfficientNet-B0",
+          "predicted_class": "Siberian_husky",
+          "softmax_top": 0.648,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Siberian_husky",
+              "prob": 0.648
+            },
+            {
+              "class": "trolleybus",
+              "prob": 0.1858
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.0722
+            }
+          ],
+          "softmax": [
+            0.0722,
+            0.002798,
+            0.001251,
+            0.001376,
+            0.002038,
+            0.005253,
+            0.001151,
+            0.005915,
+            0.002717,
+            0.003707,
+            0.648,
+            0.004143,
+            0.001563,
+            0.004523,
+            0.010218,
+            0.003182,
+            0.002609,
+            0.001671,
+            0.005026,
+            0.001709,
+            0.003036,
+            0.002957,
+            0.002692,
+            0.005234,
+            0.004391,
+            0.004763,
+            0.004355,
+            0.002873,
+            0.001374,
+            0.1858,
+            0.001476
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "Egyptian_cat",
+            "golden_retriever",
+            "library",
+            "espresso",
+            "cappuccino",
+            "violin",
+            "lemon",
+            "ostrich",
+            "racing_car"
+          ],
+          "cr_score": 0.6605
+        },
+        {
+          "model": "ResNet50",
+          "predicted_class": "Siberian_husky",
+          "softmax_top": 0.64,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Siberian_husky",
+              "prob": 0.64
+            },
+            {
+              "class": "trolleybus",
+              "prob": 0.2033
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.0736
+            }
+          ],
+          "softmax": [
+            0.0736,
+            0.001166,
+            0.004841,
+            0.003636,
+            0.004072,
+            0.002514,
+            0.005764,
+            0.002458,
+            0.000993,
+            0.001363,
+            0.64,
+            0.003788,
+            0.005952,
+            0.003231,
+            0.002364,
+            0.000941,
+            0.00078,
+            0.001829,
+            0.006208,
+            0.002961,
+            0.004421,
+            0.002377,
+            0.004435,
+            0.001126,
+            0.001121,
+            0.003007,
+            0.00086,
+            0.003379,
+            0.00617,
+            0.2033,
+            0.001345
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "Egyptian_cat",
+            "golden_retriever",
+            "library",
+            "espresso",
+            "cappuccino",
+            "violin",
+            "lemon",
+            "ostrich",
+            "racing_car"
+          ],
+          "cr_score": 0.6818
+        },
+        {
+          "model": "EfficientNet-B4",
+          "predicted_class": "Siberian_husky",
+          "softmax_top": 0.648,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Siberian_husky",
+              "prob": 0.648
+            },
+            {
+              "class": "trolleybus",
+              "prob": 0.2022
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.0722
+            }
+          ],
+          "softmax": [
+            0.0722,
+            0.001552,
+            0.001771,
+            0.002693,
+            0.005019,
+            0.002012,
+            0.004432,
+            0.005185,
+            0.001874,
+            0.002693,
+            0.648,
+            0.005361,
+            0.00334,
+            0.00336,
+            0.000823,
+            0.001208,
+            0.004427,
+            0.003636,
+            0.001136,
+            0.001957,
+            0.003453,
+            0.003538,
+            0.003629,
+            0.002877,
+            0.003228,
+            0.000922,
+            0.001091,
+            0.000796,
+            0.004371,
+            0.2022,
+            0.001215
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "Egyptian_cat",
+            "golden_retriever",
+            "library",
+            "espresso",
+            "cappuccino",
+            "violin",
+            "lemon",
+            "ostrich",
+            "racing_car"
+          ],
+          "cr_score": 0.7029
+        },
+        {
+          "model": "ViT-B/16",
+          "predicted_class": "trolleybus",
+          "softmax_top": 0.901,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "trolleybus",
+              "prob": 0.901
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.0513
+            },
+            {
+              "class": "Egyptian_cat",
+              "prob": 0.0165
+            }
+          ],
+          "softmax": [
+            0.0513,
+            0.000434,
+            0.00127,
+            0.0165,
+            0.000447,
+            0.001538,
+            0.002355,
+            0.001121,
+            0.000517,
+            0.001432,
+            0.001332,
+            0.000569,
+            0.000396,
+            0.000709,
+            0.001497,
+            0.000398,
+            0.003279,
+            0.000559,
+            0.000392,
+            0.000712,
+            0.001311,
+            0.000458,
+            0.000543,
+            0.000543,
+            0.002513,
+            0.000392,
+            0.000804,
+            0.00122,
+            0.002742,
+            0.901,
+            0.001715
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "great_white_shark",
+            "hammerhead_shark",
+            "Egyptian_cat",
+            "tabby_cat",
+            "Persian_cat",
+            "Siamese_cat",
+            "golden_retriever",
+            "Labrador_retriever",
+            "Eskimo_dog",
+            "Siberian_husky",
+            "Alaskan_malamute",
+            "library",
+            "bookshop",
+            "barbershop",
+            "espresso",
+            "cappuccino",
+            "violin",
+            "cello",
+            "lemon",
+            "orange",
+            "ostrich",
+            "flamingo",
+            "pelican",
+            "racing_car",
+            "sports_car",
+            "convertible",
+            "minivan",
+            "passenger_car",
+            "trolleybus",
+            "minibus"
+          ],
+          "cr_score": 0.8366
+        }
+      ],
+      "nomad_final": {
+        "predicted": "trolleybus",
+        "correct": true,
+        "depth": 5,
+        "cost_paid": 39.9,
+        "cost_reference": 18.0,
+        "speedup": 0.451
+      },
+      "frugalgpt": {
+        "exit_model": "ViT-B/16",
+        "exit_depth": 5,
+        "predicted": "trolleybus",
+        "correct": true,
+        "speedup": 0.451,
+        "softmax_at_exit": 0.901,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "MobileNetV2",
+        "exit_depth": 0,
+        "predicted": "Siberian_husky",
+        "correct": false,
+        "speedup": 15.0,
+        "score_at_exit": 0.605,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "imagenet_4",
+      "fold_index": 0,
+      "pattern": "honest_failure",
+      "true_class": "violin",
+      "input_summary": "String instrument resting on a chair; full body visible, scroll out of frame, glossy maple back.",
+      "nomad_trace": [
+        {
+          "model": "MobileNetV2",
+          "predicted_class": "cello",
+          "softmax_top": 0.621,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "cello",
+              "prob": 0.621
+            },
+            {
+              "class": "violin",
+              "prob": 0.1993
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.0709
+            }
+          ],
+          "softmax": [
+            0.0709,
+            0.003847,
+            0.006329,
+            0.004263,
+            0.001408,
+            0.006303,
+            0.005253,
+            0.001044,
+            0.00737,
+            0.004641,
+            0.005205,
+            0.003838,
+            0.007417,
+            0.003813,
+            0.005546,
+            0.005717,
+            0.001805,
+            0.1993,
+            0.621,
+            0.001476,
+            0.004708,
+            0.002953,
+            0.003033,
+            0.001522,
+            0.002519,
+            0.001109,
+            0.00351,
+            0.002941,
+            0.005419,
+            0.001759,
+            0.004049
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "Egyptian_cat",
+            "golden_retriever",
+            "library",
+            "espresso",
+            "violin",
+            "lemon",
+            "ostrich",
+            "racing_car"
+          ],
+          "cr_score": 0.6835
+        },
+        {
+          "model": "ResNet18",
+          "predicted_class": "cello",
+          "softmax_top": 0.511,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "cello",
+              "prob": 0.511
+            },
+            {
+              "class": "violin",
+              "prob": 0.2646
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.0958
+            }
+          ],
+          "softmax": [
+            0.0958,
+            0.005047,
+            0.001576,
+            0.002168,
+            0.00432,
+            0.002103,
+            0.005722,
+            0.0059,
+            0.006327,
+            0.004275,
+            0.001535,
+            0.011113,
+            0.001585,
+            0.00144,
+            0.009913,
+            0.002157,
+            0.002406,
+            0.2646,
+            0.511,
+            0.005735,
+            0.010513,
+            0.002943,
+            0.002265,
+            0.009814,
+            0.005004,
+            0.00686,
+            0.002099,
+            0.001912,
+            0.001833,
+            0.001643,
+            0.01039
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "Egyptian_cat",
+            "golden_retriever",
+            "library",
+            "espresso",
+            "violin",
+            "lemon",
+            "ostrich",
+            "racing_car"
+          ],
+          "cr_score": 0.7152
+        },
+        {
+          "model": "EfficientNet-B0",
+          "predicted_class": "cello",
+          "softmax_top": 0.512,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "cello",
+              "prob": 0.512
+            },
+            {
+              "class": "violin",
+              "prob": 0.2723
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.1012
+            }
+          ],
+          "softmax": [
+            0.1012,
+            0.007196,
+            0.005407,
+            0.001346,
+            0.005631,
+            0.007551,
+            0.009202,
+            0.001297,
+            0.001473,
+            0.00125,
+            0.004259,
+            0.008589,
+            0.005774,
+            0.005658,
+            0.006809,
+            0.002467,
+            0.001911,
+            0.2723,
+            0.512,
+            0.007721,
+            0.00255,
+            0.001445,
+            0.001381,
+            0.006269,
+            0.001802,
+            0.002094,
+            0.00492,
+            0.001308,
+            0.001486,
+            0.006145,
+            0.001561
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "Egyptian_cat",
+            "golden_retriever",
+            "library",
+            "espresso",
+            "cappuccino",
+            "violin",
+            "lemon",
+            "ostrich",
+            "racing_car"
+          ],
+          "cr_score": 0.7407
+        },
+        {
+          "model": "ResNet50",
+          "predicted_class": "cello",
+          "softmax_top": 0.514,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "cello",
+              "prob": 0.514
+            },
+            {
+              "class": "violin",
+              "prob": 0.2692
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.0991
+            }
+          ],
+          "softmax": [
+            0.0991,
+            0.006236,
+            0.001372,
+            0.001392,
+            0.001324,
+            0.009447,
+            0.006372,
+            0.002872,
+            0.010548,
+            0.001276,
+            0.002097,
+            0.009616,
+            0.002036,
+            0.009443,
+            0.001839,
+            0.002781,
+            0.001872,
+            0.2692,
+            0.514,
+            0.009277,
+            0.00255,
+            0.003682,
+            0.00217,
+            0.005917,
+            0.001931,
+            0.002065,
+            0.002532,
+            0.003895,
+            0.00502,
+            0.004446,
+            0.003692
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "Egyptian_cat",
+            "golden_retriever",
+            "library",
+            "espresso",
+            "cappuccino",
+            "violin",
+            "lemon",
+            "ostrich",
+            "racing_car"
+          ],
+          "cr_score": 0.7567
+        },
+        {
+          "model": "EfficientNet-B4",
+          "predicted_class": "cello",
+          "softmax_top": 0.739,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "cello",
+              "prob": 0.739
+            },
+            {
+              "class": "violin",
+              "prob": 0.1443
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.0544
+            }
+          ],
+          "softmax": [
+            0.0544,
+            0.001192,
+            0.000989,
+            0.002743,
+            0.001578,
+            0.003712,
+            0.002934,
+            0.000769,
+            0.002373,
+            0.00184,
+            0.00273,
+            0.003891,
+            0.000916,
+            0.001989,
+            0.000565,
+            0.001787,
+            0.000856,
+            0.1443,
+            0.739,
+            0.003246,
+            0.002416,
+            0.001129,
+            0.004551,
+            0.004156,
+            0.001177,
+            0.002433,
+            0.004253,
+            0.000736,
+            0.001187,
+            0.001162,
+            0.004991
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "Egyptian_cat",
+            "golden_retriever",
+            "library",
+            "espresso",
+            "cappuccino",
+            "violin",
+            "lemon",
+            "ostrich",
+            "racing_car"
+          ],
+          "cr_score": 0.7596
+        },
+        {
+          "model": "ViT-B/16",
+          "predicted_class": "cello",
+          "softmax_top": 0.779,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "cello",
+              "prob": 0.779
+            },
+            {
+              "class": "violin",
+              "prob": 0.1282
+            },
+            {
+              "class": "tiger_shark",
+              "prob": 0.0488
+            }
+          ],
+          "softmax": [
+            0.0488,
+            0.001168,
+            0.000619,
+            0.002138,
+            0.000695,
+            0.002078,
+            0.000676,
+            0.001242,
+            0.002069,
+            0.001859,
+            0.003173,
+            0.003637,
+            0.001081,
+            0.000974,
+            0.000713,
+            0.000464,
+            0.000513,
+            0.1282,
+            0.779,
+            0.000931,
+            0.003716,
+            0.000598,
+            0.002277,
+            0.001021,
+            0.000885,
+            0.001762,
+            0.000762,
+            0.003165,
+            0.000991,
+            0.001175,
+            0.00362
+          ],
+          "exit_class_set": [
+            "tiger_shark",
+            "great_white_shark",
+            "hammerhead_shark",
+            "Egyptian_cat",
+            "tabby_cat",
+            "Persian_cat",
+            "Siamese_cat",
+            "golden_retriever",
+            "Labrador_retriever",
+            "Eskimo_dog",
+            "Siberian_husky",
+            "Alaskan_malamute",
+            "library",
+            "bookshop",
+            "barbershop",
+            "espresso",
+            "cappuccino",
+            "violin",
+            "cello",
+            "lemon",
+            "orange",
+            "ostrich",
+            "flamingo",
+            "pelican",
+            "racing_car",
+            "sports_car",
+            "convertible",
+            "minivan",
+            "passenger_car",
+            "trolleybus",
+            "minibus"
+          ],
+          "cr_score": 0.8862
+        }
+      ],
+      "nomad_final": {
+        "predicted": "cello",
+        "correct": false,
+        "depth": 5,
+        "cost_paid": 39.9,
+        "cost_reference": 18.0,
+        "speedup": 0.451
+      },
+      "frugalgpt": {
+        "exit_model": "EfficientNet-B4",
+        "exit_depth": 4,
+        "predicted": "cello",
+        "correct": false,
+        "speedup": 0.822,
+        "softmax_at_exit": 0.739,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "MobileNetV2",
+        "exit_depth": 0,
+        "predicted": "cello",
+        "correct": false,
+        "speedup": 15.0,
+        "score_at_exit": 0.6835,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    }
+  ],
+  "depth_histogram": {
+    "tiger_shark": {
+      "n_inputs": 492,
+      "depths": [
+        0.5718,
+        0.1756,
+        0.0879,
+        0.0552,
+        0.0544,
+        0.0551
+      ]
+    },
+    "great_white_shark": {
+      "n_inputs": 265,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "hammerhead_shark": {
+      "n_inputs": 102,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "Egyptian_cat": {
+      "n_inputs": 452,
+      "depths": [
+        0.636,
+        0.1913,
+        0.0708,
+        0.0356,
+        0.0337,
+        0.0326
+      ]
+    },
+    "tabby_cat": {
+      "n_inputs": 483,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "Persian_cat": {
+      "n_inputs": 498,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "Siamese_cat": {
+      "n_inputs": 445,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "golden_retriever": {
+      "n_inputs": 395,
+      "depths": [
+        0.6388,
+        0.2335,
+        0.113,
+        0.0049,
+        0.0049,
+        0.0049
+      ]
+    },
+    "Labrador_retriever": {
+      "n_inputs": 243,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "Eskimo_dog": {
+      "n_inputs": 258,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "Siberian_husky": {
+      "n_inputs": 394,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.2416,
+        0.7584
+      ]
+    },
+    "Alaskan_malamute": {
+      "n_inputs": 167,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "library": {
+      "n_inputs": 260,
+      "depths": [
+        0.6156,
+        0.1616,
+        0.1036,
+        0.0389,
+        0.0399,
+        0.0404
+      ]
+    },
+    "bookshop": {
+      "n_inputs": 271,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "barbershop": {
+      "n_inputs": 506,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "espresso": {
+      "n_inputs": 469,
+      "depths": [
+        0.6684,
+        0.1613,
+        0.0965,
+        0.0243,
+        0.0261,
+        0.0234
+      ]
+    },
+    "cappuccino": {
+      "n_inputs": 443,
+      "depths": [
+        0.0,
+        0.0,
+        0.4655,
+        0.2615,
+        0.1494,
+        0.1236
+      ]
+    },
+    "violin": {
+      "n_inputs": 293,
+      "depths": [
+        0.5878,
+        0.1636,
+        0.1124,
+        0.0473,
+        0.0441,
+        0.0448
+      ]
+    },
+    "cello": {
+      "n_inputs": 138,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.2198,
+        0.7802
+      ]
+    },
+    "lemon": {
+      "n_inputs": 74,
+      "depths": [
+        0.6032,
+        0.2351,
+        0.0819,
+        0.0246,
+        0.027,
+        0.0282
+      ]
+    },
+    "orange": {
+      "n_inputs": 561,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "ostrich": {
+      "n_inputs": 262,
+      "depths": [
+        0.6256,
+        0.234,
+        0.1098,
+        0.0089,
+        0.0122,
+        0.0095
+      ]
+    },
+    "flamingo": {
+      "n_inputs": 114,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "pelican": {
+      "n_inputs": 219,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "racing_car": {
+      "n_inputs": 249,
+      "depths": [
+        0.6642,
+        0.1712,
+        0.1157,
+        0.0154,
+        0.0171,
+        0.0164
+      ]
+    },
+    "sports_car": {
+      "n_inputs": 75,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "convertible": {
+      "n_inputs": 415,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "minivan": {
+      "n_inputs": 351,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "passenger_car": {
+      "n_inputs": 100,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "trolleybus": {
+      "n_inputs": 50,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.243,
+        0.757
+      ]
+    },
+    "minibus": {
+      "n_inputs": 362,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    }
+  },
+  "per_model_per_class_f1": [
+    [
+      0.7486,
+      0.6206,
+      0.5845,
+      0.8427,
+      0.5859,
+      0.5766,
+      0.576,
+      0.7972,
+      0.5429,
+      0.6377,
+      0.5912,
+      0.6408,
+      0.7831,
+      0.6419,
+      0.5798,
+      0.7631,
+      0.6455,
+      0.8268,
+      0.6376,
+      0.8217,
+      0.6224,
+      0.779,
+      0.5912,
+      0.5676,
+      0.7948,
+      0.6415,
+      0.6148,
+      0.6081,
+      0.5458,
+      0.5877,
+      0.593
+    ],
+    [
+      0.7721,
+      0.6504,
+      0.6011,
+      0.8572,
+      0.6038,
+      0.5944,
+      0.596,
+      0.8113,
+      0.5728,
+      0.6761,
+      0.6105,
+      0.6696,
+      0.8022,
+      0.6649,
+      0.608,
+      0.7857,
+      0.6703,
+      0.8265,
+      0.66,
+      0.8181,
+      0.6444,
+      0.788,
+      0.6265,
+      0.5976,
+      0.8,
+      0.6721,
+      0.6335,
+      0.6261,
+      0.5778,
+      0.6192,
+      0.6177
+    ],
+    [
+      0.7898,
+      0.6847,
+      0.6382,
+      0.8684,
+      0.6234,
+      0.6187,
+      0.6142,
+      0.8266,
+      0.6058,
+      0.697,
+      0.6469,
+      0.6914,
+      0.8059,
+      0.6912,
+      0.6266,
+      0.7807,
+      0.7469,
+      0.8348,
+      0.6941,
+      0.8318,
+      0.6752,
+      0.8026,
+      0.6511,
+      0.624,
+      0.8137,
+      0.6957,
+      0.6718,
+      0.6515,
+      0.5938,
+      0.6392,
+      0.6368
+    ],
+    [
+      0.7834,
+      0.7059,
+      0.6636,
+      0.8712,
+      0.6543,
+      0.6477,
+      0.6415,
+      0.8349,
+      0.6249,
+      0.7187,
+      0.6718,
+      0.7071,
+      0.8177,
+      0.7146,
+      0.6568,
+      0.8022,
+      0.7773,
+      0.8403,
+      0.7194,
+      0.858,
+      0.6989,
+      0.803,
+      0.668,
+      0.6467,
+      0.8307,
+      0.7177,
+      0.6961,
+      0.6881,
+      0.6248,
+      0.6622,
+      0.6671
+    ],
+    [
+      0.8025,
+      0.7207,
+      0.6872,
+      0.8807,
+      0.674,
+      0.6743,
+      0.676,
+      0.8323,
+      0.6493,
+      0.7465,
+      0.6892,
+      0.7385,
+      0.8353,
+      0.7409,
+      0.6785,
+      0.8053,
+      0.7687,
+      0.8688,
+      0.7379,
+      0.8563,
+      0.721,
+      0.8146,
+      0.6984,
+      0.6724,
+      0.8376,
+      0.744,
+      0.7084,
+      0.7005,
+      0.6429,
+      0.6942,
+      0.6816
+    ],
+    [
+      0.8206,
+      0.8781,
+      0.8272,
+      0.9065,
+      0.8252,
+      0.8149,
+      0.8143,
+      0.8601,
+      0.7901,
+      0.8966,
+      0.8389,
+      0.8888,
+      0.8585,
+      0.8899,
+      0.8245,
+      0.8287,
+      0.8117,
+      0.8833,
+      0.8927,
+      0.8821,
+      0.8723,
+      0.8372,
+      0.8423,
+      0.8159,
+      0.8568,
+      0.8929,
+      0.8648,
+      0.8537,
+      0.7884,
+      0.8361,
+      0.8322
+    ]
+  ]
+}

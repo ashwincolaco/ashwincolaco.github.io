@@ -1,0 +1,1027 @@
+{
+  "dataset": "unsw_nb15",
+  "title": "Intrusions-UNSW",
+  "modality": "tabular",
+  "fold_index": 0,
+  "epsilon": 0.1,
+  "frugalgpt_threshold_tau": 0.73,
+  "cascade_routing_threshold": 0.55,
+  "portfolio": [
+    {
+      "name": "LogReg",
+      "cost": 1.0
+    },
+    {
+      "name": "DecisionTree",
+      "cost": 1.7
+    },
+    {
+      "name": "MLP-64",
+      "cost": 41.0
+    },
+    {
+      "name": "MLP-128/64",
+      "cost": 154.0
+    },
+    {
+      "name": "XGBoost",
+      "cost": 298.0
+    }
+  ],
+  "reference_model": "XGBoost",
+  "n_classes": 10,
+  "class_names": [
+    "Normal",
+    "Reconnaissance",
+    "Backdoor",
+    "DoS",
+    "Exploits",
+    "Generic",
+    "Worms",
+    "Shellcode",
+    "Fuzzers",
+    "Analysis"
+  ],
+  "case_studies": [
+    {
+      "id": "unsw_nb15_0",
+      "fold_index": 0,
+      "pattern": "easy",
+      "true_class": "Generic",
+      "input_summary": "Cryptographic hash-collision payload: characteristic byte distribution, large source-byte count, single-shot session.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "Generic",
+          "softmax_top": 0.945,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Generic",
+              "prob": 0.945
+            },
+            {
+              "class": "Normal",
+              "prob": 0.028
+            },
+            {
+              "class": "Exploits",
+              "prob": 0.009
+            }
+          ],
+          "softmax": [
+            0.028,
+            0.001083,
+            0.006173,
+            0.002688,
+            0.009,
+            0.945,
+            0.000781,
+            0.002321,
+            0.001302,
+            0.003652
+          ],
+          "exit_class_set": [
+            "Normal",
+            "Exploits",
+            "Generic"
+          ],
+          "cr_score": 0.7651
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Generic",
+        "correct": true,
+        "depth": 0,
+        "cost_paid": 1.0,
+        "cost_reference": 298.0,
+        "speedup": 298.0
+      },
+      "frugalgpt": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "Generic",
+        "correct": true,
+        "speedup": 298.0,
+        "softmax_at_exit": 0.945,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "Generic",
+        "correct": true,
+        "speedup": 298.0,
+        "score_at_exit": 0.7651,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "unsw_nb15_1",
+      "fold_index": 0,
+      "pattern": "confidence_trap",
+      "true_class": "Exploits",
+      "input_summary": "Buffer-overflow attempt resembling worm propagation: similar packet-length distribution and TCP flag pattern.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "Worms",
+          "softmax_top": 0.893,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Worms",
+              "prob": 0.893
+            },
+            {
+              "class": "Exploits",
+              "prob": 0.0558
+            },
+            {
+              "class": "Normal",
+              "prob": 0.0243
+            }
+          ],
+          "softmax": [
+            0.0243,
+            0.002856,
+            0.010136,
+            0.004392,
+            0.0558,
+            0.002391,
+            0.893,
+            0.002485,
+            0.002014,
+            0.002627
+          ],
+          "exit_class_set": [
+            "Normal",
+            "Exploits",
+            "Generic"
+          ],
+          "cr_score": 0.5305
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "Exploits",
+          "softmax_top": 0.867,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Exploits",
+              "prob": 0.867
+            },
+            {
+              "class": "Normal",
+              "prob": 0.08
+            },
+            {
+              "class": "Generic",
+              "prob": 0.0268
+            }
+          ],
+          "softmax": [
+            0.08,
+            0.001782,
+            0.002977,
+            0.006079,
+            0.867,
+            0.0268,
+            0.001422,
+            0.005275,
+            0.005758,
+            0.002907
+          ],
+          "exit_class_set": [
+            "Normal",
+            "Reconnaissance",
+            "DoS",
+            "Exploits",
+            "Generic"
+          ],
+          "cr_score": 0.7456
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Exploits",
+        "correct": true,
+        "depth": 1,
+        "cost_paid": 2.7,
+        "cost_reference": 298.0,
+        "speedup": 110.37
+      },
+      "frugalgpt": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "Worms",
+        "correct": false,
+        "speedup": 298.0,
+        "softmax_at_exit": 0.893,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "DecisionTree",
+        "exit_depth": 1,
+        "predicted": "Exploits",
+        "correct": true,
+        "speedup": 110.37,
+        "score_at_exit": 0.7456,
+        "threshold": 0.55,
+        "decision": "trust"
+      },
+      "confidence_trap_stats": {
+        "cheap_model": "LogReg",
+        "wrong_class": "Worms",
+        "true_class": "Exploits",
+        "avg_softmax_wrong_on_true": 0.8394,
+        "cheap_model_f1_on_true": 0.7391,
+        "cheap_model_f1_on_wrong": 0.5101
+      }
+    },
+    {
+      "id": "unsw_nb15_2",
+      "fold_index": 0,
+      "pattern": "mid_depth",
+      "true_class": "Reconnaissance",
+      "input_summary": "Repeated probe on a non-standard service port; slowly varying inter-arrival times; low payload entropy.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "Reconnaissance",
+          "softmax_top": 0.613,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Reconnaissance",
+              "prob": 0.613
+            },
+            {
+              "class": "Normal",
+              "prob": 0.2046
+            },
+            {
+              "class": "Exploits",
+              "prob": 0.0765
+            }
+          ],
+          "softmax": [
+            0.2046,
+            0.613,
+            0.01373,
+            0.006028,
+            0.0765,
+            0.006063,
+            0.022236,
+            0.012249,
+            0.018074,
+            0.027521
+          ],
+          "exit_class_set": [
+            "Normal",
+            "Exploits",
+            "Generic"
+          ],
+          "cr_score": 0.6437
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "Reconnaissance",
+          "softmax_top": 0.825,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Reconnaissance",
+              "prob": 0.825
+            },
+            {
+              "class": "Normal",
+              "prob": 0.1052
+            },
+            {
+              "class": "Exploits",
+              "prob": 0.0354
+            }
+          ],
+          "softmax": [
+            0.1052,
+            0.825,
+            0.006191,
+            0.002128,
+            0.0354,
+            0.004386,
+            0.008572,
+            0.003441,
+            0.005855,
+            0.003826
+          ],
+          "exit_class_set": [
+            "Normal",
+            "Reconnaissance",
+            "DoS",
+            "Exploits",
+            "Generic"
+          ],
+          "cr_score": 0.7072
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Reconnaissance",
+        "correct": true,
+        "depth": 1,
+        "cost_paid": 2.7,
+        "cost_reference": 298.0,
+        "speedup": 110.37
+      },
+      "frugalgpt": {
+        "exit_model": "DecisionTree",
+        "exit_depth": 1,
+        "predicted": "Reconnaissance",
+        "correct": true,
+        "speedup": 110.37,
+        "softmax_at_exit": 0.825,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "Reconnaissance",
+        "correct": true,
+        "speedup": 298.0,
+        "score_at_exit": 0.6437,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "unsw_nb15_3",
+      "fold_index": 0,
+      "pattern": "rare_fall_through",
+      "true_class": "Backdoor",
+      "input_summary": "Long-lived encrypted callback flow with periodic small payloads; mimics legitimate update channels.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "Worms",
+          "softmax_top": 0.515,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Worms",
+              "prob": 0.515
+            },
+            {
+              "class": "Backdoor",
+              "prob": 0.2728
+            },
+            {
+              "class": "Normal",
+              "prob": 0.1011
+            }
+          ],
+          "softmax": [
+            0.1011,
+            0.014064,
+            0.2728,
+            0.029086,
+            0.007609,
+            0.009138,
+            0.515,
+            0.02727,
+            0.006067,
+            0.017866
+          ],
+          "exit_class_set": [
+            "Normal",
+            "Exploits",
+            "Generic"
+          ],
+          "cr_score": 0.5468
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "Worms",
+          "softmax_top": 0.547,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Worms",
+              "prob": 0.547
+            },
+            {
+              "class": "Backdoor",
+              "prob": 0.24
+            },
+            {
+              "class": "Normal",
+              "prob": 0.0897
+            }
+          ],
+          "softmax": [
+            0.0897,
+            0.010652,
+            0.24,
+            0.014489,
+            0.026519,
+            0.014802,
+            0.547,
+            0.010523,
+            0.020414,
+            0.025902
+          ],
+          "exit_class_set": [
+            "Normal",
+            "Reconnaissance",
+            "DoS",
+            "Exploits",
+            "Generic"
+          ],
+          "cr_score": 0.5796
+        },
+        {
+          "model": "MLP-64",
+          "predicted_class": "Worms",
+          "softmax_top": 0.63,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Worms",
+              "prob": 0.63
+            },
+            {
+              "class": "Backdoor",
+              "prob": 0.2109
+            },
+            {
+              "class": "Normal",
+              "prob": 0.0764
+            }
+          ],
+          "softmax": [
+            0.0764,
+            0.003923,
+            0.2109,
+            0.015059,
+            0.00415,
+            0.02812,
+            0.63,
+            0.018061,
+            0.00456,
+            0.008827
+          ],
+          "exit_class_set": [
+            "Normal",
+            "Reconnaissance",
+            "DoS",
+            "Exploits",
+            "Generic",
+            "Shellcode"
+          ],
+          "cr_score": 0.5965
+        },
+        {
+          "model": "MLP-128/64",
+          "predicted_class": "Worms",
+          "softmax_top": 0.569,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Worms",
+              "prob": 0.569
+            },
+            {
+              "class": "Backdoor",
+              "prob": 0.2452
+            },
+            {
+              "class": "Normal",
+              "prob": 0.0819
+            }
+          ],
+          "softmax": [
+            0.0819,
+            0.009206,
+            0.2452,
+            0.007617,
+            0.013895,
+            0.030697,
+            0.569,
+            0.021469,
+            0.011457,
+            0.00956
+          ],
+          "exit_class_set": [
+            "Normal",
+            "Reconnaissance",
+            "DoS",
+            "Exploits",
+            "Generic",
+            "Shellcode",
+            "Fuzzers",
+            "Analysis"
+          ],
+          "cr_score": 0.6218
+        },
+        {
+          "model": "XGBoost",
+          "predicted_class": "Backdoor",
+          "softmax_top": 0.95,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Backdoor",
+              "prob": 0.95
+            },
+            {
+              "class": "Normal",
+              "prob": 0.0292
+            },
+            {
+              "class": "Exploits",
+              "prob": 0.0098
+            }
+          ],
+          "softmax": [
+            0.0292,
+            0.001427,
+            0.95,
+            0.002394,
+            0.0098,
+            0.000517,
+            0.004016,
+            0.000624,
+            0.000726,
+            0.001296
+          ],
+          "exit_class_set": [
+            "Normal",
+            "Reconnaissance",
+            "Backdoor",
+            "DoS",
+            "Exploits",
+            "Generic",
+            "Worms",
+            "Shellcode",
+            "Fuzzers",
+            "Analysis"
+          ],
+          "cr_score": 0.7259
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Backdoor",
+        "correct": true,
+        "depth": 4,
+        "cost_paid": 495.7,
+        "cost_reference": 298.0,
+        "speedup": 0.601
+      },
+      "frugalgpt": {
+        "exit_model": "XGBoost",
+        "exit_depth": 4,
+        "predicted": "Backdoor",
+        "correct": true,
+        "speedup": 0.601,
+        "softmax_at_exit": 0.95,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "DecisionTree",
+        "exit_depth": 1,
+        "predicted": "Worms",
+        "correct": false,
+        "speedup": 110.37,
+        "score_at_exit": 0.5796,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "unsw_nb15_4",
+      "fold_index": 0,
+      "pattern": "honest_failure",
+      "true_class": "Worms",
+      "input_summary": "Worm propagation embedded in payloads structurally identical to a Metasploit-style exploit kit.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "Backdoor",
+          "softmax_top": 0.51,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Backdoor",
+              "prob": 0.51
+            },
+            {
+              "class": "Worms",
+              "prob": 0.2671
+            },
+            {
+              "class": "Normal",
+              "prob": 0.1027
+            }
+          ],
+          "softmax": [
+            0.1027,
+            0.029717,
+            0.51,
+            0.013224,
+            0.007591,
+            0.022736,
+            0.2671,
+            0.008401,
+            0.013019,
+            0.025513
+          ],
+          "exit_class_set": [
+            "Normal",
+            "Exploits",
+            "Generic"
+          ],
+          "cr_score": 0.5495
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "Backdoor",
+          "softmax_top": 0.718,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Backdoor",
+              "prob": 0.718
+            },
+            {
+              "class": "Worms",
+              "prob": 0.1612
+            },
+            {
+              "class": "Normal",
+              "prob": 0.0595
+            }
+          ],
+          "softmax": [
+            0.0595,
+            0.015106,
+            0.718,
+            0.005724,
+            0.015382,
+            0.006648,
+            0.1612,
+            0.005678,
+            0.005728,
+            0.007033
+          ],
+          "exit_class_set": [
+            "Normal",
+            "Reconnaissance",
+            "DoS",
+            "Exploits",
+            "Generic"
+          ],
+          "cr_score": 0.563
+        },
+        {
+          "model": "MLP-64",
+          "predicted_class": "Backdoor",
+          "softmax_top": 0.558,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Backdoor",
+              "prob": 0.558
+            },
+            {
+              "class": "Worms",
+              "prob": 0.2371
+            },
+            {
+              "class": "Normal",
+              "prob": 0.085
+            }
+          ],
+          "softmax": [
+            0.085,
+            0.011258,
+            0.558,
+            0.009979,
+            0.022057,
+            0.033684,
+            0.2371,
+            0.021644,
+            0.006698,
+            0.01458
+          ],
+          "exit_class_set": [
+            "Normal",
+            "Reconnaissance",
+            "DoS",
+            "Exploits",
+            "Generic",
+            "Shellcode"
+          ],
+          "cr_score": 0.6038
+        },
+        {
+          "model": "MLP-128/64",
+          "predicted_class": "Backdoor",
+          "softmax_top": 0.543,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Backdoor",
+              "prob": 0.543
+            },
+            {
+              "class": "Worms",
+              "prob": 0.2595
+            },
+            {
+              "class": "Normal",
+              "prob": 0.0928
+            }
+          ],
+          "softmax": [
+            0.0928,
+            0.006075,
+            0.543,
+            0.013162,
+            0.029684,
+            0.025689,
+            0.2595,
+            0.010385,
+            0.003725,
+            0.015981
+          ],
+          "exit_class_set": [
+            "Normal",
+            "Reconnaissance",
+            "DoS",
+            "Exploits",
+            "Generic",
+            "Shellcode",
+            "Fuzzers",
+            "Analysis"
+          ],
+          "cr_score": 0.6202
+        },
+        {
+          "model": "XGBoost",
+          "predicted_class": "Backdoor",
+          "softmax_top": 0.797,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Backdoor",
+              "prob": 0.797
+            },
+            {
+              "class": "Worms",
+              "prob": 0.1199
+            },
+            {
+              "class": "Normal",
+              "prob": 0.0451
+            }
+          ],
+          "softmax": [
+            0.0451,
+            0.008177,
+            0.797,
+            0.009496,
+            0.006076,
+            0.001187,
+            0.1199,
+            0.002434,
+            0.007284,
+            0.003347
+          ],
+          "exit_class_set": [
+            "Normal",
+            "Reconnaissance",
+            "Backdoor",
+            "DoS",
+            "Exploits",
+            "Generic",
+            "Worms",
+            "Shellcode",
+            "Fuzzers",
+            "Analysis"
+          ],
+          "cr_score": 0.7286
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Backdoor",
+        "correct": false,
+        "depth": 4,
+        "cost_paid": 495.7,
+        "cost_reference": 298.0,
+        "speedup": 0.601
+      },
+      "frugalgpt": {
+        "exit_model": "XGBoost",
+        "exit_depth": 4,
+        "predicted": "Backdoor",
+        "correct": false,
+        "speedup": 0.601,
+        "softmax_at_exit": 0.797,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "DecisionTree",
+        "exit_depth": 1,
+        "predicted": "Backdoor",
+        "correct": false,
+        "speedup": 110.37,
+        "score_at_exit": 0.563,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    }
+  ],
+  "depth_histogram": {
+    "Normal": {
+      "n_inputs": 341,
+      "depths": [
+        0.613,
+        0.1985,
+        0.0777,
+        0.0553,
+        0.0555
+      ]
+    },
+    "Reconnaissance": {
+      "n_inputs": 403,
+      "depths": [
+        0.0,
+        0.4982,
+        0.2647,
+        0.1347,
+        0.1024
+      ]
+    },
+    "Backdoor": {
+      "n_inputs": 749,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.2219,
+        0.7781
+      ]
+    },
+    "DoS": {
+      "n_inputs": 666,
+      "depths": [
+        0.0,
+        0.4548,
+        0.2827,
+        0.1554,
+        0.1071
+      ]
+    },
+    "Exploits": {
+      "n_inputs": 442,
+      "depths": [
+        0.6245,
+        0.1897,
+        0.1202,
+        0.0317,
+        0.0339
+      ]
+    },
+    "Generic": {
+      "n_inputs": 615,
+      "depths": [
+        0.5878,
+        0.1754,
+        0.1265,
+        0.0544,
+        0.0559
+      ]
+    },
+    "Worms": {
+      "n_inputs": 433,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.2406,
+        0.7594
+      ]
+    },
+    "Shellcode": {
+      "n_inputs": 226,
+      "depths": [
+        0.0,
+        0.0,
+        0.5539,
+        0.2766,
+        0.1695
+      ]
+    },
+    "Fuzzers": {
+      "n_inputs": 1086,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.6466,
+        0.3534
+      ]
+    },
+    "Analysis": {
+      "n_inputs": 292,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.6144,
+        0.3856
+      ]
+    }
+  },
+  "per_model_per_class_f1": [
+    [
+      0.7494,
+      0.609,
+      0.5096,
+      0.5852,
+      0.7391,
+      0.7697,
+      0.5101,
+      0.6394,
+      0.5884,
+      0.5633
+    ],
+    [
+      0.764,
+      0.7022,
+      0.5391,
+      0.6816,
+      0.7461,
+      0.782,
+      0.5443,
+      0.6694,
+      0.6224,
+      0.5975
+    ],
+    [
+      0.772,
+      0.7079,
+      0.5671,
+      0.6789,
+      0.7411,
+      0.7859,
+      0.5682,
+      0.742,
+      0.6398,
+      0.6237
+    ],
+    [
+      0.7913,
+      0.7215,
+      0.5812,
+      0.6887,
+      0.7485,
+      0.7789,
+      0.5924,
+      0.7633,
+      0.7102,
+      0.6994
+    ],
+    [
+      0.822,
+      0.7481,
+      0.7221,
+      0.7213,
+      0.7827,
+      0.8185,
+      0.7268,
+      0.8115,
+      0.7825,
+      0.7544
+    ]
+  ]
+}

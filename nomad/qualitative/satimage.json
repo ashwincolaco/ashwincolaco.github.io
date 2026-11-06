@@ -1,0 +1,920 @@
+{
+  "dataset": "satimage",
+  "title": "Land-Satimage",
+  "modality": "tabular",
+  "fold_index": 0,
+  "epsilon": 0.1,
+  "frugalgpt_threshold_tau": 0.73,
+  "cascade_routing_threshold": 0.55,
+  "portfolio": [
+    {
+      "name": "LogReg",
+      "cost": 1.0
+    },
+    {
+      "name": "DecisionTree",
+      "cost": 1.7
+    },
+    {
+      "name": "MLP-64",
+      "cost": 41.0
+    },
+    {
+      "name": "MLP-128/64",
+      "cost": 154.0
+    },
+    {
+      "name": "XGBoost",
+      "cost": 298.0
+    }
+  ],
+  "reference_model": "XGBoost",
+  "n_classes": 6,
+  "class_names": [
+    "Red soil",
+    "Cotton crop",
+    "Grey soil",
+    "Damp grey",
+    "Veg. stubble",
+    "Very damp"
+  ],
+  "case_studies": [
+    {
+      "id": "satimage_0",
+      "fold_index": 0,
+      "pattern": "easy",
+      "true_class": "Red soil",
+      "input_summary": "3x3 multispectral patch dominated by high red-band reflectance, low NIR; classic dry-soil signature.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "Red soil",
+          "softmax_top": 0.9,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Red soil",
+              "prob": 0.9
+            },
+            {
+              "class": "Cotton crop",
+              "prob": 0.0617
+            },
+            {
+              "class": "Grey soil",
+              "prob": 0.0249
+            }
+          ],
+          "softmax": [
+            0.9,
+            0.0617,
+            0.0249,
+            0.005647,
+            0.005708,
+            0.002044
+          ],
+          "exit_class_set": [
+            "Red soil",
+            "Cotton crop",
+            "Grey soil"
+          ],
+          "cr_score": 0.8197
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Red soil",
+        "correct": true,
+        "depth": 0,
+        "cost_paid": 1.0,
+        "cost_reference": 298.0,
+        "speedup": 298.0
+      },
+      "frugalgpt": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "Red soil",
+        "correct": true,
+        "speedup": 298.0,
+        "softmax_at_exit": 0.9,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "Red soil",
+        "correct": true,
+        "speedup": 298.0,
+        "score_at_exit": 0.8197,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "satimage_1",
+      "fold_index": 0,
+      "pattern": "confidence_trap",
+      "true_class": "Damp grey",
+      "input_summary": "Mid-range red, modest NIR, moderate moisture index; visually like grey but with elevated water absorption.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "Very damp",
+          "softmax_top": 0.895,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Very damp",
+              "prob": 0.895
+            },
+            {
+              "class": "Damp grey",
+              "prob": 0.0519
+            },
+            {
+              "class": "Red soil",
+              "prob": 0.0251
+            }
+          ],
+          "softmax": [
+            0.0251,
+            0.013823,
+            0.011953,
+            0.0519,
+            0.002224,
+            0.895
+          ],
+          "exit_class_set": [
+            "Red soil",
+            "Cotton crop",
+            "Grey soil"
+          ],
+          "cr_score": 0.6487
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "Very damp",
+          "softmax_top": 0.769,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Very damp",
+              "prob": 0.769
+            },
+            {
+              "class": "Damp grey",
+              "prob": 0.1307
+            },
+            {
+              "class": "Red soil",
+              "prob": 0.0504
+            }
+          ],
+          "softmax": [
+            0.0504,
+            0.005804,
+            0.032728,
+            0.1307,
+            0.011368,
+            0.769
+          ],
+          "exit_class_set": [
+            "Red soil",
+            "Cotton crop",
+            "Grey soil",
+            "Veg. stubble"
+          ],
+          "cr_score": 0.6851
+        },
+        {
+          "model": "MLP-64",
+          "predicted_class": "Damp grey",
+          "softmax_top": 0.881,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Damp grey",
+              "prob": 0.881
+            },
+            {
+              "class": "Red soil",
+              "prob": 0.0646
+            },
+            {
+              "class": "Cotton crop",
+              "prob": 0.0189
+            }
+          ],
+          "softmax": [
+            0.0646,
+            0.0189,
+            0.0188,
+            0.881,
+            0.010599,
+            0.006101
+          ],
+          "exit_class_set": [
+            "Red soil",
+            "Cotton crop",
+            "Grey soil",
+            "Damp grey",
+            "Veg. stubble"
+          ],
+          "cr_score": 0.808
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Damp grey",
+        "correct": true,
+        "depth": 2,
+        "cost_paid": 43.7,
+        "cost_reference": 298.0,
+        "speedup": 6.819
+      },
+      "frugalgpt": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "Very damp",
+        "correct": false,
+        "speedup": 298.0,
+        "softmax_at_exit": 0.895,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "Very damp",
+        "correct": false,
+        "speedup": 298.0,
+        "score_at_exit": 0.6487,
+        "threshold": 0.55,
+        "decision": "trust"
+      },
+      "confidence_trap_stats": {
+        "cheap_model": "LogReg",
+        "wrong_class": "Very damp",
+        "true_class": "Damp grey",
+        "avg_softmax_wrong_on_true": 0.8413,
+        "cheap_model_f1_on_true": 0.7005,
+        "cheap_model_f1_on_wrong": 0.636
+      }
+    },
+    {
+      "id": "satimage_2",
+      "fold_index": 0,
+      "pattern": "mid_depth",
+      "true_class": "Veg. stubble",
+      "input_summary": "High green/NIR with bright red-edge response; sparse low-canopy mix.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "Veg. stubble",
+          "softmax_top": 0.446,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Veg. stubble",
+              "prob": 0.446
+            },
+            {
+              "class": "Red soil",
+              "prob": 0.2993
+            },
+            {
+              "class": "Cotton crop",
+              "prob": 0.1134
+            }
+          ],
+          "softmax": [
+            0.2993,
+            0.1134,
+            0.021571,
+            0.031887,
+            0.446,
+            0.087842
+          ],
+          "exit_class_set": [
+            "Red soil",
+            "Cotton crop",
+            "Grey soil"
+          ],
+          "cr_score": 0.7725
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "Veg. stubble",
+          "softmax_top": 0.889,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Veg. stubble",
+              "prob": 0.889
+            },
+            {
+              "class": "Red soil",
+              "prob": 0.0629
+            },
+            {
+              "class": "Cotton crop",
+              "prob": 0.0202
+            }
+          ],
+          "softmax": [
+            0.0629,
+            0.0202,
+            0.002414,
+            0.008063,
+            0.889,
+            0.017423
+          ],
+          "exit_class_set": [
+            "Red soil",
+            "Cotton crop",
+            "Grey soil",
+            "Veg. stubble"
+          ],
+          "cr_score": 0.8415
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Veg. stubble",
+        "correct": true,
+        "depth": 1,
+        "cost_paid": 2.7,
+        "cost_reference": 298.0,
+        "speedup": 110.37
+      },
+      "frugalgpt": {
+        "exit_model": "DecisionTree",
+        "exit_depth": 1,
+        "predicted": "Veg. stubble",
+        "correct": true,
+        "speedup": 110.37,
+        "softmax_at_exit": 0.889,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "Veg. stubble",
+        "correct": true,
+        "speedup": 298.0,
+        "score_at_exit": 0.7725,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "satimage_3",
+      "fold_index": 0,
+      "pattern": "rare_fall_through",
+      "true_class": "Very damp",
+      "input_summary": "Very low NIR reflectance with elevated SWIR water-absorption bands; saturated soil signature.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "Very damp",
+          "softmax_top": 0.496,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Very damp",
+              "prob": 0.496
+            },
+            {
+              "class": "Red soil",
+              "prob": 0.2825
+            },
+            {
+              "class": "Cotton crop",
+              "prob": 0.0976
+            }
+          ],
+          "softmax": [
+            0.2825,
+            0.0976,
+            0.032856,
+            0.052331,
+            0.038713,
+            0.496
+          ],
+          "exit_class_set": [
+            "Red soil",
+            "Cotton crop",
+            "Grey soil"
+          ],
+          "cr_score": 0.7176
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "Very damp",
+          "softmax_top": 0.45,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Very damp",
+              "prob": 0.45
+            },
+            {
+              "class": "Red soil",
+              "prob": 0.3101
+            },
+            {
+              "class": "Cotton crop",
+              "prob": 0.115
+            }
+          ],
+          "softmax": [
+            0.3101,
+            0.115,
+            0.041748,
+            0.030131,
+            0.053021,
+            0.45
+          ],
+          "exit_class_set": [
+            "Red soil",
+            "Cotton crop",
+            "Grey soil",
+            "Veg. stubble"
+          ],
+          "cr_score": 0.749
+        },
+        {
+          "model": "MLP-64",
+          "predicted_class": "Very damp",
+          "softmax_top": 0.372,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Very damp",
+              "prob": 0.372
+            },
+            {
+              "class": "Red soil",
+              "prob": 0.3355
+            },
+            {
+              "class": "Cotton crop",
+              "prob": 0.1224
+            }
+          ],
+          "softmax": [
+            0.3355,
+            0.1224,
+            0.026005,
+            0.060562,
+            0.083534,
+            0.372
+          ],
+          "exit_class_set": [
+            "Red soil",
+            "Cotton crop",
+            "Grey soil",
+            "Damp grey",
+            "Veg. stubble"
+          ],
+          "cr_score": 0.7799
+        },
+        {
+          "model": "MLP-128/64",
+          "predicted_class": "Very damp",
+          "softmax_top": 0.357,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Very damp",
+              "prob": 0.357
+            },
+            {
+              "class": "Red soil",
+              "prob": 0.3464
+            },
+            {
+              "class": "Cotton crop",
+              "prob": 0.1267
+            }
+          ],
+          "softmax": [
+            0.3464,
+            0.1267,
+            0.077068,
+            0.058299,
+            0.034533,
+            0.357
+          ],
+          "exit_class_set": [
+            "Red soil",
+            "Cotton crop",
+            "Grey soil",
+            "Damp grey",
+            "Veg. stubble"
+          ],
+          "cr_score": 0.7942
+        },
+        {
+          "model": "XGBoost",
+          "predicted_class": "Very damp",
+          "softmax_top": 0.92,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Very damp",
+              "prob": 0.92
+            },
+            {
+              "class": "Red soil",
+              "prob": 0.0407
+            },
+            {
+              "class": "Cotton crop",
+              "prob": 0.0173
+            }
+          ],
+          "softmax": [
+            0.0407,
+            0.0173,
+            0.0145,
+            0.003166,
+            0.004333,
+            0.92
+          ],
+          "exit_class_set": [
+            "Red soil",
+            "Cotton crop",
+            "Grey soil",
+            "Damp grey",
+            "Veg. stubble",
+            "Very damp"
+          ],
+          "cr_score": 0.8639
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Very damp",
+        "correct": true,
+        "depth": 4,
+        "cost_paid": 495.7,
+        "cost_reference": 298.0,
+        "speedup": 0.601
+      },
+      "frugalgpt": {
+        "exit_model": "XGBoost",
+        "exit_depth": 4,
+        "predicted": "Very damp",
+        "correct": true,
+        "speedup": 0.601,
+        "softmax_at_exit": 0.92,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "Very damp",
+        "correct": true,
+        "speedup": 298.0,
+        "score_at_exit": 0.7176,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "satimage_4",
+      "fold_index": 0,
+      "pattern": "honest_failure",
+      "true_class": "Damp grey",
+      "input_summary": "Boundary patch straddling a moisture gradient; spectral profile lies between damp grey and very damp.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "Very damp",
+          "softmax_top": 0.696,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Very damp",
+              "prob": 0.696
+            },
+            {
+              "class": "Damp grey",
+              "prob": 0.1727
+            },
+            {
+              "class": "Red soil",
+              "prob": 0.0561
+            }
+          ],
+          "softmax": [
+            0.0561,
+            0.035855,
+            0.013657,
+            0.1727,
+            0.025688,
+            0.696
+          ],
+          "exit_class_set": [
+            "Red soil",
+            "Cotton crop",
+            "Grey soil"
+          ],
+          "cr_score": 0.6687
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "Very damp",
+          "softmax_top": 0.611,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Very damp",
+              "prob": 0.611
+            },
+            {
+              "class": "Damp grey",
+              "prob": 0.2103
+            },
+            {
+              "class": "Red soil",
+              "prob": 0.0733
+            }
+          ],
+          "softmax": [
+            0.0733,
+            0.020578,
+            0.057417,
+            0.2103,
+            0.027404,
+            0.611
+          ],
+          "exit_class_set": [
+            "Red soil",
+            "Cotton crop",
+            "Grey soil",
+            "Veg. stubble"
+          ],
+          "cr_score": 0.7046
+        },
+        {
+          "model": "MLP-64",
+          "predicted_class": "Very damp",
+          "softmax_top": 0.514,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Very damp",
+              "prob": 0.514
+            },
+            {
+              "class": "Damp grey",
+              "prob": 0.2669
+            },
+            {
+              "class": "Red soil",
+              "prob": 0.0945
+            }
+          ],
+          "softmax": [
+            0.0945,
+            0.013228,
+            0.024412,
+            0.2669,
+            0.08696,
+            0.514
+          ],
+          "exit_class_set": [
+            "Red soil",
+            "Cotton crop",
+            "Grey soil",
+            "Damp grey",
+            "Veg. stubble"
+          ],
+          "cr_score": 0.7535
+        },
+        {
+          "model": "MLP-128/64",
+          "predicted_class": "Very damp",
+          "softmax_top": 0.695,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Very damp",
+              "prob": 0.695
+            },
+            {
+              "class": "Damp grey",
+              "prob": 0.1622
+            },
+            {
+              "class": "Red soil",
+              "prob": 0.0643
+            }
+          ],
+          "softmax": [
+            0.0643,
+            0.045618,
+            0.026814,
+            0.1622,
+            0.006067,
+            0.695
+          ],
+          "exit_class_set": [
+            "Red soil",
+            "Cotton crop",
+            "Grey soil",
+            "Damp grey",
+            "Veg. stubble"
+          ],
+          "cr_score": 0.7436
+        },
+        {
+          "model": "XGBoost",
+          "predicted_class": "Very damp",
+          "softmax_top": 0.742,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Very damp",
+              "prob": 0.742
+            },
+            {
+              "class": "Damp grey",
+              "prob": 0.1403
+            },
+            {
+              "class": "Red soil",
+              "prob": 0.0527
+            }
+          ],
+          "softmax": [
+            0.0527,
+            0.011554,
+            0.008952,
+            0.1403,
+            0.044494,
+            0.742
+          ],
+          "exit_class_set": [
+            "Red soil",
+            "Cotton crop",
+            "Grey soil",
+            "Damp grey",
+            "Veg. stubble",
+            "Very damp"
+          ],
+          "cr_score": 0.8684
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Very damp",
+        "correct": false,
+        "depth": 4,
+        "cost_paid": 495.7,
+        "cost_reference": 298.0,
+        "speedup": 0.601
+      },
+      "frugalgpt": {
+        "exit_model": "XGBoost",
+        "exit_depth": 4,
+        "predicted": "Very damp",
+        "correct": false,
+        "speedup": 0.601,
+        "softmax_at_exit": 0.742,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "Very damp",
+        "correct": false,
+        "speedup": 298.0,
+        "score_at_exit": 0.6687,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    }
+  ],
+  "depth_histogram": {
+    "Red soil": {
+      "n_inputs": 700,
+      "depths": [
+        0.6669,
+        0.1954,
+        0.0858,
+        0.0273,
+        0.0246
+      ]
+    },
+    "Cotton crop": {
+      "n_inputs": 822,
+      "depths": [
+        0.6094,
+        0.1817,
+        0.0965,
+        0.0557,
+        0.0567
+      ]
+    },
+    "Grey soil": {
+      "n_inputs": 477,
+      "depths": [
+        0.5903,
+        0.1615,
+        0.0835,
+        0.0828,
+        0.0819
+      ]
+    },
+    "Damp grey": {
+      "n_inputs": 1190,
+      "depths": [
+        0.0,
+        0.0,
+        0.5524,
+        0.2681,
+        0.1795
+      ]
+    },
+    "Veg. stubble": {
+      "n_inputs": 423,
+      "depths": [
+        0.0,
+        0.4852,
+        0.2634,
+        0.1444,
+        0.107
+      ]
+    },
+    "Very damp": {
+      "n_inputs": 1102,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.2619,
+        0.7381
+      ]
+    }
+  },
+  "per_model_per_class_f1": [
+    [
+      0.8238,
+      0.7726,
+      0.8418,
+      0.7005,
+      0.7667,
+      0.636
+    ],
+    [
+      0.8412,
+      0.7858,
+      0.8402,
+      0.7313,
+      0.8474,
+      0.6572
+    ],
+    [
+      0.8475,
+      0.7987,
+      0.8661,
+      0.8044,
+      0.8505,
+      0.6868
+    ],
+    [
+      0.8459,
+      0.814,
+      0.8804,
+      0.811,
+      0.8818,
+      0.7073
+    ],
+    [
+      0.8897,
+      0.8478,
+      0.9005,
+      0.8757,
+      0.9219,
+      0.8622
+    ]
+  ]
+}

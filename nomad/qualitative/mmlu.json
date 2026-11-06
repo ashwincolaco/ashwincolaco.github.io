@@ -1,0 +1,800 @@
+{
+  "dataset": "mmlu",
+  "title": "Knowledge-MMLU",
+  "modality": "text",
+  "fold_index": 0,
+  "epsilon": 0.1,
+  "frugalgpt_threshold_tau": 0.73,
+  "cascade_routing_threshold": 0.55,
+  "portfolio": [
+    {
+      "name": "qwen2.5-7b",
+      "cost": 50.0
+    },
+    {
+      "name": "llama3.1-8b",
+      "cost": 55.0
+    },
+    {
+      "name": "qwen2.5-32b",
+      "cost": 180.0
+    },
+    {
+      "name": "llama3.1-70b",
+      "cost": 800.0
+    },
+    {
+      "name": "qwen2.5-72b",
+      "cost": 820.0
+    }
+  ],
+  "reference_model": "qwen2.5-72b",
+  "n_classes": 4,
+  "class_names": [
+    "STEM",
+    "Humanities",
+    "Social Sciences",
+    "Other"
+  ],
+  "case_studies": [
+    {
+      "id": "mmlu_0",
+      "fold_index": 0,
+      "pattern": "easy",
+      "true_class": "STEM",
+      "input_summary": "Which of the following best describes the relationship between entropy and the second law of thermodynamics in an isolated system? (multiple choice)",
+      "nomad_trace": [
+        {
+          "model": "qwen2.5-7b",
+          "predicted_class": "STEM",
+          "softmax_top": 0.917,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "STEM",
+              "prob": 0.917
+            },
+            {
+              "class": "Other",
+              "prob": 0.0373
+            },
+            {
+              "class": "Humanities",
+              "prob": 0.025
+            }
+          ],
+          "softmax": [
+            0.917,
+            0.025,
+            0.0207,
+            0.0373
+          ],
+          "exit_class_set": [
+            "STEM",
+            "Other"
+          ],
+          "cr_score": 0.604
+        }
+      ],
+      "nomad_final": {
+        "predicted": "STEM",
+        "correct": true,
+        "depth": 0,
+        "cost_paid": 50.0,
+        "cost_reference": 820.0,
+        "speedup": 16.4
+      },
+      "frugalgpt": {
+        "exit_model": "qwen2.5-7b",
+        "exit_depth": 0,
+        "predicted": "STEM",
+        "correct": true,
+        "speedup": 16.4,
+        "softmax_at_exit": 0.917,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "qwen2.5-7b",
+        "exit_depth": 0,
+        "predicted": "STEM",
+        "correct": true,
+        "speedup": 16.4,
+        "score_at_exit": 0.604,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "mmlu_1",
+      "fold_index": 0,
+      "pattern": "confidence_trap",
+      "true_class": "Social Sciences",
+      "input_summary": "Which of the following is the most widely cited critique of rational-choice models in voter behavior? (multiple choice)",
+      "nomad_trace": [
+        {
+          "model": "qwen2.5-7b",
+          "predicted_class": "Humanities",
+          "softmax_top": 0.819,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Humanities",
+              "prob": 0.819
+            },
+            {
+              "class": "Social Sciences",
+              "prob": 0.0891
+            },
+            {
+              "class": "STEM",
+              "prob": 0.0574
+            }
+          ],
+          "softmax": [
+            0.0574,
+            0.819,
+            0.0891,
+            0.0345
+          ],
+          "exit_class_set": [
+            "STEM",
+            "Other"
+          ],
+          "cr_score": 0.4528
+        },
+        {
+          "model": "llama3.1-8b",
+          "predicted_class": "Social Sciences",
+          "softmax_top": 0.929,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Social Sciences",
+              "prob": 0.929
+            },
+            {
+              "class": "STEM",
+              "prob": 0.0444
+            },
+            {
+              "class": "Other",
+              "prob": 0.0246
+            }
+          ],
+          "softmax": [
+            0.0444,
+            0.002,
+            0.929,
+            0.0246
+          ],
+          "exit_class_set": [
+            "STEM",
+            "Social Sciences",
+            "Other"
+          ],
+          "cr_score": 0.6148
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Social Sciences",
+        "correct": true,
+        "depth": 1,
+        "cost_paid": 105.0,
+        "cost_reference": 820.0,
+        "speedup": 7.81
+      },
+      "frugalgpt": {
+        "exit_model": "qwen2.5-7b",
+        "exit_depth": 0,
+        "predicted": "Humanities",
+        "correct": false,
+        "speedup": 16.4,
+        "softmax_at_exit": 0.819,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "llama3.1-8b",
+        "exit_depth": 1,
+        "predicted": "Social Sciences",
+        "correct": true,
+        "speedup": 7.81,
+        "score_at_exit": 0.6148,
+        "threshold": 0.55,
+        "decision": "trust"
+      },
+      "confidence_trap_stats": {
+        "cheap_model": "qwen2.5-7b",
+        "wrong_class": "Humanities",
+        "true_class": "Social Sciences",
+        "avg_softmax_wrong_on_true": 0.7699,
+        "cheap_model_f1_on_true": 0.5522,
+        "cheap_model_f1_on_wrong": 0.428
+      }
+    },
+    {
+      "id": "mmlu_2",
+      "fold_index": 0,
+      "pattern": "mid_depth",
+      "true_class": "Social Sciences",
+      "input_summary": "Which of the following best describes the median-voter theorem's empirical limitations in a multiparty system? (multiple choice)",
+      "nomad_trace": [
+        {
+          "model": "qwen2.5-7b",
+          "predicted_class": "Social Sciences",
+          "softmax_top": 0.432,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Social Sciences",
+              "prob": 0.432
+            },
+            {
+              "class": "STEM",
+              "prob": 0.2862
+            },
+            {
+              "class": "Other",
+              "prob": 0.1716
+            }
+          ],
+          "softmax": [
+            0.2862,
+            0.1102,
+            0.432,
+            0.1716
+          ],
+          "exit_class_set": [
+            "STEM",
+            "Other"
+          ],
+          "cr_score": 0.5501
+        },
+        {
+          "model": "llama3.1-8b",
+          "predicted_class": "Social Sciences",
+          "softmax_top": 0.879,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Social Sciences",
+              "prob": 0.879
+            },
+            {
+              "class": "STEM",
+              "prob": 0.0612
+            },
+            {
+              "class": "Other",
+              "prob": 0.0323
+            }
+          ],
+          "softmax": [
+            0.0612,
+            0.0275,
+            0.879,
+            0.0323
+          ],
+          "exit_class_set": [
+            "STEM",
+            "Social Sciences",
+            "Other"
+          ],
+          "cr_score": 0.6096
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Social Sciences",
+        "correct": true,
+        "depth": 1,
+        "cost_paid": 105.0,
+        "cost_reference": 820.0,
+        "speedup": 7.81
+      },
+      "frugalgpt": {
+        "exit_model": "llama3.1-8b",
+        "exit_depth": 1,
+        "predicted": "Social Sciences",
+        "correct": true,
+        "speedup": 7.81,
+        "softmax_at_exit": 0.879,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "qwen2.5-7b",
+        "exit_depth": 0,
+        "predicted": "Social Sciences",
+        "correct": true,
+        "speedup": 16.4,
+        "score_at_exit": 0.5501,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "mmlu_3",
+      "fold_index": 0,
+      "pattern": "rare_fall_through",
+      "true_class": "Humanities",
+      "input_summary": "Which of the following best characterizes the post-structuralist critique of the author-function as articulated by Foucault? (multiple choice)",
+      "nomad_trace": [
+        {
+          "model": "qwen2.5-7b",
+          "predicted_class": "Humanities",
+          "softmax_top": 0.466,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Humanities",
+              "prob": 0.466
+            },
+            {
+              "class": "STEM",
+              "prob": 0.2741
+            },
+            {
+              "class": "Other",
+              "prob": 0.1636
+            }
+          ],
+          "softmax": [
+            0.2741,
+            0.466,
+            0.0963,
+            0.1636
+          ],
+          "exit_class_set": [
+            "STEM",
+            "Other"
+          ],
+          "cr_score": 0.5055
+        },
+        {
+          "model": "llama3.1-8b",
+          "predicted_class": "Humanities",
+          "softmax_top": 0.376,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Humanities",
+              "prob": 0.376
+            },
+            {
+              "class": "STEM",
+              "prob": 0.3069
+            },
+            {
+              "class": "Other",
+              "prob": 0.1845
+            }
+          ],
+          "softmax": [
+            0.3069,
+            0.376,
+            0.1326,
+            0.1845
+          ],
+          "exit_class_set": [
+            "STEM",
+            "Social Sciences",
+            "Other"
+          ],
+          "cr_score": 0.5348
+        },
+        {
+          "model": "qwen2.5-32b",
+          "predicted_class": "Humanities",
+          "softmax_top": 0.448,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Humanities",
+              "prob": 0.448
+            },
+            {
+              "class": "STEM",
+              "prob": 0.2815
+            },
+            {
+              "class": "Other",
+              "prob": 0.1611
+            }
+          ],
+          "softmax": [
+            0.2815,
+            0.448,
+            0.1094,
+            0.1611
+          ],
+          "exit_class_set": [
+            "STEM",
+            "Social Sciences",
+            "Other"
+          ],
+          "cr_score": 0.5476
+        },
+        {
+          "model": "llama3.1-70b",
+          "predicted_class": "Humanities",
+          "softmax_top": 0.514,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Humanities",
+              "prob": 0.514
+            },
+            {
+              "class": "STEM",
+              "prob": 0.2405
+            },
+            {
+              "class": "Other",
+              "prob": 0.1437
+            }
+          ],
+          "softmax": [
+            0.2405,
+            0.514,
+            0.1018,
+            0.1437
+          ],
+          "exit_class_set": [
+            "STEM",
+            "Social Sciences",
+            "Other"
+          ],
+          "cr_score": 0.5524
+        },
+        {
+          "model": "qwen2.5-72b",
+          "predicted_class": "Humanities",
+          "softmax_top": 0.933,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Humanities",
+              "prob": 0.933
+            },
+            {
+              "class": "STEM",
+              "prob": 0.0359
+            },
+            {
+              "class": "Other",
+              "prob": 0.0218
+            }
+          ],
+          "softmax": [
+            0.0359,
+            0.933,
+            0.0093,
+            0.0218
+          ],
+          "exit_class_set": [
+            "STEM",
+            "Humanities",
+            "Social Sciences",
+            "Other"
+          ],
+          "cr_score": 0.6218
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Humanities",
+        "correct": true,
+        "depth": 4,
+        "cost_paid": 1905.0,
+        "cost_reference": 820.0,
+        "speedup": 0.43
+      },
+      "frugalgpt": {
+        "exit_model": "qwen2.5-72b",
+        "exit_depth": 4,
+        "predicted": "Humanities",
+        "correct": true,
+        "speedup": 0.43,
+        "softmax_at_exit": 0.933,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "llama3.1-70b",
+        "exit_depth": 3,
+        "predicted": "Humanities",
+        "correct": true,
+        "speedup": 0.756,
+        "score_at_exit": 0.5524,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "mmlu_4",
+      "fold_index": 0,
+      "pattern": "honest_failure",
+      "true_class": "Social Sciences",
+      "input_summary": "In Plato's allegory of the cave, what does the journey out of the cave most directly symbolize, on the standard reading? (multiple choice)",
+      "nomad_trace": [
+        {
+          "model": "qwen2.5-7b",
+          "predicted_class": "Humanities",
+          "softmax_top": 0.716,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Humanities",
+              "prob": 0.716
+            },
+            {
+              "class": "Social Sciences",
+              "prob": 0.1364
+            },
+            {
+              "class": "STEM",
+              "prob": 0.0813
+            }
+          ],
+          "softmax": [
+            0.0813,
+            0.716,
+            0.1364,
+            0.0663
+          ],
+          "exit_class_set": [
+            "STEM",
+            "Other"
+          ],
+          "cr_score": 0.466
+        },
+        {
+          "model": "llama3.1-8b",
+          "predicted_class": "Humanities",
+          "softmax_top": 0.536,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Humanities",
+              "prob": 0.536
+            },
+            {
+              "class": "Social Sciences",
+              "prob": 0.2241
+            },
+            {
+              "class": "STEM",
+              "prob": 0.1428
+            }
+          ],
+          "softmax": [
+            0.1428,
+            0.536,
+            0.2241,
+            0.0971
+          ],
+          "exit_class_set": [
+            "STEM",
+            "Social Sciences",
+            "Other"
+          ],
+          "cr_score": 0.5181
+        },
+        {
+          "model": "qwen2.5-32b",
+          "predicted_class": "Humanities",
+          "softmax_top": 0.614,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Humanities",
+              "prob": 0.614
+            },
+            {
+              "class": "Social Sciences",
+              "prob": 0.1935
+            },
+            {
+              "class": "STEM",
+              "prob": 0.1115
+            }
+          ],
+          "softmax": [
+            0.1115,
+            0.614,
+            0.1935,
+            0.081
+          ],
+          "exit_class_set": [
+            "STEM",
+            "Social Sciences",
+            "Other"
+          ],
+          "cr_score": 0.5285
+        },
+        {
+          "model": "llama3.1-70b",
+          "predicted_class": "Humanities",
+          "softmax_top": 0.564,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Humanities",
+              "prob": 0.564
+            },
+            {
+              "class": "Social Sciences",
+              "prob": 0.2258
+            },
+            {
+              "class": "STEM",
+              "prob": 0.1351
+            }
+          ],
+          "softmax": [
+            0.1351,
+            0.564,
+            0.2258,
+            0.0751
+          ],
+          "exit_class_set": [
+            "STEM",
+            "Social Sciences",
+            "Other"
+          ],
+          "cr_score": 0.5501
+        },
+        {
+          "model": "qwen2.5-72b",
+          "predicted_class": "Humanities",
+          "softmax_top": 0.716,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Humanities",
+              "prob": 0.716
+            },
+            {
+              "class": "Social Sciences",
+              "prob": 0.1418
+            },
+            {
+              "class": "STEM",
+              "prob": 0.0886
+            }
+          ],
+          "softmax": [
+            0.0886,
+            0.716,
+            0.1418,
+            0.0536
+          ],
+          "exit_class_set": [
+            "STEM",
+            "Humanities",
+            "Social Sciences",
+            "Other"
+          ],
+          "cr_score": 0.6286
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Humanities",
+        "correct": false,
+        "depth": 4,
+        "cost_paid": 1905.0,
+        "cost_reference": 820.0,
+        "speedup": 0.43
+      },
+      "frugalgpt": {
+        "exit_model": "qwen2.5-72b",
+        "exit_depth": 4,
+        "predicted": "Humanities",
+        "correct": false,
+        "speedup": 0.43,
+        "softmax_at_exit": 0.716,
+        "threshold_tau": 0.73,
+        "decision": "fall_through"
+      },
+      "cascade_routing": {
+        "exit_model": "llama3.1-70b",
+        "exit_depth": 3,
+        "predicted": "Humanities",
+        "correct": false,
+        "speedup": 0.756,
+        "score_at_exit": 0.5501,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    }
+  ],
+  "depth_histogram": {
+    "STEM": {
+      "n_inputs": 225,
+      "depths": [
+        0.6323,
+        0.1762,
+        0.1043,
+        0.0441,
+        0.0431
+      ]
+    },
+    "Humanities": {
+      "n_inputs": 195,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.221,
+        0.779
+      ]
+    },
+    "Social Sciences": {
+      "n_inputs": 92,
+      "depths": [
+        0.0,
+        0.4917,
+        0.2573,
+        0.1385,
+        0.1125
+      ]
+    },
+    "Other": {
+      "n_inputs": 673,
+      "depths": [
+        0.5951,
+        0.2056,
+        0.0949,
+        0.051,
+        0.0534
+      ]
+    }
+  },
+  "per_model_per_class_f1": [
+    [
+      0.6135,
+      0.428,
+      0.5522,
+      0.5176
+    ],
+    [
+      0.6014,
+      0.4512,
+      0.6179,
+      0.5345
+    ],
+    [
+      0.6328,
+      0.4679,
+      0.652,
+      0.5494
+    ],
+    [
+      0.6397,
+      0.4922,
+      0.6372,
+      0.5613
+    ],
+    [
+      0.6488,
+      0.6215,
+      0.6757,
+      0.566
+    ]
+  ]
+}

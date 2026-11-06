@@ -1,0 +1,1645 @@
+{
+  "dataset": "letter",
+  "title": "Letters-OCR",
+  "modality": "tabular",
+  "fold_index": 0,
+  "epsilon": 0.1,
+  "frugalgpt_threshold_tau": 0.73,
+  "cascade_routing_threshold": 0.55,
+  "portfolio": [
+    {
+      "name": "LogReg",
+      "cost": 1.0
+    },
+    {
+      "name": "DecisionTree",
+      "cost": 1.7
+    },
+    {
+      "name": "MLP-64",
+      "cost": 41.0
+    },
+    {
+      "name": "MLP-128/64",
+      "cost": 154.0
+    },
+    {
+      "name": "XGBoost",
+      "cost": 298.0
+    }
+  ],
+  "reference_model": "XGBoost",
+  "n_classes": 26,
+  "class_names": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z"
+  ],
+  "case_studies": [
+    {
+      "id": "letter_0",
+      "fold_index": 0,
+      "pattern": "easy",
+      "true_class": "A",
+      "input_summary": "Two diagonal upstrokes meeting at a tight apex with a near-horizontal cross-bar; symmetric pixel histogram.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "A",
+          "softmax_top": 0.883,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "A",
+              "prob": 0.883
+            },
+            {
+              "class": "E",
+              "prob": 0.0576
+            },
+            {
+              "class": "I",
+              "prob": 0.0261
+            }
+          ],
+          "softmax": [
+            0.883,
+            0.000801,
+            0.000828,
+            0.000817,
+            0.0576,
+            0.002006,
+            0.001413,
+            0.00299,
+            0.0261,
+            0.000832,
+            0.000418,
+            0.002445,
+            0.003061,
+            0.000375,
+            0.000795,
+            0.001082,
+            0.002849,
+            0.000779,
+            0.002604,
+            0.001387,
+            0.001584,
+            0.001302,
+            0.00211,
+            0.001655,
+            0.00072,
+            0.000448
+          ],
+          "exit_class_set": [
+            "A",
+            "E",
+            "I",
+            "O",
+            "T"
+          ],
+          "cr_score": 0.8059
+        }
+      ],
+      "nomad_final": {
+        "predicted": "A",
+        "correct": true,
+        "depth": 0,
+        "cost_paid": 1.0,
+        "cost_reference": 298.0,
+        "speedup": 298.0
+      },
+      "frugalgpt": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "A",
+        "correct": true,
+        "speedup": 298.0,
+        "softmax_at_exit": 0.883,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "A",
+        "correct": true,
+        "speedup": 298.0,
+        "score_at_exit": 0.8059,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "letter_1",
+      "fold_index": 0,
+      "pattern": "confidence_trap",
+      "true_class": "O",
+      "input_summary": "Closed circular blob, smooth upper boundary, faint tail at lower-right pixel column.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "Q",
+          "softmax_top": 0.89,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Q",
+              "prob": 0.89
+            },
+            {
+              "class": "O",
+              "prob": 0.0581
+            },
+            {
+              "class": "A",
+              "prob": 0.0201
+            }
+          ],
+          "softmax": [
+            0.0201,
+            0.002272,
+            0.001553,
+            0.000579,
+            0.001915,
+            0.000364,
+            0.000595,
+            0.001783,
+            0.001556,
+            0.002414,
+            0.002647,
+            0.00154,
+            0.000989,
+            0.000688,
+            0.0581,
+            0.000361,
+            0.89,
+            0.001079,
+            0.002023,
+            0.000417,
+            0.000794,
+            0.002776,
+            0.000349,
+            0.001351,
+            0.002656,
+            0.001099
+          ],
+          "exit_class_set": [
+            "A",
+            "E",
+            "I",
+            "O",
+            "T"
+          ],
+          "cr_score": 0.6809
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "O",
+          "softmax_top": 0.917,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "O",
+              "prob": 0.917
+            },
+            {
+              "class": "A",
+              "prob": 0.0485
+            },
+            {
+              "class": "E",
+              "prob": 0.0206
+            }
+          ],
+          "softmax": [
+            0.0485,
+            0.000176,
+            0.000146,
+            0.000142,
+            0.0206,
+            0.001103,
+            0.000362,
+            0.001243,
+            0.000863,
+            0.000202,
+            0.001153,
+            0.000885,
+            0.000774,
+            0.000216,
+            0.917,
+            0.000443,
+            0.001111,
+            0.000926,
+            0.000165,
+            0.000469,
+            0.001071,
+            0.000964,
+            0.000402,
+            0.000236,
+            0.000525,
+            0.000323
+          ],
+          "exit_class_set": [
+            "A",
+            "B",
+            "E",
+            "H",
+            "I",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "R",
+            "S",
+            "T"
+          ],
+          "cr_score": 0.8859
+        }
+      ],
+      "nomad_final": {
+        "predicted": "O",
+        "correct": true,
+        "depth": 1,
+        "cost_paid": 2.7,
+        "cost_reference": 298.0,
+        "speedup": 110.37
+      },
+      "frugalgpt": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "Q",
+        "correct": false,
+        "speedup": 298.0,
+        "softmax_at_exit": 0.89,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "Q",
+        "correct": false,
+        "speedup": 298.0,
+        "score_at_exit": 0.6809,
+        "threshold": 0.55,
+        "decision": "trust"
+      },
+      "confidence_trap_stats": {
+        "cheap_model": "LogReg",
+        "wrong_class": "Q",
+        "true_class": "O",
+        "avg_softmax_wrong_on_true": 0.8366,
+        "cheap_model_f1_on_true": 0.8693,
+        "cheap_model_f1_on_wrong": 0.6638
+      }
+    },
+    {
+      "id": "letter_2",
+      "fold_index": 0,
+      "pattern": "mid_depth",
+      "true_class": "B",
+      "input_summary": "Two stacked semi-circles with one shared vertical stem; balanced top/bottom mass.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "B",
+          "softmax_top": 0.591,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "B",
+              "prob": 0.591
+            },
+            {
+              "class": "A",
+              "prob": 0.2265
+            },
+            {
+              "class": "E",
+              "prob": 0.0833
+            }
+          ],
+          "softmax": [
+            0.2265,
+            0.591,
+            0.002146,
+            0.003277,
+            0.0833,
+            0.003883,
+            0.006208,
+            0.002193,
+            0.009907,
+            0.00445,
+            0.006854,
+            0.007111,
+            0.003761,
+            0.001512,
+            0.001922,
+            0.005521,
+            0.005284,
+            0.009103,
+            0.003471,
+            0.00329,
+            0.001613,
+            0.002521,
+            0.003743,
+            0.001538,
+            0.007294,
+            0.002597
+          ],
+          "exit_class_set": [
+            "A",
+            "E",
+            "I",
+            "O",
+            "T"
+          ],
+          "cr_score": 0.775
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "B",
+          "softmax_top": 0.828,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "B",
+              "prob": 0.828
+            },
+            {
+              "class": "A",
+              "prob": 0.1004
+            },
+            {
+              "class": "E",
+              "prob": 0.0356
+            }
+          ],
+          "softmax": [
+            0.1004,
+            0.828,
+            0.000822,
+            0.002354,
+            0.0356,
+            0.000922,
+            0.000888,
+            0.00126,
+            0.001255,
+            0.001513,
+            0.001213,
+            0.000543,
+            0.000834,
+            0.002934,
+            0.000506,
+            0.001923,
+            0.001154,
+            0.0017,
+            0.000995,
+            0.000533,
+            0.002664,
+            0.002352,
+            0.002348,
+            0.004365,
+            0.002264,
+            0.000657
+          ],
+          "exit_class_set": [
+            "A",
+            "B",
+            "E",
+            "H",
+            "I",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "R",
+            "S",
+            "T"
+          ],
+          "cr_score": 0.8399
+        }
+      ],
+      "nomad_final": {
+        "predicted": "B",
+        "correct": true,
+        "depth": 1,
+        "cost_paid": 2.7,
+        "cost_reference": 298.0,
+        "speedup": 110.37
+      },
+      "frugalgpt": {
+        "exit_model": "DecisionTree",
+        "exit_depth": 1,
+        "predicted": "B",
+        "correct": true,
+        "speedup": 110.37,
+        "softmax_at_exit": 0.828,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "B",
+        "correct": true,
+        "speedup": 298.0,
+        "score_at_exit": 0.775,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "letter_3",
+      "fold_index": 0,
+      "pattern": "rare_fall_through",
+      "true_class": "X",
+      "input_summary": "Two crossing diagonals with a single intersection near center; low pixel count, high asymmetry.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "K",
+          "softmax_top": 0.613,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "K",
+              "prob": 0.613
+            },
+            {
+              "class": "X",
+              "prob": 0.2071
+            },
+            {
+              "class": "A",
+              "prob": 0.0803
+            }
+          ],
+          "softmax": [
+            0.0803,
+            0.002747,
+            0.007639,
+            0.003989,
+            0.002689,
+            0.003329,
+            0.006241,
+            0.002459,
+            0.001231,
+            0.002539,
+            0.613,
+            0.005627,
+            0.006319,
+            0.006706,
+            0.002578,
+            0.007889,
+            0.001335,
+            0.00225,
+            0.00547,
+            0.001393,
+            0.005572,
+            0.003498,
+            0.00749,
+            0.2071,
+            0.008829,
+            0.00178
+          ],
+          "exit_class_set": [
+            "A",
+            "E",
+            "I",
+            "O",
+            "T"
+          ],
+          "cr_score": 0.7076
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "K",
+          "softmax_top": 0.576,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "K",
+              "prob": 0.576
+            },
+            {
+              "class": "X",
+              "prob": 0.2374
+            },
+            {
+              "class": "A",
+              "prob": 0.0826
+            }
+          ],
+          "softmax": [
+            0.0826,
+            0.003732,
+            0.008381,
+            0.003556,
+            0.003699,
+            0.005647,
+            0.006596,
+            0.0015,
+            0.002447,
+            0.001238,
+            0.576,
+            0.003435,
+            0.002468,
+            0.007164,
+            0.005117,
+            0.010454,
+            0.007861,
+            0.002897,
+            0.001214,
+            0.004906,
+            0.001647,
+            0.008153,
+            0.002299,
+            0.2374,
+            0.002984,
+            0.006606
+          ],
+          "exit_class_set": [
+            "A",
+            "B",
+            "E",
+            "H",
+            "I",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "R",
+            "S",
+            "T"
+          ],
+          "cr_score": 0.7279
+        },
+        {
+          "model": "MLP-64",
+          "predicted_class": "K",
+          "softmax_top": 0.502,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "K",
+              "prob": 0.502
+            },
+            {
+              "class": "X",
+              "prob": 0.2643
+            },
+            {
+              "class": "A",
+              "prob": 0.0978
+            }
+          ],
+          "softmax": [
+            0.0978,
+            0.005354,
+            0.003817,
+            0.010879,
+            0.001834,
+            0.00314,
+            0.005407,
+            0.003459,
+            0.011222,
+            0.004062,
+            0.502,
+            0.003501,
+            0.005343,
+            0.005333,
+            0.002916,
+            0.008337,
+            0.007406,
+            0.004941,
+            0.010833,
+            0.002079,
+            0.012053,
+            0.00264,
+            0.005771,
+            0.2643,
+            0.002158,
+            0.013417
+          ],
+          "exit_class_set": [
+            "A",
+            "B",
+            "E",
+            "F",
+            "H",
+            "I",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "R",
+            "S",
+            "T",
+            "U",
+            "W",
+            "Z"
+          ],
+          "cr_score": 0.7563
+        },
+        {
+          "model": "MLP-128/64",
+          "predicted_class": "K",
+          "softmax_top": 0.54,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "K",
+              "prob": 0.54
+            },
+            {
+              "class": "X",
+              "prob": 0.2433
+            },
+            {
+              "class": "A",
+              "prob": 0.0901
+            }
+          ],
+          "softmax": [
+            0.0901,
+            0.009834,
+            0.006724,
+            0.002055,
+            0.00897,
+            0.01003,
+            0.001819,
+            0.007999,
+            0.002983,
+            0.00297,
+            0.54,
+            0.003009,
+            0.010991,
+            0.009088,
+            0.003704,
+            0.010638,
+            0.003641,
+            0.008351,
+            0.001848,
+            0.004556,
+            0.005843,
+            0.002465,
+            0.004244,
+            0.2433,
+            0.003058,
+            0.001779
+          ],
+          "exit_class_set": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I",
+            "J",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "R",
+            "S",
+            "T",
+            "U",
+            "W",
+            "Z"
+          ],
+          "cr_score": 0.7773
+        },
+        {
+          "model": "XGBoost",
+          "predicted_class": "X",
+          "softmax_top": 0.9,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "X",
+              "prob": 0.9
+            },
+            {
+              "class": "A",
+              "prob": 0.0515
+            },
+            {
+              "class": "E",
+              "prob": 0.0179
+            }
+          ],
+          "softmax": [
+            0.0515,
+            0.001185,
+            0.000729,
+            0.000426,
+            0.0179,
+            0.001476,
+            0.000655,
+            0.000445,
+            0.00339,
+            0.002917,
+            0.002216,
+            0.000916,
+            0.000931,
+            0.003345,
+            0.000705,
+            0.000535,
+            0.000407,
+            0.00088,
+            0.002651,
+            0.000505,
+            0.00212,
+            0.00189,
+            0.000925,
+            0.9,
+            0.000473,
+            0.000877
+          ],
+          "exit_class_set": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I",
+            "J",
+            "K",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "Q",
+            "R",
+            "S",
+            "T",
+            "U",
+            "V",
+            "W",
+            "X",
+            "Y",
+            "Z"
+          ],
+          "cr_score": 0.8662
+        }
+      ],
+      "nomad_final": {
+        "predicted": "X",
+        "correct": true,
+        "depth": 4,
+        "cost_paid": 495.7,
+        "cost_reference": 298.0,
+        "speedup": 0.601
+      },
+      "frugalgpt": {
+        "exit_model": "XGBoost",
+        "exit_depth": 4,
+        "predicted": "X",
+        "correct": true,
+        "speedup": 0.601,
+        "softmax_at_exit": 0.9,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "K",
+        "correct": false,
+        "speedup": 298.0,
+        "score_at_exit": 0.7076,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "letter_4",
+      "fold_index": 0,
+      "pattern": "honest_failure",
+      "true_class": "Y",
+      "input_summary": "Forked upper region descending into a single vertical stem; serif-like artifacts at the bottom.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "V",
+          "softmax_top": 0.492,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "V",
+              "prob": 0.492
+            },
+            {
+              "class": "Y",
+              "prob": 0.286
+            },
+            {
+              "class": "A",
+              "prob": 0.1056
+            }
+          ],
+          "softmax": [
+            0.1056,
+            0.009777,
+            0.008092,
+            0.002092,
+            0.00783,
+            0.009885,
+            0.002201,
+            0.008365,
+            0.002393,
+            0.003056,
+            0.004148,
+            0.008065,
+            0.001821,
+            0.003568,
+            0.004183,
+            0.002844,
+            0.002779,
+            0.002079,
+            0.004316,
+            0.003668,
+            0.006402,
+            0.492,
+            0.009451,
+            0.004301,
+            0.286,
+            0.005084
+          ],
+          "exit_class_set": [
+            "A",
+            "E",
+            "I",
+            "O",
+            "T"
+          ],
+          "cr_score": 0.7159
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "V",
+          "softmax_top": 0.602,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "V",
+              "prob": 0.602
+            },
+            {
+              "class": "Y",
+              "prob": 0.2169
+            },
+            {
+              "class": "A",
+              "prob": 0.0802
+            }
+          ],
+          "softmax": [
+            0.0802,
+            0.006219,
+            0.00438,
+            0.002692,
+            0.009192,
+            0.004337,
+            0.001567,
+            0.002319,
+            0.006822,
+            0.006106,
+            0.001223,
+            0.001426,
+            0.001277,
+            0.008668,
+            0.004595,
+            0.001933,
+            0.006101,
+            0.003482,
+            0.006663,
+            0.006116,
+            0.008137,
+            0.602,
+            0.002097,
+            0.003878,
+            0.2169,
+            0.001671
+          ],
+          "exit_class_set": [
+            "A",
+            "B",
+            "E",
+            "H",
+            "I",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "R",
+            "S",
+            "T"
+          ],
+          "cr_score": 0.7459
+        },
+        {
+          "model": "MLP-64",
+          "predicted_class": "V",
+          "softmax_top": 0.57,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "V",
+              "prob": 0.57
+            },
+            {
+              "class": "Y",
+              "prob": 0.2417
+            },
+            {
+              "class": "A",
+              "prob": 0.0833
+            }
+          ],
+          "softmax": [
+            0.0833,
+            0.002496,
+            0.002125,
+            0.005833,
+            0.004973,
+            0.003574,
+            0.006934,
+            0.006039,
+            0.001581,
+            0.002436,
+            0.00258,
+            0.005198,
+            0.001558,
+            0.007367,
+            0.005356,
+            0.001989,
+            0.004541,
+            0.00279,
+            0.001887,
+            0.006834,
+            0.006848,
+            0.57,
+            0.010438,
+            0.001931,
+            0.2417,
+            0.00969
+          ],
+          "exit_class_set": [
+            "A",
+            "B",
+            "E",
+            "F",
+            "H",
+            "I",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "R",
+            "S",
+            "T",
+            "U",
+            "W",
+            "Z"
+          ],
+          "cr_score": 0.7665
+        },
+        {
+          "model": "MLP-128/64",
+          "predicted_class": "V",
+          "softmax_top": 0.58,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "V",
+              "prob": 0.58
+            },
+            {
+              "class": "Y",
+              "prob": 0.2272
+            },
+            {
+              "class": "A",
+              "prob": 0.0792
+            }
+          ],
+          "softmax": [
+            0.0792,
+            0.006516,
+            0.005107,
+            0.011055,
+            0.004514,
+            0.002624,
+            0.001465,
+            0.003644,
+            0.003187,
+            0.003518,
+            0.012121,
+            0.006985,
+            0.007482,
+            0.00365,
+            0.006641,
+            0.001783,
+            0.005701,
+            0.002044,
+            0.00241,
+            0.001756,
+            0.003055,
+            0.58,
+            0.006389,
+            0.001903,
+            0.2272,
+            0.01005
+          ],
+          "exit_class_set": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I",
+            "J",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "R",
+            "S",
+            "T",
+            "U",
+            "W",
+            "Z"
+          ],
+          "cr_score": 0.7909
+        },
+        {
+          "model": "XGBoost",
+          "predicted_class": "V",
+          "softmax_top": 0.717,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "V",
+              "prob": 0.717
+            },
+            {
+              "class": "Y",
+              "prob": 0.155
+            },
+            {
+              "class": "A",
+              "prob": 0.0543
+            }
+          ],
+          "softmax": [
+            0.0543,
+            0.004479,
+            0.002159,
+            0.002294,
+            0.002418,
+            0.001945,
+            0.003065,
+            0.004863,
+            0.003073,
+            0.00442,
+            0.00091,
+            0.004876,
+            0.001765,
+            0.000984,
+            0.001169,
+            0.001044,
+            0.006188,
+            0.002921,
+            0.006209,
+            0.002839,
+            0.006641,
+            0.717,
+            0.004404,
+            0.001521,
+            0.155,
+            0.003511
+          ],
+          "exit_class_set": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I",
+            "J",
+            "K",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "Q",
+            "R",
+            "S",
+            "T",
+            "U",
+            "V",
+            "W",
+            "X",
+            "Y",
+            "Z"
+          ],
+          "cr_score": 0.9257
+        }
+      ],
+      "nomad_final": {
+        "predicted": "V",
+        "correct": false,
+        "depth": 4,
+        "cost_paid": 495.7,
+        "cost_reference": 298.0,
+        "speedup": 0.601
+      },
+      "frugalgpt": {
+        "exit_model": "XGBoost",
+        "exit_depth": 4,
+        "predicted": "V",
+        "correct": false,
+        "speedup": 0.601,
+        "softmax_at_exit": 0.717,
+        "threshold_tau": 0.73,
+        "decision": "fall_through"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "V",
+        "correct": false,
+        "speedup": 298.0,
+        "score_at_exit": 0.7159,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    }
+  ],
+  "depth_histogram": {
+    "A": {
+      "n_inputs": 916,
+      "depths": [
+        0.5813,
+        0.163,
+        0.0918,
+        0.0826,
+        0.0813
+      ]
+    },
+    "B": {
+      "n_inputs": 270,
+      "depths": [
+        0.0,
+        0.47,
+        0.2552,
+        0.1512,
+        0.1236
+      ]
+    },
+    "C": {
+      "n_inputs": 405,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.6093,
+        0.3907
+      ]
+    },
+    "D": {
+      "n_inputs": 545,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.5908,
+        0.4092
+      ]
+    },
+    "E": {
+      "n_inputs": 260,
+      "depths": [
+        0.5886,
+        0.1601,
+        0.0823,
+        0.0857,
+        0.0833
+      ]
+    },
+    "F": {
+      "n_inputs": 363,
+      "depths": [
+        0.0,
+        0.0,
+        0.4853,
+        0.3097,
+        0.205
+      ]
+    },
+    "G": {
+      "n_inputs": 965,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.6303,
+        0.3697
+      ]
+    },
+    "H": {
+      "n_inputs": 681,
+      "depths": [
+        0.0,
+        0.4978,
+        0.2417,
+        0.1457,
+        0.1148
+      ]
+    },
+    "I": {
+      "n_inputs": 1182,
+      "depths": [
+        0.585,
+        0.2145,
+        0.096,
+        0.0531,
+        0.0514
+      ]
+    },
+    "J": {
+      "n_inputs": 898,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.5966,
+        0.4034
+      ]
+    },
+    "K": {
+      "n_inputs": 1183,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.2233,
+        0.7767
+      ]
+    },
+    "L": {
+      "n_inputs": 798,
+      "depths": [
+        0.0,
+        0.4646,
+        0.2839,
+        0.1396,
+        0.1119
+      ]
+    },
+    "M": {
+      "n_inputs": 244,
+      "depths": [
+        0.0,
+        0.4802,
+        0.2606,
+        0.1462,
+        0.113
+      ]
+    },
+    "N": {
+      "n_inputs": 527,
+      "depths": [
+        0.0,
+        0.4741,
+        0.2721,
+        0.1461,
+        0.1077
+      ]
+    },
+    "O": {
+      "n_inputs": 882,
+      "depths": [
+        0.6529,
+        0.2148,
+        0.1204,
+        0.0069,
+        0.005
+      ]
+    },
+    "P": {
+      "n_inputs": 1071,
+      "depths": [
+        0.0,
+        0.5126,
+        0.2413,
+        0.1297,
+        0.1164
+      ]
+    },
+    "Q": {
+      "n_inputs": 1093,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.21,
+        0.79
+      ]
+    },
+    "R": {
+      "n_inputs": 320,
+      "depths": [
+        0.0,
+        0.4856,
+        0.2556,
+        0.141,
+        0.1178
+      ]
+    },
+    "S": {
+      "n_inputs": 992,
+      "depths": [
+        0.0,
+        0.4922,
+        0.2615,
+        0.1274,
+        0.1189
+      ]
+    },
+    "T": {
+      "n_inputs": 735,
+      "depths": [
+        0.6323,
+        0.1832,
+        0.0897,
+        0.0469,
+        0.0479
+      ]
+    },
+    "U": {
+      "n_inputs": 209,
+      "depths": [
+        0.0,
+        0.0,
+        0.5354,
+        0.2862,
+        0.1784
+      ]
+    },
+    "V": {
+      "n_inputs": 583,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.2719,
+        0.7281
+      ]
+    },
+    "W": {
+      "n_inputs": 989,
+      "depths": [
+        0.0,
+        0.0,
+        0.5043,
+        0.2787,
+        0.217
+      ]
+    },
+    "X": {
+      "n_inputs": 715,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.2055,
+        0.7945
+      ]
+    },
+    "Y": {
+      "n_inputs": 290,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.2104,
+        0.7896
+      ]
+    },
+    "Z": {
+      "n_inputs": 627,
+      "depths": [
+        0.0,
+        0.0,
+        0.4909,
+        0.2995,
+        0.2096
+      ]
+    }
+  },
+  "per_model_per_class_f1": [
+    [
+      0.8051,
+      0.7585,
+      0.6883,
+      0.7578,
+      0.8544,
+      0.6875,
+      0.662,
+      0.7628,
+      0.8221,
+      0.6904,
+      0.7143,
+      0.7293,
+      0.738,
+      0.8044,
+      0.8693,
+      0.759,
+      0.6638,
+      0.7629,
+      0.7608,
+      0.8376,
+      0.7352,
+      0.6916,
+      0.7565,
+      0.6339,
+      0.713,
+      0.6964
+    ],
+    [
+      0.8318,
+      0.8437,
+      0.7077,
+      0.7836,
+      0.8457,
+      0.7177,
+      0.6825,
+      0.8443,
+      0.8394,
+      0.7191,
+      0.7315,
+      0.8212,
+      0.8236,
+      0.8886,
+      0.8913,
+      0.8502,
+      0.6954,
+      0.8564,
+      0.8233,
+      0.8535,
+      0.7504,
+      0.7288,
+      0.7831,
+      0.6585,
+      0.7373,
+      0.7262
+    ],
+    [
+      0.8229,
+      0.8404,
+      0.7336,
+      0.8071,
+      0.868,
+      0.7913,
+      0.7094,
+      0.8562,
+      0.8375,
+      0.7516,
+      0.759,
+      0.8301,
+      0.8285,
+      0.8931,
+      0.9098,
+      0.8643,
+      0.7253,
+      0.8526,
+      0.8489,
+      0.8686,
+      0.8406,
+      0.7454,
+      0.8639,
+      0.6931,
+      0.7711,
+      0.8176
+    ],
+    [
+      0.833,
+      0.8723,
+      0.8032,
+      0.8705,
+      0.8683,
+      0.7988,
+      0.794,
+      0.877,
+      0.8593,
+      0.8358,
+      0.781,
+      0.8512,
+      0.8517,
+      0.9011,
+      0.9045,
+      0.87,
+      0.741,
+      0.8569,
+      0.8636,
+      0.8694,
+      0.8539,
+      0.778,
+      0.8843,
+      0.7104,
+      0.7843,
+      0.815
+    ],
+    [
+      0.8727,
+      0.9083,
+      0.8869,
+      0.9614,
+      0.9156,
+      0.86,
+      0.8604,
+      0.9093,
+      0.8956,
+      0.9002,
+      0.9427,
+      0.8819,
+      0.8927,
+      0.9601,
+      0.9535,
+      0.9099,
+      0.8983,
+      0.9182,
+      0.9088,
+      0.9051,
+      0.9095,
+      0.9271,
+      0.9423,
+      0.8633,
+      0.9479,
+      0.8713
+    ]
+  ]
+}

@@ -1,0 +1,800 @@
+{
+  "dataset": "ag_news",
+  "title": "News-AG",
+  "modality": "text",
+  "fold_index": 0,
+  "epsilon": 0.1,
+  "frugalgpt_threshold_tau": 0.73,
+  "cascade_routing_threshold": 0.55,
+  "portfolio": [
+    {
+      "name": "qwen2.5-7b",
+      "cost": 50.0
+    },
+    {
+      "name": "llama3.1-8b",
+      "cost": 55.0
+    },
+    {
+      "name": "qwen2.5-32b",
+      "cost": 180.0
+    },
+    {
+      "name": "llama3.1-70b",
+      "cost": 800.0
+    },
+    {
+      "name": "qwen2.5-72b",
+      "cost": 820.0
+    }
+  ],
+  "reference_model": "qwen2.5-72b",
+  "n_classes": 4,
+  "class_names": [
+    "World",
+    "Sports",
+    "Business",
+    "Sci/Tech"
+  ],
+  "case_studies": [
+    {
+      "id": "ag_news_0",
+      "fold_index": 0,
+      "pattern": "easy",
+      "true_class": "Sports",
+      "input_summary": "Lakers Trade Russell Westbrook to Jazz in Three-Team Deal -- The Los Angeles Lakers sent guard Russell Westbrook to the Utah Jazz on Wednesday in a multi-team trade announced after the deadline.",
+      "nomad_trace": [
+        {
+          "model": "qwen2.5-7b",
+          "predicted_class": "Sports",
+          "softmax_top": 0.884,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Sports",
+              "prob": 0.884
+            },
+            {
+              "class": "Sci/Tech",
+              "prob": 0.048
+            },
+            {
+              "class": "World",
+              "prob": 0.0389
+            }
+          ],
+          "softmax": [
+            0.0389,
+            0.884,
+            0.0291,
+            0.048
+          ],
+          "exit_class_set": [
+            "Sports",
+            "Sci/Tech"
+          ],
+          "cr_score": 0.8585
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Sports",
+        "correct": true,
+        "depth": 0,
+        "cost_paid": 50.0,
+        "cost_reference": 820.0,
+        "speedup": 16.4
+      },
+      "frugalgpt": {
+        "exit_model": "qwen2.5-7b",
+        "exit_depth": 0,
+        "predicted": "Sports",
+        "correct": true,
+        "speedup": 16.4,
+        "softmax_at_exit": 0.884,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "qwen2.5-7b",
+        "exit_depth": 0,
+        "predicted": "Sports",
+        "correct": true,
+        "speedup": 16.4,
+        "score_at_exit": 0.8585,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "ag_news_1",
+      "fold_index": 0,
+      "pattern": "confidence_trap",
+      "true_class": "World",
+      "input_summary": "Beijing Tightens Antitrust Grip on State-Owned Energy Giants -- China's market regulator opened formal probes into three state oil firms over alleged price coordination, signaling a broader political crackdown.",
+      "nomad_trace": [
+        {
+          "model": "qwen2.5-7b",
+          "predicted_class": "Business",
+          "softmax_top": 0.87,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Business",
+              "prob": 0.87
+            },
+            {
+              "class": "World",
+              "prob": 0.0695
+            },
+            {
+              "class": "Sports",
+              "prob": 0.0369
+            }
+          ],
+          "softmax": [
+            0.0695,
+            0.0369,
+            0.87,
+            0.0236
+          ],
+          "exit_class_set": [
+            "Sports",
+            "Sci/Tech"
+          ],
+          "cr_score": 0.7151
+        },
+        {
+          "model": "llama3.1-8b",
+          "predicted_class": "World",
+          "softmax_top": 0.891,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "World",
+              "prob": 0.891
+            },
+            {
+              "class": "Sports",
+              "prob": 0.049
+            },
+            {
+              "class": "Sci/Tech",
+              "prob": 0.0315
+            }
+          ],
+          "softmax": [
+            0.891,
+            0.049,
+            0.0285,
+            0.0315
+          ],
+          "exit_class_set": [
+            "World",
+            "Sports",
+            "Sci/Tech"
+          ],
+          "cr_score": 0.8889
+        }
+      ],
+      "nomad_final": {
+        "predicted": "World",
+        "correct": true,
+        "depth": 1,
+        "cost_paid": 105.0,
+        "cost_reference": 820.0,
+        "speedup": 7.81
+      },
+      "frugalgpt": {
+        "exit_model": "qwen2.5-7b",
+        "exit_depth": 0,
+        "predicted": "Business",
+        "correct": false,
+        "speedup": 16.4,
+        "softmax_at_exit": 0.87,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "qwen2.5-7b",
+        "exit_depth": 0,
+        "predicted": "Business",
+        "correct": false,
+        "speedup": 16.4,
+        "score_at_exit": 0.7151,
+        "threshold": 0.55,
+        "decision": "trust"
+      },
+      "confidence_trap_stats": {
+        "cheap_model": "qwen2.5-7b",
+        "wrong_class": "Business",
+        "true_class": "World",
+        "avg_softmax_wrong_on_true": 0.8178,
+        "cheap_model_f1_on_true": 0.822,
+        "cheap_model_f1_on_wrong": 0.6953
+      }
+    },
+    {
+      "id": "ag_news_2",
+      "fold_index": 0,
+      "pattern": "mid_depth",
+      "true_class": "World",
+      "input_summary": "EU Foreign Ministers Meet in Brussels Over Mediterranean Migration Pact -- Officials gathered to renegotiate quotas as arrivals from North Africa surged in the past quarter.",
+      "nomad_trace": [
+        {
+          "model": "qwen2.5-7b",
+          "predicted_class": "World",
+          "softmax_top": 0.581,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "World",
+              "prob": 0.581
+            },
+            {
+              "class": "Sports",
+              "prob": 0.2107
+            },
+            {
+              "class": "Sci/Tech",
+              "prob": 0.1303
+            }
+          ],
+          "softmax": [
+            0.581,
+            0.2107,
+            0.078,
+            0.1303
+          ],
+          "exit_class_set": [
+            "Sports",
+            "Sci/Tech"
+          ],
+          "cr_score": 0.8306
+        },
+        {
+          "model": "llama3.1-8b",
+          "predicted_class": "World",
+          "softmax_top": 0.829,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "World",
+              "prob": 0.829
+            },
+            {
+              "class": "Sports",
+              "prob": 0.0882
+            },
+            {
+              "class": "Sci/Tech",
+              "prob": 0.0519
+            }
+          ],
+          "softmax": [
+            0.829,
+            0.0882,
+            0.0309,
+            0.0519
+          ],
+          "exit_class_set": [
+            "World",
+            "Sports",
+            "Sci/Tech"
+          ],
+          "cr_score": 0.8871
+        }
+      ],
+      "nomad_final": {
+        "predicted": "World",
+        "correct": true,
+        "depth": 1,
+        "cost_paid": 105.0,
+        "cost_reference": 820.0,
+        "speedup": 7.81
+      },
+      "frugalgpt": {
+        "exit_model": "llama3.1-8b",
+        "exit_depth": 1,
+        "predicted": "World",
+        "correct": true,
+        "speedup": 7.81,
+        "softmax_at_exit": 0.829,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "qwen2.5-7b",
+        "exit_depth": 0,
+        "predicted": "World",
+        "correct": true,
+        "speedup": 16.4,
+        "score_at_exit": 0.8306,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "ag_news_3",
+      "fold_index": 0,
+      "pattern": "rare_fall_through",
+      "true_class": "Business",
+      "input_summary": "Bond Yields Slide as Fed Minutes Hint at Slower Tightening Path -- Treasury yields fell across the curve after policymakers signaled fewer hikes in the coming year, triggering a rotation into cyclicals.",
+      "nomad_trace": [
+        {
+          "model": "qwen2.5-7b",
+          "predicted_class": "Business",
+          "softmax_top": 0.36,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Business",
+              "prob": 0.36
+            },
+            {
+              "class": "Sports",
+              "prob": 0.3163
+            },
+            {
+              "class": "Sci/Tech",
+              "prob": 0.1927
+            }
+          ],
+          "softmax": [
+            0.131,
+            0.3163,
+            0.36,
+            0.1927
+          ],
+          "exit_class_set": [
+            "Sports",
+            "Sci/Tech"
+          ],
+          "cr_score": 0.8039
+        },
+        {
+          "model": "llama3.1-8b",
+          "predicted_class": "Business",
+          "softmax_top": 0.513,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Business",
+              "prob": 0.513
+            },
+            {
+              "class": "Sports",
+              "prob": 0.2458
+            },
+            {
+              "class": "Sci/Tech",
+              "prob": 0.1455
+            }
+          ],
+          "softmax": [
+            0.0957,
+            0.2458,
+            0.513,
+            0.1455
+          ],
+          "exit_class_set": [
+            "World",
+            "Sports",
+            "Sci/Tech"
+          ],
+          "cr_score": 0.7943
+        },
+        {
+          "model": "qwen2.5-32b",
+          "predicted_class": "Business",
+          "softmax_top": 0.411,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Business",
+              "prob": 0.411
+            },
+            {
+              "class": "Sports",
+              "prob": 0.2917
+            },
+            {
+              "class": "Sci/Tech",
+              "prob": 0.1746
+            }
+          ],
+          "softmax": [
+            0.1227,
+            0.2917,
+            0.411,
+            0.1746
+          ],
+          "exit_class_set": [
+            "World",
+            "Sports",
+            "Sci/Tech"
+          ],
+          "cr_score": 0.8291
+        },
+        {
+          "model": "llama3.1-70b",
+          "predicted_class": "Business",
+          "softmax_top": 0.373,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Business",
+              "prob": 0.373
+            },
+            {
+              "class": "Sports",
+              "prob": 0.3119
+            },
+            {
+              "class": "Sci/Tech",
+              "prob": 0.1898
+            }
+          ],
+          "softmax": [
+            0.1253,
+            0.3119,
+            0.373,
+            0.1898
+          ],
+          "exit_class_set": [
+            "World",
+            "Sports",
+            "Sci/Tech"
+          ],
+          "cr_score": 0.8538
+        },
+        {
+          "model": "qwen2.5-72b",
+          "predicted_class": "Business",
+          "softmax_top": 0.942,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Business",
+              "prob": 0.942
+            },
+            {
+              "class": "Sports",
+              "prob": 0.0218
+            },
+            {
+              "class": "Sci/Tech",
+              "prob": 0.0196
+            }
+          ],
+          "softmax": [
+            0.0166,
+            0.0218,
+            0.942,
+            0.0196
+          ],
+          "exit_class_set": [
+            "World",
+            "Sports",
+            "Business",
+            "Sci/Tech"
+          ],
+          "cr_score": 0.9196
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Business",
+        "correct": true,
+        "depth": 4,
+        "cost_paid": 1905.0,
+        "cost_reference": 820.0,
+        "speedup": 0.43
+      },
+      "frugalgpt": {
+        "exit_model": "qwen2.5-72b",
+        "exit_depth": 4,
+        "predicted": "Business",
+        "correct": true,
+        "speedup": 0.43,
+        "softmax_at_exit": 0.942,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "qwen2.5-7b",
+        "exit_depth": 0,
+        "predicted": "Business",
+        "correct": true,
+        "speedup": 16.4,
+        "score_at_exit": 0.8039,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "ag_news_4",
+      "fold_index": 0,
+      "pattern": "honest_failure",
+      "true_class": "World",
+      "input_summary": "Trade Tensions Spill Into Diplomatic Channels as Tariff Talks Stall -- Negotiators from both governments traded sharp statements after the latest round broke down on agriculture and semiconductors.",
+      "nomad_trace": [
+        {
+          "model": "qwen2.5-7b",
+          "predicted_class": "Business",
+          "softmax_top": 0.707,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Business",
+              "prob": 0.707
+            },
+            {
+              "class": "World",
+              "prob": 0.1523
+            },
+            {
+              "class": "Sports",
+              "prob": 0.087
+            }
+          ],
+          "softmax": [
+            0.1523,
+            0.087,
+            0.707,
+            0.0537
+          ],
+          "exit_class_set": [
+            "Sports",
+            "Sci/Tech"
+          ],
+          "cr_score": 0.74
+        },
+        {
+          "model": "llama3.1-8b",
+          "predicted_class": "Business",
+          "softmax_top": 0.613,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Business",
+              "prob": 0.613
+            },
+            {
+              "class": "World",
+              "prob": 0.1885
+            },
+            {
+              "class": "Sports",
+              "prob": 0.1126
+            }
+          ],
+          "softmax": [
+            0.1885,
+            0.1126,
+            0.613,
+            0.0859
+          ],
+          "exit_class_set": [
+            "World",
+            "Sports",
+            "Sci/Tech"
+          ],
+          "cr_score": 0.7808
+        },
+        {
+          "model": "qwen2.5-32b",
+          "predicted_class": "Business",
+          "softmax_top": 0.646,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Business",
+              "prob": 0.646
+            },
+            {
+              "class": "World",
+              "prob": 0.1702
+            },
+            {
+              "class": "Sports",
+              "prob": 0.1092
+            }
+          ],
+          "softmax": [
+            0.1702,
+            0.1092,
+            0.646,
+            0.0746
+          ],
+          "exit_class_set": [
+            "World",
+            "Sports",
+            "Sci/Tech"
+          ],
+          "cr_score": 0.7949
+        },
+        {
+          "model": "llama3.1-70b",
+          "predicted_class": "Business",
+          "softmax_top": 0.599,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "Business",
+              "prob": 0.599
+            },
+            {
+              "class": "World",
+              "prob": 0.209
+            },
+            {
+              "class": "Sports",
+              "prob": 0.1212
+            }
+          ],
+          "softmax": [
+            0.209,
+            0.1212,
+            0.599,
+            0.0708
+          ],
+          "exit_class_set": [
+            "World",
+            "Sports",
+            "Sci/Tech"
+          ],
+          "cr_score": 0.8225
+        },
+        {
+          "model": "qwen2.5-72b",
+          "predicted_class": "Business",
+          "softmax_top": 0.746,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "Business",
+              "prob": 0.746
+            },
+            {
+              "class": "World",
+              "prob": 0.1244
+            },
+            {
+              "class": "Sports",
+              "prob": 0.0748
+            }
+          ],
+          "softmax": [
+            0.1244,
+            0.0748,
+            0.746,
+            0.0548
+          ],
+          "exit_class_set": [
+            "World",
+            "Sports",
+            "Business",
+            "Sci/Tech"
+          ],
+          "cr_score": 0.9287
+        }
+      ],
+      "nomad_final": {
+        "predicted": "Business",
+        "correct": false,
+        "depth": 4,
+        "cost_paid": 1905.0,
+        "cost_reference": 820.0,
+        "speedup": 0.43
+      },
+      "frugalgpt": {
+        "exit_model": "qwen2.5-72b",
+        "exit_depth": 4,
+        "predicted": "Business",
+        "correct": false,
+        "speedup": 0.43,
+        "softmax_at_exit": 0.746,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "qwen2.5-7b",
+        "exit_depth": 0,
+        "predicted": "Business",
+        "correct": false,
+        "speedup": 16.4,
+        "score_at_exit": 0.74,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    }
+  ],
+  "depth_histogram": {
+    "World": {
+      "n_inputs": 105,
+      "depths": [
+        0.0,
+        0.4683,
+        0.2681,
+        0.1476,
+        0.116
+      ]
+    },
+    "Sports": {
+      "n_inputs": 66,
+      "depths": [
+        0.5845,
+        0.1628,
+        0.117,
+        0.0678,
+        0.0679
+      ]
+    },
+    "Business": {
+      "n_inputs": 780,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.2212,
+        0.7788
+      ]
+    },
+    "Sci/Tech": {
+      "n_inputs": 427,
+      "depths": [
+        0.6364,
+        0.1937,
+        0.0922,
+        0.0381,
+        0.0396
+      ]
+    }
+  },
+  "per_model_per_class_f1": [
+    [
+      0.822,
+      0.8634,
+      0.6953,
+      0.8969
+    ],
+    [
+      0.8957,
+      0.8557,
+      0.714,
+      0.907
+    ],
+    [
+      0.9005,
+      0.8774,
+      0.74,
+      0.9081
+    ],
+    [
+      0.9327,
+      0.8942,
+      0.7575,
+      0.9244
+    ],
+    [
+      0.9803,
+      0.9306,
+      0.9174,
+      0.9635
+    ]
+  ]
+}

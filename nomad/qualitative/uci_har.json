@@ -1,0 +1,920 @@
+{
+  "dataset": "uci_har",
+  "title": "Activity-HAR",
+  "modality": "tabular",
+  "fold_index": 0,
+  "epsilon": 0.1,
+  "frugalgpt_threshold_tau": 0.73,
+  "cascade_routing_threshold": 0.55,
+  "portfolio": [
+    {
+      "name": "LogReg",
+      "cost": 1.0
+    },
+    {
+      "name": "DecisionTree",
+      "cost": 1.7
+    },
+    {
+      "name": "MLP-64",
+      "cost": 41.0
+    },
+    {
+      "name": "MLP-128/64",
+      "cost": 154.0
+    },
+    {
+      "name": "XGBoost",
+      "cost": 298.0
+    }
+  ],
+  "reference_model": "XGBoost",
+  "n_classes": 6,
+  "class_names": [
+    "WALKING",
+    "WALKING_UPSTAIRS",
+    "WALKING_DOWNSTAIRS",
+    "SITTING",
+    "STANDING",
+    "LAYING"
+  ],
+  "case_studies": [
+    {
+      "id": "uci_har_0",
+      "fold_index": 0,
+      "pattern": "easy",
+      "true_class": "WALKING",
+      "input_summary": "30Hz body-acc + gyro window: low-frequency vertical jolts, near-zero z-jerk; classic flat-walk signature.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "WALKING",
+          "softmax_top": 0.952,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "WALKING",
+              "prob": 0.952
+            },
+            {
+              "class": "STANDING",
+              "prob": 0.0315
+            },
+            {
+              "class": "LAYING",
+              "prob": 0.0106
+            }
+          ],
+          "softmax": [
+            0.952,
+            0.004232,
+            0.001085,
+            0.000583,
+            0.0315,
+            0.0106
+          ],
+          "exit_class_set": [
+            "WALKING",
+            "STANDING",
+            "LAYING"
+          ],
+          "cr_score": 0.8835
+        }
+      ],
+      "nomad_final": {
+        "predicted": "WALKING",
+        "correct": true,
+        "depth": 0,
+        "cost_paid": 1.0,
+        "cost_reference": 298.0,
+        "speedup": 298.0
+      },
+      "frugalgpt": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "WALKING",
+        "correct": true,
+        "speedup": 298.0,
+        "softmax_at_exit": 0.952,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "WALKING",
+        "correct": true,
+        "speedup": 298.0,
+        "score_at_exit": 0.8835,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "uci_har_1",
+      "fold_index": 0,
+      "pattern": "confidence_trap",
+      "true_class": "WALKING_DOWNSTAIRS",
+      "input_summary": "Window with strong vertical accel and step cadence; spectral peaks split between climbing/descending bands.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "WALKING_UPSTAIRS",
+          "softmax_top": 0.796,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "WALKING_UPSTAIRS",
+              "prob": 0.796
+            },
+            {
+              "class": "WALKING_DOWNSTAIRS",
+              "prob": 0.1218
+            },
+            {
+              "class": "WALKING",
+              "prob": 0.0407
+            }
+          ],
+          "softmax": [
+            0.0407,
+            0.796,
+            0.1218,
+            0.005116,
+            0.016528,
+            0.019855
+          ],
+          "exit_class_set": [
+            "WALKING",
+            "STANDING",
+            "LAYING"
+          ],
+          "cr_score": 0.707
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "WALKING_UPSTAIRS",
+          "softmax_top": 0.605,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "WALKING_UPSTAIRS",
+              "prob": 0.605
+            },
+            {
+              "class": "WALKING_DOWNSTAIRS",
+              "prob": 0.2129
+            },
+            {
+              "class": "WALKING",
+              "prob": 0.0816
+            }
+          ],
+          "softmax": [
+            0.0816,
+            0.605,
+            0.2129,
+            0.012271,
+            0.056301,
+            0.031928
+          ],
+          "exit_class_set": [
+            "WALKING",
+            "SITTING",
+            "STANDING",
+            "LAYING"
+          ],
+          "cr_score": 0.7606
+        },
+        {
+          "model": "MLP-64",
+          "predicted_class": "WALKING_DOWNSTAIRS",
+          "softmax_top": 0.878,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "WALKING_DOWNSTAIRS",
+              "prob": 0.878
+            },
+            {
+              "class": "WALKING",
+              "prob": 0.0664
+            },
+            {
+              "class": "STANDING",
+              "prob": 0.0286
+            }
+          ],
+          "softmax": [
+            0.0664,
+            0.008642,
+            0.878,
+            0.011221,
+            0.0286,
+            0.007138
+          ],
+          "exit_class_set": [
+            "WALKING",
+            "WALKING_DOWNSTAIRS",
+            "SITTING",
+            "STANDING",
+            "LAYING"
+          ],
+          "cr_score": 0.9032
+        }
+      ],
+      "nomad_final": {
+        "predicted": "WALKING_DOWNSTAIRS",
+        "correct": true,
+        "depth": 2,
+        "cost_paid": 43.7,
+        "cost_reference": 298.0,
+        "speedup": 6.819
+      },
+      "frugalgpt": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "WALKING_UPSTAIRS",
+        "correct": false,
+        "speedup": 298.0,
+        "softmax_at_exit": 0.796,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "WALKING_UPSTAIRS",
+        "correct": false,
+        "speedup": 298.0,
+        "score_at_exit": 0.707,
+        "threshold": 0.55,
+        "decision": "trust"
+      },
+      "confidence_trap_stats": {
+        "cheap_model": "LogReg",
+        "wrong_class": "WALKING_UPSTAIRS",
+        "true_class": "WALKING_DOWNSTAIRS",
+        "avg_softmax_wrong_on_true": 0.7482,
+        "cheap_model_f1_on_true": 0.8066,
+        "cheap_model_f1_on_wrong": 0.6737
+      }
+    },
+    {
+      "id": "uci_har_2",
+      "fold_index": 0,
+      "pattern": "mid_depth",
+      "true_class": "SITTING",
+      "input_summary": "Low-magnitude IMU stream with brief postural shifts; signal-energy below walking threshold.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "SITTING",
+          "softmax_top": 0.444,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "SITTING",
+              "prob": 0.444
+            },
+            {
+              "class": "WALKING",
+              "prob": 0.3019
+            },
+            {
+              "class": "STANDING",
+              "prob": 0.1137
+            }
+          ],
+          "softmax": [
+            0.3019,
+            0.027915,
+            0.071095,
+            0.444,
+            0.1137,
+            0.04139
+          ],
+          "exit_class_set": [
+            "WALKING",
+            "STANDING",
+            "LAYING"
+          ],
+          "cr_score": 0.8223
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "SITTING",
+          "softmax_top": 0.871,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "SITTING",
+              "prob": 0.871
+            },
+            {
+              "class": "WALKING",
+              "prob": 0.0676
+            },
+            {
+              "class": "STANDING",
+              "prob": 0.0246
+            }
+          ],
+          "softmax": [
+            0.0676,
+            0.015591,
+            0.005044,
+            0.871,
+            0.0246,
+            0.016165
+          ],
+          "exit_class_set": [
+            "WALKING",
+            "SITTING",
+            "STANDING",
+            "LAYING"
+          ],
+          "cr_score": 0.8422
+        }
+      ],
+      "nomad_final": {
+        "predicted": "SITTING",
+        "correct": true,
+        "depth": 1,
+        "cost_paid": 2.7,
+        "cost_reference": 298.0,
+        "speedup": 110.37
+      },
+      "frugalgpt": {
+        "exit_model": "DecisionTree",
+        "exit_depth": 1,
+        "predicted": "SITTING",
+        "correct": true,
+        "speedup": 110.37,
+        "softmax_at_exit": 0.871,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "SITTING",
+        "correct": true,
+        "speedup": 298.0,
+        "score_at_exit": 0.8223,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "uci_har_3",
+      "fold_index": 0,
+      "pattern": "rare_fall_through",
+      "true_class": "WALKING_UPSTAIRS",
+      "input_summary": "Asymmetric stair window: alternating high/low jerk on z-axis, ambiguous slope sign.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "WALKING_UPSTAIRS",
+          "softmax_top": 0.466,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "WALKING_UPSTAIRS",
+              "prob": 0.466
+            },
+            {
+              "class": "WALKING",
+              "prob": 0.2852
+            },
+            {
+              "class": "STANDING",
+              "prob": 0.1025
+            }
+          ],
+          "softmax": [
+            0.2852,
+            0.466,
+            0.058266,
+            0.037914,
+            0.1025,
+            0.05012
+          ],
+          "exit_class_set": [
+            "WALKING",
+            "STANDING",
+            "LAYING"
+          ],
+          "cr_score": 0.7778
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "WALKING_UPSTAIRS",
+          "softmax_top": 0.558,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "WALKING_UPSTAIRS",
+              "prob": 0.558
+            },
+            {
+              "class": "WALKING",
+              "prob": 0.2451
+            },
+            {
+              "class": "STANDING",
+              "prob": 0.0865
+            }
+          ],
+          "softmax": [
+            0.2451,
+            0.558,
+            0.031979,
+            0.050527,
+            0.0865,
+            0.027894
+          ],
+          "exit_class_set": [
+            "WALKING",
+            "SITTING",
+            "STANDING",
+            "LAYING"
+          ],
+          "cr_score": 0.7793
+        },
+        {
+          "model": "MLP-64",
+          "predicted_class": "WALKING_UPSTAIRS",
+          "softmax_top": 0.367,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "WALKING_UPSTAIRS",
+              "prob": 0.367
+            },
+            {
+              "class": "WALKING",
+              "prob": 0.3465
+            },
+            {
+              "class": "STANDING",
+              "prob": 0.1252
+            }
+          ],
+          "softmax": [
+            0.3465,
+            0.367,
+            0.022188,
+            0.021859,
+            0.1252,
+            0.117253
+          ],
+          "exit_class_set": [
+            "WALKING",
+            "WALKING_DOWNSTAIRS",
+            "SITTING",
+            "STANDING",
+            "LAYING"
+          ],
+          "cr_score": 0.8462
+        },
+        {
+          "model": "MLP-128/64",
+          "predicted_class": "WALKING_UPSTAIRS",
+          "softmax_top": 0.475,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "WALKING_UPSTAIRS",
+              "prob": 0.475
+            },
+            {
+              "class": "WALKING",
+              "prob": 0.2986
+            },
+            {
+              "class": "STANDING",
+              "prob": 0.1033
+            }
+          ],
+          "softmax": [
+            0.2986,
+            0.475,
+            0.031787,
+            0.043326,
+            0.1033,
+            0.047987
+          ],
+          "exit_class_set": [
+            "WALKING",
+            "WALKING_DOWNSTAIRS",
+            "SITTING",
+            "STANDING",
+            "LAYING"
+          ],
+          "cr_score": 0.8389
+        },
+        {
+          "model": "XGBoost",
+          "predicted_class": "WALKING_UPSTAIRS",
+          "softmax_top": 0.893,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "WALKING_UPSTAIRS",
+              "prob": 0.893
+            },
+            {
+              "class": "WALKING",
+              "prob": 0.056
+            },
+            {
+              "class": "STANDING",
+              "prob": 0.0224
+            }
+          ],
+          "softmax": [
+            0.056,
+            0.893,
+            0.013477,
+            0.003563,
+            0.0224,
+            0.01156
+          ],
+          "exit_class_set": [
+            "WALKING",
+            "WALKING_UPSTAIRS",
+            "WALKING_DOWNSTAIRS",
+            "SITTING",
+            "STANDING",
+            "LAYING"
+          ],
+          "cr_score": 0.9069
+        }
+      ],
+      "nomad_final": {
+        "predicted": "WALKING_UPSTAIRS",
+        "correct": true,
+        "depth": 4,
+        "cost_paid": 495.7,
+        "cost_reference": 298.0,
+        "speedup": 0.601
+      },
+      "frugalgpt": {
+        "exit_model": "XGBoost",
+        "exit_depth": 4,
+        "predicted": "WALKING_UPSTAIRS",
+        "correct": true,
+        "speedup": 0.601,
+        "softmax_at_exit": 0.893,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "WALKING_UPSTAIRS",
+        "correct": true,
+        "speedup": 298.0,
+        "score_at_exit": 0.7778,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    },
+    {
+      "id": "uci_har_4",
+      "fold_index": 0,
+      "pattern": "honest_failure",
+      "true_class": "WALKING_DOWNSTAIRS",
+      "input_summary": "Off-cadence descending-stairs window with railing-grab artifacts and truncated tail; window-onset alignment is ambiguous, the model commits to the wrong direction.",
+      "nomad_trace": [
+        {
+          "model": "LogReg",
+          "predicted_class": "WALKING_UPSTAIRS",
+          "softmax_top": 0.66,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "WALKING_UPSTAIRS",
+              "prob": 0.66
+            },
+            {
+              "class": "WALKING_DOWNSTAIRS",
+              "prob": 0.186
+            },
+            {
+              "class": "WALKING",
+              "prob": 0.0708
+            }
+          ],
+          "softmax": [
+            0.0708,
+            0.66,
+            0.186,
+            0.01366,
+            0.031221,
+            0.038319
+          ],
+          "exit_class_set": [
+            "WALKING",
+            "STANDING",
+            "LAYING"
+          ],
+          "cr_score": 0.73
+        },
+        {
+          "model": "DecisionTree",
+          "predicted_class": "WALKING_UPSTAIRS",
+          "softmax_top": 0.549,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "WALKING_UPSTAIRS",
+              "prob": 0.549
+            },
+            {
+              "class": "WALKING_DOWNSTAIRS",
+              "prob": 0.2573
+            },
+            {
+              "class": "WALKING",
+              "prob": 0.0915
+            }
+          ],
+          "softmax": [
+            0.0915,
+            0.549,
+            0.2573,
+            0.01552,
+            0.067853,
+            0.018828
+          ],
+          "exit_class_set": [
+            "WALKING",
+            "SITTING",
+            "STANDING",
+            "LAYING"
+          ],
+          "cr_score": 0.7684
+        },
+        {
+          "model": "MLP-64",
+          "predicted_class": "WALKING_UPSTAIRS",
+          "softmax_top": 0.508,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "WALKING_UPSTAIRS",
+              "prob": 0.508
+            },
+            {
+              "class": "WALKING_DOWNSTAIRS",
+              "prob": 0.2625
+            },
+            {
+              "class": "WALKING",
+              "prob": 0.1026
+            }
+          ],
+          "softmax": [
+            0.1026,
+            0.508,
+            0.2625,
+            0.032646,
+            0.07882,
+            0.015434
+          ],
+          "exit_class_set": [
+            "WALKING",
+            "WALKING_DOWNSTAIRS",
+            "SITTING",
+            "STANDING",
+            "LAYING"
+          ],
+          "cr_score": 0.8139
+        },
+        {
+          "model": "MLP-128/64",
+          "predicted_class": "WALKING_UPSTAIRS",
+          "softmax_top": 0.596,
+          "predicted_in_ec": false,
+          "decision": "safety_reject",
+          "top3": [
+            {
+              "class": "WALKING_UPSTAIRS",
+              "prob": 0.596
+            },
+            {
+              "class": "WALKING_DOWNSTAIRS",
+              "prob": 0.2302
+            },
+            {
+              "class": "WALKING",
+              "prob": 0.0843
+            }
+          ],
+          "softmax": [
+            0.0843,
+            0.596,
+            0.2302,
+            0.045621,
+            0.03015,
+            0.013729
+          ],
+          "exit_class_set": [
+            "WALKING",
+            "WALKING_DOWNSTAIRS",
+            "SITTING",
+            "STANDING",
+            "LAYING"
+          ],
+          "cr_score": 0.8114
+        },
+        {
+          "model": "XGBoost",
+          "predicted_class": "WALKING_UPSTAIRS",
+          "softmax_top": 0.737,
+          "predicted_in_ec": true,
+          "decision": "exit",
+          "top3": [
+            {
+              "class": "WALKING_UPSTAIRS",
+              "prob": 0.737
+            },
+            {
+              "class": "WALKING_DOWNSTAIRS",
+              "prob": 0.1434
+            },
+            {
+              "class": "WALKING",
+              "prob": 0.0506
+            }
+          ],
+          "softmax": [
+            0.0506,
+            0.737,
+            0.1434,
+            0.025551,
+            0.0159,
+            0.027549
+          ],
+          "exit_class_set": [
+            "WALKING",
+            "WALKING_UPSTAIRS",
+            "WALKING_DOWNSTAIRS",
+            "SITTING",
+            "STANDING",
+            "LAYING"
+          ],
+          "cr_score": 0.9195
+        }
+      ],
+      "nomad_final": {
+        "predicted": "WALKING_UPSTAIRS",
+        "correct": false,
+        "depth": 4,
+        "cost_paid": 495.7,
+        "cost_reference": 298.0,
+        "speedup": 0.601
+      },
+      "frugalgpt": {
+        "exit_model": "XGBoost",
+        "exit_depth": 4,
+        "predicted": "WALKING_UPSTAIRS",
+        "correct": false,
+        "speedup": 0.601,
+        "softmax_at_exit": 0.737,
+        "threshold_tau": 0.73,
+        "decision": "trust"
+      },
+      "cascade_routing": {
+        "exit_model": "LogReg",
+        "exit_depth": 0,
+        "predicted": "WALKING_UPSTAIRS",
+        "correct": false,
+        "speedup": 298.0,
+        "score_at_exit": 0.73,
+        "threshold": 0.55,
+        "decision": "trust"
+      }
+    }
+  ],
+  "depth_histogram": {
+    "WALKING": {
+      "n_inputs": 673,
+      "depths": [
+        0.59,
+        0.2145,
+        0.1102,
+        0.0427,
+        0.0426
+      ]
+    },
+    "WALKING_UPSTAIRS": {
+      "n_inputs": 582,
+      "depths": [
+        0.0,
+        0.0,
+        0.0,
+        0.2502,
+        0.7498
+      ]
+    },
+    "WALKING_DOWNSTAIRS": {
+      "n_inputs": 396,
+      "depths": [
+        0.0,
+        0.0,
+        0.5089,
+        0.3003,
+        0.1908
+      ]
+    },
+    "SITTING": {
+      "n_inputs": 553,
+      "depths": [
+        0.0,
+        0.4693,
+        0.274,
+        0.1513,
+        0.1054
+      ]
+    },
+    "STANDING": {
+      "n_inputs": 425,
+      "depths": [
+        0.6305,
+        0.2064,
+        0.1203,
+        0.0215,
+        0.0213
+      ]
+    },
+    "LAYING": {
+      "n_inputs": 365,
+      "depths": [
+        0.6575,
+        0.2201,
+        0.0896,
+        0.018,
+        0.0148
+      ]
+    }
+  },
+  "per_model_per_class_f1": [
+    [
+      0.8845,
+      0.6737,
+      0.8066,
+      0.7698,
+      0.8774,
+      0.9076
+    ],
+    [
+      0.8942,
+      0.6971,
+      0.8293,
+      0.8383,
+      0.8901,
+      0.9066
+    ],
+    [
+      0.9262,
+      0.728,
+      0.9043,
+      0.8656,
+      0.8756,
+      0.9336
+    ],
+    [
+      0.9382,
+      0.7423,
+      0.9091,
+      0.8836,
+      0.908,
+      0.9416
+    ],
+    [
+      0.9703,
+      0.8998,
+      0.9882,
+      0.9191,
+      0.938,
+      0.9869
+    ]
+  ]
+}
